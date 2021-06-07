@@ -1,0 +1,51 @@
+{{- range .Values.jobs }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "spark-jobs.fullname" $ }}{{ printf "-%s" .name }}
+  labels:
+    {{- include "spark-jobs.labels" $ | nindent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "spark-jobs.selectorLabels" $ | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ $.Chart.Name }}-config
+          image: {{ printf "%s:%s" .image .tag | quote }}
+          command: ["cp", "{{ .jobPath }}", "/config"]
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: /config
+        - name: {{ $.Chart.Name }}-worker
+          image: "{{ $.Values.worker.image.repository }}:{{ $.Values.worker.image.tag }}"
+          command: ["spark-submit", "--master", "{{ $.Values.spark.master }}", "--class", "{{ .command.class }}", "--packages", "{{ .command.packages }}", "--conf", "spark.jars.ivy=/ivy", {{ printf "/%s/%s" "config" (regexFind "[^/]+$" .jobPath) | quote }}]
+          imagePullPolicy: IfNotPresent
+          {{- if $.Values.worker.env}}
+          env:
+          {{- if $.Values.worker.env.extraEnvVars }}
+            {{- toYaml $.Values.worker.env.extraEnvVars | nindent 12 }}
+          {{- end }}
+          {{- if .env.extraEnvVars }}
+            {{- toYaml .env.extraEnvVars | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: ivy
+              mountPath: /ivy
+            - name: checkpoint
+              mountPath: /checkpoint
+      volumes:
+        - name: config
+          emptyDir: {}
+        - name: ivy
+          emptyDir: {}
+        - name: checkpoint
+          emptyDir: {}
+      restartPolicy: OnFailure
+  backoffLimit: 5
+{{- end }}

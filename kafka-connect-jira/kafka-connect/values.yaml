@@ -1,0 +1,40 @@
+image:
+  repository: tomassatka/cp-kafka-connect-base
+  tag: 1.0.3
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 100m
+    memory: 512Mi
+
+env:
+  - name: "CONNECT_BOOTSTRAP_SERVERS"
+    value: "kafka-cluster-kafka-bootstrap:9092"
+  - name: "CONNECT_GROUP_ID"
+    value: "jira"
+  - name: "CONNECT_CONFIG_STORAGE_TOPIC"
+    value: "jira-config"
+  - name: "CONNECT_OFFSET_STORAGE_TOPIC"
+    value: "jira-offsets"
+  - name: "CONNECT_STATUS_STORAGE_TOPIC"
+    value: "jira-status"
+  - name: "CONNECT_KEY_CONVERTER"
+    value: "io.confluent.connect.avro.AvroConverter"
+  - name: "CONNECT_VALUE_CONVERTER"
+    value: "io.confluent.connect.avro.AvroConverter"
+  - name: "CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL"
+    value: "http://schema-registry:8081"
+  - name: "CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL"
+    value: "http://schema-registry:8081"
+  - name: "CONNECT_REST_ADVERTISED_HOST_NAME"
+    value: "localhost"
+  - name: "CONNECT_PLUGIN_PATH"
+    value: "/usr/share/java,/usr/share/confluent-hub-components"
+  - name: "CONNECT_OFFSET_STORAGE_FILE_FILENAME"
+    value: "/tmp/connect.offsets"
+  - name: "CONNECTOR_CONFIG_PROPERTIES"
+    value: "/config/config.properties"

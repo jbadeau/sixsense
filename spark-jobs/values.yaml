@@ -1,0 +1,220 @@
+nameOverride: ""
+fullnameOverride: ""
+
+spark:
+  master: spark://spark-master-svc:7077
+
+worker:
+  image:
+    repository: docker.io/bitnami/spark
+    tag: 3.1.1-debian-10-r68
+  secret: minio
+  env:
+    extraEnvVars:
+      - name: MINIO_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: minio
+            key: secretkey
+      - name: MINIO_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: minio
+            key: accesskey
+      - name: MINIO_ENDPOINT
+        value: "http://minio:9000"
+      - name: BOOTSTRAP_SERVERS
+        value: "kafka-cluster-kafka-bootstrap:9092"
+      - name: CHECKPOINT_LOCATION
+        value: "/checkpoint"
+
+# list of jobs to be submitted to spark
+# params:
+## name: name of the job
+## image: image that contains the job
+## tag: tag of the image containing the job
+## jobPath: path to the job to be submitted in config image
+## command.class: class name to start in jar
+## command.packages: additional packages to be supplied
+jobs:
+  - name: jira-project_categories
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-project_categories
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-projects
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-projects
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-issue_comments
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-issue_comments
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+#deactivated
+#  - name: jira-roles
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.14
+#    jobPath: /jobs/jira.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-roles
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+  - name: jira-changelogs
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-changelogs
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-issue_transitions
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-issue_transitions
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-resolutions
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-resolutions
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-project_types
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-project_types
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-issues
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-issues
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-users
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-users
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-versions
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-versions
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"
+  - name: jira-worklogs
+    image: tomassatka/spark-job-jira
+    tag: 0.0.14
+    jobPath: /jobs/jira.jar
+    command:
+      class: Jira
+      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
+    env:
+      extraEnvVars:
+        - name: KAFKA_TOPIC
+          value: jira-topic-worklogs
+        - name: MINIO_BUCKET
+          value: "s3a://jira-bucket/"
+        - name: KAFKA_GROUP_ID
+          value: "jira"

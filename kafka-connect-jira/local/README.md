@@ -1,0 +1,23 @@
+docker run -i \
+  --name=kafka-connect \
+  --net=host \
+  -e CONNECT_BOOTSTRAP_SERVERS=localhost:9092 \
+  -e CONNECT_GROUP_ID="jira" \
+  -e CONNECT_CONFIG_STORAGE_TOPIC="jira-config" \
+  -e CONNECT_OFFSET_STORAGE_TOPIC="jira-offsets" \
+  -e CONNECT_STATUS_STORAGE_TOPIC="jira-status" \
+  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+  -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
+  -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
+  -e CONNECT_REST_ADVERTISED_HOST_NAME="localhost" \
+  -e CONNECT_PLUGIN_PATH=/usr/share/java,/usr/share/confluent-hub-components \
+  -e CONNECT_CONNECTOR_CLASS=io.confluent.connect.jira.JiraSourceConnector \
+  -e CONNECT_JIRA_TABLES=project_categories,projects,issue_comments,changelogs,issue_transitions,resolutions,project_types,issues,users,versions,worklogs \
+  -e CONNECT_JIRA_URL=https://six-group.atlassian.net \
+  -e CONNECT_JIRA_USERNAME=satka.tomas@gmail.com \
+  -e CONNECT_JIRA_API_TOKEN=gMjFBXO1vS6iv1lNVekPB610 \
+  -e CONNECTOR_CONFIG_PROPERTIES=/config/config.properties \
+  -e CONNECT_OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets \
+  -v /home/tomas/Develop/sixsense/kafka-connect-jira/local/config:/config \
+  tomassatka/cp-kafka-connect-base:1.0.3

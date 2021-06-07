@@ -1,0 +1,4 @@
+env:
+  name: kafka-cluster
+  bootstrapServers: kafka-cluster-kafka-bootstrap:9092
+  zookeper: kafka-cluster-zookeeper-client:2181

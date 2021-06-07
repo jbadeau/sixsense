@@ -1,0 +1,23 @@
+{
+  "type":"record",
+  "name":"ConnectDefault",
+  "namespace":"io.confluent.connect.avro",
+  "fields":[
+  {"name":"type","type":"string"},
+  {"name":"data","type":
+    {
+     "type":"record",
+     "name":"data",
+     "namespace":"",
+     "fields":[
+       {"name":"key","type":"string"},
+       {"name":"formattedKey","type":"string"},
+       {"name":"descriptionI18nKey","type":"string"},
+       {"name":"icon","type":"string"},
+       {"name":"color","type":"string"}
+     ],
+     "connect.name":"data"
+    }
+  }
+  ]
+}
