@@ -23,7 +23,7 @@ worker:
             key: accesskey
       - name: MINIO_ENDPOINT
         value: "http://minio:9000"
-      - name: BOOTSTRAP_SERVERS
+      - name: BOOTSTRAP_SERVER
         value: "kafka-cluster-kafka-bootstrap:9092"
       - name: CHECKPOINT_LOCATION
         value: "/checkpoint"
