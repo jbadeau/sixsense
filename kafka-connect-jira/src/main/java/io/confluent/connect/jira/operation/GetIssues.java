@@ -32,8 +32,11 @@ public class GetIssues extends JiraOperation {
         String updatedDate = getDateUpdated(context, offset);
         Map<String, String> params = new HashMap<>();
         params.put("jql", getJqlQuery(updatedDate));
-        params.put("expand", "transitions,changelog");
-        params.put("fields", "*all");
+
+        //TODO: review for 48x48
+        //params.put("expand", "transitions,changelog");
+
+        params.put("fields", "description,issuetype,status,updated,resolution");
         params.put("maxResults", String.valueOf(100));
         return JiraParserUtils.addQueryParams(context.baseUrl() + "/search", params);
     }

@@ -33,6 +33,7 @@ documentation: ../kafka-connect-jira/local/README.md
   docker run -i \
   --name=kafka-connect \
   --net=host \
+  -p 5005:5005/tcp \
   -e CONNECT_BOOTSTRAP_SERVERS=localhost:9092 \
   -e CONNECT_GROUP_ID="jira" \
   -e CONNECT_CONFIG_STORAGE_TOPIC="jira-config" \
@@ -44,14 +45,17 @@ documentation: ../kafka-connect-jira/local/README.md
   -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
   -e CONNECT_REST_ADVERTISED_HOST_NAME="localhost" \
   -e CONNECT_PLUGIN_PATH=/usr/share/java,/usr/share/confluent-hub-components \
-  -e CONNECT_JIRA_TABLES=project_categories,projects,issue_comments,changelogs,issue_transitions,resolutions,project_types,issues,users,versions,worklogs \
+  -e CONNECT_JIRA_TABLES=issues \
   -e CONNECT_JIRA_URL=https://six-group.atlassian.net \
   -e CONNECT_JIRA_USERNAME=jose.badeau@gmail.com \
   -e CONNECT_JIRA_API_TOKEN=WsRuJw26jXdWEtlxKBhI41A0 \
   -e CONNECTOR_CONFIG_PROPERTIES=/config/config.properties \
   -e CONNECT_OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets \
+  -e CONNECT_LOG4J_ROOT_LOGLEVEL=DEBUG \
+  -e KAFKA_DEBUG=y \
+  -e DEBUG_SUSPEND_FLAG=y \
   -v /home/tomas/Develop/sixsense/kafka-connect-jira/local/config:/config \
-  tomassatka/cp-kafka-connect-base:1.0.6
+  tomassatka/cp-kafka-connect-base:1.0.7
 ```
   
 

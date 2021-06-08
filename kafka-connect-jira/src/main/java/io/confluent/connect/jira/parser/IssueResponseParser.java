@@ -11,13 +11,14 @@ import io.confluent.connect.jira.operation.JiraOperationResult;
 import io.confluent.connect.jira.utils.DateUtils;
 import io.confluent.connect.jira.utils.JiraUtils;
 import io.confluent.connect.operations.OperationResult;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpRequestBase;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.HttpRequestBase;
 
 public class IssueResponseParser extends JiraResponseParser {
     public IssueResponseParser(String entityFieldName) {

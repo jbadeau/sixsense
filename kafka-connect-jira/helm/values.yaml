@@ -1,6 +1,6 @@
 image:
   repository: tomassatka/cp-kafka-connect-base
-  tag: 1.0.6
+  tag: 1.0.7
   pullPolicy: IfNotPresent
 
 resources:

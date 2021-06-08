@@ -94,34 +94,21 @@ public class JiraSourceTask extends RestServiceSourceTask<JiraSourceConnectorCon
     }
 
     protected JiraOperation createOperation(String entityName, Map<String, ?> entityOffset, JiraOperationContext context) {
-        GetProjects getProjects;
-        GetIssues getIssues;
-        GetUsers getUsers;
-        GetRoles getRoles;
-        GetProjectCategories getProjectCategories;
-        GetProjectTypes getProjectTypes = null;
-        JiraOperation operation = null;
         switch (JiraEntity.toEnum(entityName)) {
             case PROJECTS:
-                getProjects = new GetProjects(context, entityOffset);
-                break;
+                return new GetProjects(context, entityOffset);
             case ISSUES:
-                getIssues = new GetIssues(context, entityOffset);
-                break;
+                return new GetIssues(context, entityOffset);
             case USERS:
-                getUsers = new GetUsers(context, entityOffset);
-                break;
+                return new GetUsers(context, entityOffset);
             case ROLES:
-                getRoles = new GetRoles(context, entityOffset);
-                break;
+                return new GetRoles(context, entityOffset);
             case PROJECT_CATEGORIES:
-                getProjectCategories = new GetProjectCategories(context, entityOffset);
-                break;
+                return new GetProjectCategories(context, entityOffset);
             case PROJECT_TYPES:
-                getProjectTypes = new GetProjectTypes(context, entityOffset);
-                break;
+                return new GetProjectTypes(context, entityOffset);
         }
-        return (JiraOperation) getProjectTypes;
+        throw new RuntimeException(String.format("Unknown jira.table %s", entityName));
     }
 
     protected JiraOperationContext createOperationContext(JiraSourceConnectorConfig config, String entityName, Map<String, ?> entityPartition, Destination<SourceRecord> destination, HttpAsyncClient client, Time clock) {
