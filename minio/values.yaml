@@ -239,7 +239,7 @@ defaultBucket:
 ## Create multiple buckets after minio install
 ## Enabling `defaultBucket` will take priority over this list
 ##
-buckets: []
+buckets:
    - name: jira-bucket
      policy: none
   #   purge: false
