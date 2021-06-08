@@ -96,7 +96,6 @@ public class JiraSourceTask extends RestServiceSourceTask<JiraSourceConnectorCon
     }
 
     protected JiraOperation createOperation(String entityName, Map<String, ?> entityOffset, JiraOperationContext context) {
-        GetProjectTypes getProjectTypes = null;
         JiraOperation operation = null;
         switch (JiraEntity.toEnum(entityName)) {
             case PROJECTS:
