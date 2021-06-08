@@ -1,11 +1,15 @@
 {{- range .Values.jobs }}
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
   name: {{ include "spark-jobs.fullname" $ }}{{ printf "-%s" .name }}
   labels:
     {{- include "spark-jobs.labels" $ | nindent 4 }}
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "spark-jobs.selectorLabels" $ | nindent 6 }}
   template:
     metadata:
       labels:
@@ -46,6 +50,4 @@ spec:
           emptyDir: {}
         - name: checkpoint
           emptyDir: {}
-      restartPolicy: OnFailure
-  backoffLimit: 5
 {{- end }}
