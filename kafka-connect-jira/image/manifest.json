@@ -1,6 +1,6 @@
 {
   "name" : "kafka-connect-jira",
-  "version" : "1.0.5-six",
+  "version" : "1.0.5-preview",
   "title" : "Jira Source Connector",
   "description" : "A Kafka Connect plugin for Jira Software",
   "owner" : {
