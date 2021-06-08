@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: {{ include "spark-jobs.fullname" $ }}{{ printf "-%s" .name }}
+  name: {{ include "spark-jobs.fullname" $ }}{{ printf "-%s" (regexReplaceAll "_" .name "-") }}
   labels:
     {{- include "spark-jobs.labels" $ | nindent 4 }}
 spec:
