@@ -240,8 +240,8 @@ defaultBucket:
 ## Enabling `defaultBucket` will take priority over this list
 ##
 buckets: []
-  # - name: bucket1
-  #   policy: none
+   - name: jira-bucket
+     policy: none
   #   purge: false
   # - name: bucket2
   #   policy: none
