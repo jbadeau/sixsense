@@ -18,6 +18,7 @@ import io.confluent.connect.operations.http.client.HttpClientFactory;
 import io.confluent.connect.operations.rest.RestServiceSourceTask;
 import io.confluent.connect.utils.Version;
 import io.confluent.connect.utils.collect.Destination;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.nio.client.HttpAsyncClient;
 import org.apache.kafka.common.utils.Time;
@@ -59,8 +61,8 @@ public class JiraSourceTask extends RestServiceSourceTask<JiraSourceConnectorCon
         SimpleOperationExecutorListener<JiraOperation> executorListener = new SimpleOperationExecutorListener();
         this
 
-                .executor = OperationExecutor.create().withMaxBatchSize(this.config.maxBatchSize()).withMaxPollInterval(this.config.maxPollInterval()).withListener((OperationExecutorListener)executorListener).withPriorityFunction(JiraOperationOrder.lowestDelayHighestPriorityEarliestFirst(Duration.ofMillis(10000L))).build();
-        this.client = (new HttpClientFactory((HttpClientConfig)this.config)).createClient();
+                .executor = OperationExecutor.create().withMaxBatchSize(this.config.maxBatchSize()).withMaxPollInterval(this.config.maxPollInterval()).withListener((OperationExecutorListener) executorListener).withPriorityFunction(JiraOperationOrder.lowestDelayHighestPriorityEarliestFirst(Duration.ofMillis(10000L))).build();
+        this.client = (new HttpClientFactory((HttpClientConfig) this.config)).createClient();
         this.client.start();
         createOperations();
     }
@@ -74,7 +76,7 @@ public class JiraSourceTask extends RestServiceSourceTask<JiraSourceConnectorCon
             Map<String, ?> entityOffset = offsetReader.offset(entityPartition);
             JiraOperationContext operationContext = createOperationContext(this.config, entityName, entityPartition, this.executor
 
-                            .destination(), (HttpAsyncClient)this.client,
+                            .destination(), (HttpAsyncClient) this.client,
 
                     clock());
             JiraOperation initialOperation = createOperation(entityName, entityOffset, operationContext);
@@ -82,7 +84,7 @@ public class JiraSourceTask extends RestServiceSourceTask<JiraSourceConnectorCon
                 createPartitionsForDependentEntities(JiraUtils.getEntites(JiraEntity.ISSUE_DEPENDENT_ENTITIES));
             if (entityName.equalsIgnoreCase(JiraEntity.PROJECTS.name().toLowerCase()))
                 createPartitionsForDependentEntities(JiraUtils.getEntites(JiraEntity.PROJECT_DEPENDENT_ENTITIES));
-            this.executor.submitOperation((Operation)initialOperation);
+            this.executor.submitOperation((Operation) initialOperation);
         }
     }
 
@@ -94,21 +96,29 @@ public class JiraSourceTask extends RestServiceSourceTask<JiraSourceConnectorCon
     }
 
     protected JiraOperation createOperation(String entityName, Map<String, ?> entityOffset, JiraOperationContext context) {
+        GetProjectTypes getProjectTypes = null;
+        JiraOperation operation = null;
         switch (JiraEntity.toEnum(entityName)) {
             case PROJECTS:
-                return new GetProjects(context, entityOffset);
+                operation = new GetProjects(context, entityOffset);
+                break;
             case ISSUES:
-                return new GetIssues(context, entityOffset);
+                operation = new GetIssues(context, entityOffset);
+                break;
             case USERS:
-                return new GetUsers(context, entityOffset);
+                operation = new GetUsers(context, entityOffset);
+                break;
             case ROLES:
-                return new GetRoles(context, entityOffset);
+                operation = new GetRoles(context, entityOffset);
+                break;
             case PROJECT_CATEGORIES:
-                return new GetProjectCategories(context, entityOffset);
+                operation = new GetProjectCategories(context, entityOffset);
+                break;
             case PROJECT_TYPES:
-                return new GetProjectTypes(context, entityOffset);
+                operation = new GetProjectTypes(context, entityOffset);
+                break;
         }
-        throw new RuntimeException(String.format("Unknown jira.table %s", entityName));
+        return operation;
     }
 
     protected JiraOperationContext createOperationContext(JiraSourceConnectorConfig config, String entityName, Map<String, ?> entityPartition, Destination<SourceRecord> destination, HttpAsyncClient client, Time clock) {
