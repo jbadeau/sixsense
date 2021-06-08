@@ -28,7 +28,8 @@ spec:
               mountPath: /config
         - name: {{ $.Chart.Name }}-worker
           image: "{{ $.Values.worker.image.repository }}:{{ $.Values.worker.image.tag }}"
-          command: ["spark-submit", "--master", "{{ $.Values.spark.master }}", "--class", "{{ .command.class }}", "--packages", "{{ .command.packages }}", "--conf", "spark.jars.ivy=/ivy", {{ printf "/%s/%s" "config" (regexFind "[^/]+$" .jobPath) | quote }}]
+#          TODO: make packages and repositories optional
+          command: ["spark-submit", "--master", "{{ $.Values.spark.master }}", "--class", "{{ .command.class }}", "--packages", "{{ .command.packages }}", "--repositories", "{{ .command.repositories }}", "--conf", "spark.jars.ivy=/ivy", {{ printf "/%s/%s" "config" (regexFind "[^/]+$" .jobPath) | quote }}]
           imagePullPolicy: IfNotPresent
           {{- if $.Values.worker.env}}
           env:
