@@ -54,4 +54,5 @@ spec:
           emptyDir: {}
         - name: checkpoint
           emptyDir: {}
+---
 {{- end }}
