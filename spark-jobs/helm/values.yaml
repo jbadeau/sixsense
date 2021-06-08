@@ -41,8 +41,8 @@ worker:
 jobs:
   - name: jira-project_categories
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -56,8 +56,8 @@ jobs:
           value: "jira"
   - name: jira-projects
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -71,8 +71,8 @@ jobs:
           value: "jira"
   - name: jira-issue_comments
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -86,8 +86,8 @@ jobs:
           value: "jira"
   - name: jira-roles
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -101,8 +101,8 @@ jobs:
           value: "jira"
   - name: jira-changelogs
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -116,8 +116,8 @@ jobs:
           value: "jira"
   - name: jira-issue_transitions
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -131,8 +131,8 @@ jobs:
           value: "jira"
   - name: jira-resolutions
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -146,8 +146,8 @@ jobs:
           value: "jira"
   - name: jira-project_types
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -161,8 +161,8 @@ jobs:
           value: "jira"
   - name: jira-issues
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -176,8 +176,8 @@ jobs:
           value: "jira"
   - name: jira-users
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -191,8 +191,8 @@ jobs:
           value: "jira"
   - name: jira-versions
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
@@ -206,8 +206,8 @@ jobs:
           value: "jira"
   - name: jira-worklogs
     image: tomassatka/spark-job-jira
-    tag: 0.0.15
-    jobPath: /jobs/jira.jar
+    tag: 0.0.16
+    jobPath: /jobs/jira_2.12-0.1.jar
     command:
       class: Jira
       packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
