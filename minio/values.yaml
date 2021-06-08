@@ -226,7 +226,7 @@ resources:
 ## Create a bucket after minio install
 ##
 defaultBucket:
-  enabled: true
+  enabled: false
   ## If enabled, must be a string with length > 0
   name: test-bucket
   ## Can be one of none|download|upload|public
@@ -242,7 +242,7 @@ defaultBucket:
 buckets:
    - name: jira-bucket
      policy: none
-  #   purge: false
+     purge: false
   # - name: bucket2
   #   policy: none
   #   purge: false

@@ -39,134 +39,134 @@ worker:
 ## command.class: class name to start in jar
 ## command.packages: additional packages to be supplied
 jobs:
-  - name: jira-project_categories
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-project_categories
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-projects
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-projects
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-issue_comments
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-issue_comments
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-roles
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-roles
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-changelogs
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-changelogs
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-issue_transitions
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-issue_transitions
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-resolutions
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-resolutions
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-project_types
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-project_types
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
+#  - name: jira-project_categories
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-project_categories
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-projects
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-projects
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-issue_comments
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-issue_comments
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-roles
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-roles
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-changelogs
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-changelogs
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-issue_transitions
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-issue_transitions
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-resolutions
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-resolutions
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-project_types
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-project_types
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
   - name: jira-issues
     image: tomassatka/spark-job-jira
     tag: 0.0.16
@@ -183,51 +183,51 @@ jobs:
           value: "s3a://jira-bucket/"
         - name: KAFKA_GROUP_ID
           value: "jira"
-  - name: jira-users
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-users
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-versions
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-versions
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
-  - name: jira-worklogs
-    image: tomassatka/spark-job-jira
-    tag: 0.0.16
-    jobPath: /jobs/jira_2.12-0.1.jar
-    command:
-      class: Jira
-      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
-      repositories: https://packages.confluent.io/maven
-    env:
-      extraEnvVars:
-        - name: KAFKA_TOPIC
-          value: jira-topic-worklogs
-        - name: MINIO_BUCKET
-          value: "s3a://jira-bucket/"
-        - name: KAFKA_GROUP_ID
-          value: "jira"
+#  - name: jira-users
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-users
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-versions
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-versions
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
+#  - name: jira-worklogs
+#    image: tomassatka/spark-job-jira
+#    tag: 0.0.16
+#    jobPath: /jobs/jira_2.12-0.1.jar
+#    command:
+#      class: Jira
+#      packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,io.delta:delta-core_2.12:1.0.0
+#      repositories: https://packages.confluent.io/maven
+#    env:
+#      extraEnvVars:
+#        - name: KAFKA_TOPIC
+#          value: jira-topic-worklogs
+#        - name: MINIO_BUCKET
+#          value: "s3a://jira-bucket/"
+#        - name: KAFKA_GROUP_ID
+#          value: "jira"
