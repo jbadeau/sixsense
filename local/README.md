@@ -55,7 +55,7 @@ documentation: ../kafka-connect-jira/local/README.md
   -e KAFKA_DEBUG=y \
   -e DEBUG_SUSPEND_FLAG=y \
   -v /home/tomas/Develop/sixsense/kafka-connect-jira/local/config:/config \
-  tomassatka/cp-kafka-connect-base:1.0.7
+  tomassatka/cp-kafka-connect-base:1.0.12
 ```
   
 
