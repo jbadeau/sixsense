@@ -63,6 +63,24 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <finalName>lib</finalName>
+                    <descriptors>
+                        <descriptor>${basedir}/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -76,28 +94,28 @@
             <artifactId>connect-operation-core</artifactId>
             <version>${confluent.connect.parent.operation.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../libs/connect-operation-core-1.0.11.jar</systemPath>
+            <systemPath>${project.basedir}/image/lib/connect-operation-core-1.0.11.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>connect-operation-http</artifactId>
             <version>${confluent.connect.parent.operation.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../libs/connect-operation-http-1.0.11.jar</systemPath>
+            <systemPath>${project.basedir}/image/lib/connect-operation-http-1.0.11.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>connect-operation-rest</artifactId>
             <version>${confluent.connect.parent.operation.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../libs/connect-operation-rest-1.0.11.jar</systemPath>
+            <systemPath>${project.basedir}/image/lib/connect-operation-rest-1.0.11.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>connect-utils</artifactId>
             <version>${confluent.connect.common.utils.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../libs/connect-utils-0.3.1.jar</systemPath>
+            <systemPath>${project.basedir}/image/lib/connect-utils-0.3.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>

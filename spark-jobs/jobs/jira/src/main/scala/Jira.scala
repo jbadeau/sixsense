@@ -1,14 +1,14 @@
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.avro.functions._
 import org.apache.spark.sql.functions.col
-
-import java.nio.file.{Files, Paths}
+import za.co.absa.abris.avro.functions.from_avro
+import za.co.absa.abris.config.AbrisConfig
 
 object Jira {
 
   def main(args: Array[String]): Unit = {
 
     val spark: SparkSession = SparkSession.builder()
+//      local development
 //      .master("local")
       .appName(sys.env("KAFKA_TOPIC"))
       .getOrCreate()
@@ -19,8 +19,11 @@ object Jira {
     spark.sparkContext.hadoopConfiguration.set("fs.s3a.path.style.access", "True")
     spark.sparkContext.hadoopConfiguration.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
 
-    //TODO: fetch from schema registry
-    val jsonFormatSchema = new String(Files.readAllBytes(Paths.get("./src/main/resources/jira-topic-project-types.avsc")))
+    val abrisConfig = AbrisConfig
+      .fromConfluentAvro
+      .downloadReaderSchemaByLatestVersion
+      .andTopicNameStrategy(sys.env("KAFKA_TOPIC"))
+      .usingSchemaRegistry(sys.env("SCHEMA_REGISTRY_URL"))
 
     val df = spark
       .readStream
@@ -35,17 +38,15 @@ object Jira {
 
     val output = df
       .select(
-        from_avro(col("value"), jsonFormatSchema).alias("ConnectDefault"))
+        from_avro(col("value"), abrisConfig) as "ConnectDefault")
 
     output
-      .select(
-        to_avro(col("ConnectDefault.data")).alias("value"))
       .writeStream
-      .format("avro")
+      .format("delta")
       .outputMode("append")
       .option("checkpointLocation", sys.env("CHECKPOINT_LOCATION"))
       .option("path", sys.env("MINIO_BUCKET") + sys.env("KAFKA_TOPIC") + "/")
-//      For local development
+//      local development
 //      .option("path", "/tmp/" + sys.env("KAFKA_TOPIC") + "/")
       .start()
       .awaitTermination()

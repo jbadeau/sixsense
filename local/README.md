@@ -1,30 +1,36 @@
-#Local development
--------------------------------------------------------------------
--------------------------------------------------------------------
+# Local development
 
+-------------------------------------------------------------------
 ## Kafka
-docu: /home/tomas/Develop/kafka/README.md
+documentation: ../kafka/README.md
 
-### zookeper
-cd /home/tomas/Develop/kafka/kafka_2.12-2.8.0
-bin/zookeeper-server-start.sh config/zookeeper.properties
+### Zookeper
+`cd ../kafka/kafka_2.12-2.8.0`  
+`bin/zookeeper-server-start.sh config/zookeeper.properties`
 
-### broker
-cd /home/tomas/Develop/kafka/kafka_2.12-2.8.0
-bin/kafka-server-start.sh config/server.properties
+### Broker
+`cd ../kafka/kafka_2.12-2.8.0`  
+`bin/kafka-server-start.sh config/server.properties`
+
 -------------------------------------------------------------------
-
 
 ## Schema registry
-docker run -i -e SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=localhost:9092 -e SCHEMA_REGISTRY_HOST_NAME=localhost --network="host" confluentinc/cp-schema-registry
--------------------------------------------------------------------
-
-
-## Jira Source connector
-docu: /home/tomas/Develop/sixsense/kafka-connect-jira/local/README.md
-
-cd /home/tomas/Develop/sixsense/kafka-connect-jira/local
+```shell
 docker run -i \
+-e SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=localhost:9092 \
+-e SCHEMA_REGISTRY_HOST_NAME=localhost \
+--network="host" \
+confluentinc/cp-schema-registry
+```
+
+-------------------------------------------------------------------
+## Jira Source connector
+documentation: ../kafka-connect-jira/local/README.md
+
+`cd ../sixsense/kafka-connect-jira/local`  
+
+```shell
+  docker run -i \
   --name=kafka-connect \
   --net=host \
   -e CONNECT_BOOTSTRAP_SERVERS=localhost:9092 \
@@ -38,25 +44,26 @@ docker run -i \
   -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
   -e CONNECT_REST_ADVERTISED_HOST_NAME="localhost" \
   -e CONNECT_PLUGIN_PATH=/usr/share/java,/usr/share/confluent-hub-components \
-  -e CONNECT_CONNECTOR_CLASS=io.confluent.connect.jira.JiraSourceConnector \
   -e CONNECT_JIRA_TABLES=project_categories,projects,issue_comments,changelogs,issue_transitions,resolutions,project_types,issues,users,versions,worklogs \
   -e CONNECT_JIRA_URL=https://six-group.atlassian.net \
-  -e CONNECT_JIRA_USERNAME=satka.tomas@gmail.com \
-  -e CONNECT_JIRA_API_TOKEN=gMjFBXO1vS6iv1lNVekPB610 \
+  -e CONNECT_JIRA_USERNAME=jose.badeau@gmail.com \
+  -e CONNECT_JIRA_API_TOKEN=WsRuJw26jXdWEtlxKBhI41A0 \
   -e CONNECTOR_CONFIG_PROPERTIES=/config/config.properties \
   -e CONNECT_OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets \
   -v /home/tomas/Develop/sixsense/kafka-connect-jira/local/config:/config \
-  tomassatka/cp-kafka-connect-base:1.0.3
+  tomassatka/cp-kafka-connect-base:1.0.6
+```
+  
+
 -------------------------------------------------------------------
-
-
 ## Minio
-cd /home/tomas/Develop/sixsense/minio/local
+`cd ../minio/local`
 
+```shell
 docker run -p 9000:9000 \
   --name minio \
-  -v /home/tomas/Develop/sixsense/minio/local/data:/data \
+  -v "$(pwd)"/data:/data \
   -e "MINIO_ROOT_USER=admin" \
   -e "MINIO_ROOT_PASSWORD=minioadmin" \
   minio/minio server /data
-
+```
