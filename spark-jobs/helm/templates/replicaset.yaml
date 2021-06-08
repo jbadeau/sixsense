@@ -9,10 +9,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      job: {{ .name }}
       {{- include "spark-jobs.selectorLabels" $ | nindent 6 }}
+
   template:
     metadata:
       labels:
+        job: {{ .name }}
         {{- include "spark-jobs.selectorLabels" $ | nindent 8 }}
     spec:
       containers:
