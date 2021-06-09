@@ -1,0 +1,58 @@
+# Chart repositories used from within this state file
+#
+# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
+# to use repositories other than the official repository or one backend by chartmuseum.
+repositories:
+  # To use official "stable" charts a.k.a https://github.com/helm/charts/tree/master/stable
+  - name: stable
+    url: https://charts.helm.sh/stable
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+# Default values to set for args along with dedicated keys that can be set by contributors, cli args take precedence over these.
+# In other words, unset values results in no flags passed to helm.
+# See the helm usage (helm SUBCOMMAND -h) for more info on default values when those flags aren't provided.
+helmDefaults:
+  # dedicated default key for tillerless
+  tillerless: true
+  # dedicated default key for helm flag --cleanup-on-fail
+  cleanupOnFail: false
+  # verify the chart before upgrading (only works with packaged charts not directories) (default false)
+  verify: true
+  # wait for k8s resources via --wait. (default false)
+  wait: true
+  # if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout (default false, Implemented in Helm3.5)
+  waitForJobs: true
+  # time in seconds to wait for any individual Kubernetes operation (like Jobs for hooks, and waits on pod/pvc/svc/deployment readiness) (default 300)
+  timeout: 600
+  # performs pods restart for the resource if applicable (default false)
+  recreatePods: true
+  # forces resource update through delete/recreate if needed (default false)
+  force: false
+  # limit the maximum number of revisions saved per release. Use 0 for no limit. (default 10)
+  historyMax: 10
+  # when using helm 3.2+, automatically create release namespaces if they do not exist (default true)
+  createNamespace: true
+  # if used with charts museum allows to pull unstable charts for deployment, for example: if 1.2.3 and 1.2.4-dev versions exist and set to true, 1.2.4-dev will be pulled (default false)
+  devel: true
+  # When set to `true`, skips running `helm dep up` and `helm dep build` on this release's chart.
+  # Useful when the chart is broken, like seen in https://github.com/roboll/helmfile/issues/1547
+  skipDeps: false
+
+# The desired states of Helm releases.
+#
+# Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
+releases:
+  - name: spark
+    namespace: sixsense
+    createNamespace: false
+    chart: bitnami/spark
+    version: ~1.24.1
+    missingFileHandler: Error
+    values:
+      # Value files passed via --values
+      - vault.yaml
+
+environments:
+  default:
+    values:
+      - environments/default/values.yaml
