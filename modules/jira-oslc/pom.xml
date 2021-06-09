@@ -43,6 +43,11 @@
             <artifactId>spark-streaming_2.11</artifactId>
             <version>${spark2.version}</version>
         </dependency>
+        <dependency>
+            <groupId>za.co.absa</groupId>
+            <artifactId>abris_2.12</artifactId>
+            <version>4.2.0</version>
+        </dependency>
     </dependencies>
 
 </project>
