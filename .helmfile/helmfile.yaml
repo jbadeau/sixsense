@@ -63,3 +63,8 @@ releases:
     chart: ../modules/jira-oslc/.helm
     values:
       - values/dev/jira-oslc/values.yaml
+  - name: backstage
+    namespace: sixsense-dev
+    chart: ../packages/backend/.helm
+    values:
+      - values/dev/backstage/values.yaml
