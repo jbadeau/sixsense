@@ -29,6 +29,15 @@ documentation: ../kafka-connect-jira/local/README.md
 
 `cd ../sixsense/kafka-connect-jira/local`
 
+* local testing:
+  * LOCAL_TEST
+* logs:
+  * CONNECT_LOG4J_ROOT_LOGLEVEL
+* debug: 
+  * KAFKA_DEBUG
+  * DEBUG_SUSPEND_FLAG
+
+
 ```shell
   docker run -i \
   --name=kafka-connect \
@@ -54,8 +63,9 @@ documentation: ../kafka-connect-jira/local/README.md
   -e CONNECT_LOG4J_ROOT_LOGLEVEL=DEBUG \
   -e KAFKA_DEBUG=y \
   -e DEBUG_SUSPEND_FLAG=y \
-  -v /home/tomas/Develop/sixsense/kafka-connect-jira/local/config:/config \
-  tomassatka/cp-kafka-connect-base:1.0.12
+  -e LOCAL_TEST=true \
+  -v "$(pwd)"/config:/config \
+  tomassatka/cp-kafka-connect-base:1.0.13
 ```
 
 
