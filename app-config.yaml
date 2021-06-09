@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Sixsense
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: SIX
 
 backend:
   baseUrl: http://localhost:7000

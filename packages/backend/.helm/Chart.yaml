@@ -1,0 +1,14 @@
+apiVersion: v2
+name: backstage
+description: A Helm chart for Backstage
+type: application
+
+version: 0.0.0
+
+appVersion: 0.0.0
+
+dependencies:
+  - name: postgresql
+    condition: postgresql.enabled
+    version: 9.4.1
+    repository: https://charts.bitnami.com/bitnami
