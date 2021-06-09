@@ -1,0 +1,58 @@
+{{- range .Values.jobs }}
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: {{ include "spark-jobs.fullname" $ }}{{ printf "-%s" (regexReplaceAll "_" .name "-") }}
+  labels:
+    {{- include "spark-jobs.labels" $ | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      job: {{ .name }}
+      {{- include "spark-jobs.selectorLabels" $ | nindent 6 }}
+
+  template:
+    metadata:
+      labels:
+        job: {{ .name }}
+        {{- include "spark-jobs.selectorLabels" $ | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ $.Chart.Name }}-config
+          image: {{ printf "%s:%s" .image .tag | quote }}
+          command: ["cp", "{{ .jobPath }}", "/config"]
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: /config
+        - name: {{ $.Chart.Name }}-worker
+          image: "{{ $.Values.worker.image.repository }}:{{ $.Values.worker.image.tag }}"
+#          TODO: make packages and repositories optional
+          command: ["spark-submit", "--master", "{{ $.Values.spark.master }}", "--class", "{{ .command.class }}", "--packages", "{{ .command.packages }}", "--repositories", "{{ .command.repositories }}", "--conf", "spark.jars.ivy=/ivy", {{ printf "/%s/%s" "config" (regexFind "[^/]+$" .jobPath) | quote }}]
+          imagePullPolicy: IfNotPresent
+          {{- if $.Values.worker.env}}
+          env:
+          {{- if $.Values.worker.env.extraEnvVars }}
+            {{- toYaml $.Values.worker.env.extraEnvVars | nindent 12 }}
+          {{- end }}
+          {{- if .env.extraEnvVars }}
+            {{- toYaml .env.extraEnvVars | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: ivy
+              mountPath: /ivy
+            - name: checkpoint
+              mountPath: /checkpoint
+      volumes:
+        - name: config
+          emptyDir: {}
+        - name: ivy
+          emptyDir: {}
+        - name: checkpoint
+          emptyDir: {}
+---
+{{- end }}
