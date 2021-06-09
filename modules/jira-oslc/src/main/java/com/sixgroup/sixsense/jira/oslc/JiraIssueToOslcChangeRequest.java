@@ -27,7 +27,7 @@ public class JiraIssueToOslcChangeRequest {
                 .writeStream()
                 .format("kafka")
                 .option("kafka.bootstrap.servers", System.getProperty("BOOTSTRAP_SERVER"))
-                .option("topic", System.getProperty("KAFKA_CHANGE_REQUEST_TOPIC"))
+                .option("topic", System.getProperty("KAFKA_OSLC_CHANGE_REQUEST_TOPIC"))
                 .start();
     }
 

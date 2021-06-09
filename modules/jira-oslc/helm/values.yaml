@@ -177,8 +177,10 @@ jobs:
       repositories: https://packages.confluent.io/maven
     env:
       extraEnvVars:
-        - name: KAFKA_TOPIC
+        - name: KAFKA_JIRA_ISSUE_TOPIC
           value: jira-topic-issues
+        - name: KAFKA_OSLC_CHANGE_REQUEST_TOPIC
+          value: oslc-topic-changerequests
         - name: MINIO_BUCKET
           value: "s3a://jira-bucket/"
         - name: KAFKA_GROUP_ID
