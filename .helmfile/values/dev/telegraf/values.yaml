@@ -1,0 +1,26 @@
+# envFromSecret: "telegraf-tokens"
+
+#env:
+#  - name: HOSTNAME
+#    value: "telegraf-polling-service"
+
+rbac:
+  create: false
+
+serviceAccount:
+  create: false
+
+config:
+  outputs:
+    - influxdb:
+        urls:
+          - "http://influxdb:8086"
+        database: "jira"
+  inputs:
+    - kafka_consumer:
+        brokers: ["kafka:9092"]
+        topics: ["oslc-topic-changerequests"]
+        max_message_len: 1000000
+        data_format: "json"
+pdb:
+  create: false
