@@ -14,6 +14,8 @@ repositories:
     url: https://helm.influxdata.com
   - name: minio
     url: https://operator.min.io
+  - name: kafka-ui
+    url: https://provectus.github.io/kafka-ui
 
 releases:
   - name: cp-schema-registry
@@ -51,6 +53,11 @@ releases:
     chart: influxdata/telegraf
     values:
       - values/dev/telegraf/values.yaml
+  - name: kafka-ui
+    namespace: sixsense-dev
+    chart: kafka-ui/kafka-ui
+    values:
+      - values/dev/kafka-ui/values.yaml
   - name: jira-oslc
     namespace: sixsense-dev
     chart: ../modules/jira-oslc/.helm
