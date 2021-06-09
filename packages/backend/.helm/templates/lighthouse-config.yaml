@@ -8,5 +8,4 @@ data:
   PGUSER: {{ include "lighthouse.postgresql.user" . | quote }}
   PGPORT: {{ include "lighthouse.postgresql.port" . | quote }}
   PGHOST: {{ include "lighthouse.postgresql.host" . | quote }}
-  PGPATH_TO_CA: {{ include "backstage.lighthouse.postgresCaFilename" . | quote }}
 {{- end }}

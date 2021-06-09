@@ -3,10 +3,10 @@
 # Declare variables to be passed into your templates.
 
 frontend:
-  enabled: true
+  enabled: false
   replicaCount: 1
   image:
-    repository: martinaif/backstage-k8s-demo-frontend
+    repository: martinaif/backstage-app
     tag: test1
     pullPolicy: IfNotPresent
   containerPort: 80
@@ -23,12 +23,12 @@ backend:
   demoData: true
   replicaCount: 1
   image:
-    repository: martinaif/backstage-k8s-demo-backend
-    tag: 20210423T1550
-    pullPolicy: IfNotPresent
+    repository: jbadeau/backstage
+    tag: latest
+    pullPolicy: Always
   containerPort: 7000
   serviceType: ClusterIP
-  postgresCertMountEnabled: true
+  postgresCertMountEnabled: false
   resources:
     requests:
       memory: 512Mi
@@ -44,7 +44,7 @@ lighthouse:
     pullPolicy: IfNotPresent
   containerPort: 3003
   serviceType: ClusterIP
-  postgresCertMountEnabled: true
+  postgresCertMountEnabled: false
   resources:
     requests:
       memory: 128Mi
@@ -75,14 +75,11 @@ global:
 postgresql:
   enabled: true
   nameOverride: postgresql
-  tls:
-    enabled: true
-    certificatesSecret: backstage-postgresql-certs
-    certFilename: tls.crt
-    certKeyFilename: tls.key
   volumePermissions:
-    enabled: true
+    enabled: false
   initdbScriptsSecret: backstage-postgresql-initdb
+  securityContext:
+    enabled: false
 
 appConfig:
   app:
@@ -103,9 +100,6 @@ appConfig:
         user:
         port:
         password:
-        ssl:
-          rejectUnauthorized: false
-          ca:
   sentry:
     organization: example-org-name
   techdocs:
