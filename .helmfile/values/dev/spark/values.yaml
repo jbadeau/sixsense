@@ -1,0 +1,7 @@
+master:
+  securityContext:
+    enabled: false
+
+worker:
+  securityContext:
+    enabled: false

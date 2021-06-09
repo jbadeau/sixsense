@@ -37,7 +37,7 @@ configurationOverrides:
   "tasks.max": "1"
   "connector.class": "io.confluent.connect.jira.JiraSourceConnector"
   "confluent.topic.replication.factor": "1"
-  "confluent.topic.bootstrap.servers": "kafka-cluster-kafka-bootstrap:9092"
+  "confluent.topic.bootstrap.servers": "kafka:9092"
   "topic.name.pattern": "jira-topic-${entityName}"
   "jira.tables": "issues"
   "jira.url": "https://six-group.atlassian.net"
@@ -106,12 +106,12 @@ prometheus:
 ## You can list load balanced service endpoint, or list of all brokers (which is hard in K8s).  e.g.:
 ## bootstrapServers: "PLAINTEXT://dozing-prawn-kafka-headless:9092"
 kafka:
-  bootstrapServers: "PLAINTEXT://kafka-cluster-kafka-bootstrap:9092"
+  bootstrapServers: "PLAINTEXT://kafka:9092"
 
 ## If the Kafka Chart is disabled a URL and port are required to connect
 ## e.g. gnoble-panther-cp-schema-registry:8081
 cp-schema-registry:
-  url: "http://schema-registry:8081"
+  url: "http://cp-schema-registry:8081"
 
 ## List of volumeMounts for connect server container
 ## ref: https://kubernetes.io/docs/concepts/storage/volumes/
