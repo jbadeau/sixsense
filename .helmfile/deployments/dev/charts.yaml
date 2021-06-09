@@ -1,0 +1,39 @@
+charts:
+  - name: backstage-app
+    chart: ../../../packages/app
+    values:
+      - ../../values/dev/backstage-app/values.yaml
+  - name: backstage-backend
+    chart: ../../../packages/backend
+    values:
+      - ../../values/dev/backstage-backend/values.yaml
+  - name: influxdb
+    namespace: sixsense
+    chart: bitnami/influxdb
+    values:
+      - ../../values/dev/influxdb/values.yaml
+  - name: jira-oslc
+    namespace: sixsense
+    chart: ../../../modules/jira-oslc/.helm
+    values:
+      - ../../values/dev/jira-oslc/values.yaml
+  - name: kafka
+    namespace: sixsense
+    chart: bitnami/kafka
+    values:
+      - ../../values/dev/kafka/values.yaml
+  - name: minio
+    namespace: sixsense
+    chart: bitnami/minio
+    values:
+      - ../../values/dev/minio/values.yaml
+  - name: schema-registry
+    namespace: sixsense
+    chart: ../../../modules/kafka-connect-jira/.helm
+    values:
+      - ../../values/dev/schema-registry/values.yaml
+  - name: spark
+    namespace: sixsense
+    chart: bitnami/spark
+    values:
+      - ../../values/dev/spark/values.yaml
