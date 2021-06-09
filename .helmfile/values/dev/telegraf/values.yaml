@@ -1,8 +1,4 @@
-# envFromSecret: "telegraf-tokens"
-
-#env:
-#  - name: HOSTNAME
-#    value: "telegraf-polling-service"
+envFromSecret: "influxdb"
 
 rbac:
   create: false
@@ -19,6 +15,8 @@ config:
         urls:
           - "http://influxdb:8086"
         database: "jira"
+         username: "admin"
+         password: $admin-user-password
   inputs:
     - kafka_consumer:
         brokers: ["kafka:9092"]
