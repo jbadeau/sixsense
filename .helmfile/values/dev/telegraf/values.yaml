@@ -19,12 +19,12 @@ env:
 
 config:
   outputs:
-    - influxdb:
+    - influxdb_v2:
         urls:
           - "http://influxdb:8086"
-        database: "jira"
-        username: "admin"
-        password: "${INFLUX_PASSWORD}"
+        token: "${INFLUX_PASSWORD}"
+        organization: primary
+        bucket: primary
   inputs:
     - kafka_consumer:
         brokers: ["kafka:9092"]
