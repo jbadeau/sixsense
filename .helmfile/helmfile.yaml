@@ -18,26 +18,31 @@ repositories:
     url: https://provectus.github.io/kafka-ui
 
 releases:
+  # confluent
   - name: cp-schema-registry
     namespace: sixsense-dev
     chart: ../charts/cp-schema-registry
     values:
       - values/dev/cp-schema-registry/values.yaml
-  - name: influxdb
-    namespace: sixsense-dev
-    chart: bitnami/influxdb
-    values:
-      - values/dev/influxdb/values.yaml
   - name: kafka
     namespace: sixsense-dev
     chart: bitnami/kafka
     values:
       - values/dev/kafka/values.yaml
+  - name: kafka-ui
+    namespace: sixsense-dev
+    chart: kafka-ui/kafka-ui
+    values:
+      - values/dev/kafka-ui/values.yaml
   - name: kafka-connect-jira
     namespace: sixsense-dev
     chart: ../modules/kafka-connect-jira/.helm
+    needs:
+      - sixsense-dev/cp-schema-registry
     values:
       - values/dev/kafka-connect-jira/values.yaml
+
+  # delta lake
   - name: minio
     namespace: sixsense-dev
     chart: bitnami/minio
@@ -48,23 +53,31 @@ releases:
     chart: bitnami/spark
     values:
       - values/dev/spark/values.yaml
+
+  # influx
+  - name: influxdb
+    namespace: sixsense-dev
+    chart: bitnami/influxdb
+    values:
+      - values/dev/influxdb/values.yaml
   - name: telegraf
     namespace: sixsense-dev
     chart: influxdata/telegraf
     values:
       - values/dev/telegraf/values.yaml
-  - name: kafka-ui
-    namespace: sixsense-dev
-    chart: kafka-ui/kafka-ui
-    values:
-      - values/dev/kafka-ui/values.yaml
-  - name: jira-oslc
-    namespace: sixsense-dev
-    chart: ../modules/jira-oslc/.helm
-    values:
-      - values/dev/jira-oslc/values.yaml
+
+  # backstage
   - name: backstage
     namespace: sixsense-dev
     chart: ../charts/backstage
     values:
       - values/dev/backstage/values.yaml
+
+  # workflow
+  - name: jira-oslc
+    namespace: sixsense-dev
+    chart: ../modules/jira-oslc/.helm
+    needs:
+      - sixsense-dev/cp-schema-registry
+    values:
+      - values/dev/jira-oslc/values.yaml
