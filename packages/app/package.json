@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "backstage-cli app:serve",
-    "build": "backstage-cli app:build",
+    "build": "backstage-cli app:build --config ../../app-config.production.yaml",
     "test": "backstage-cli test",
     "lint": "backstage-cli lint",
     "clean": "backstage-cli clean",

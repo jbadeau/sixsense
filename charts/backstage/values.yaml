@@ -3,13 +3,13 @@
 # Declare variables to be passed into your templates.
 
 frontend:
-  enabled: false
+  enabled: true
   replicaCount: 1
   image:
-    repository: martinaif/backstage-app
-    tag: test1
-    pullPolicy: IfNotPresent
-  containerPort: 80
+    repository: jbadeau/backstage-frontend
+    tag: latest
+    pullPolicy: Always
+  containerPort: 8080
   serviceType: ClusterIP
   resources:
     requests:
@@ -23,7 +23,7 @@ backend:
   demoData: true
   replicaCount: 1
   image:
-    repository: jbadeau/backstage
+    repository: jbadeau/backstage-backend
     tag: latest
     pullPolicy: Always
   containerPort: 7000
@@ -36,7 +36,7 @@ backend:
       memory: 1024Mi
 
 lighthouse:
-  enabled: true
+  enabled: false
   replicaCount: 1
   image:
     repository: roadiehq/lighthouse-audit-service
@@ -83,15 +83,15 @@ postgresql:
 
 appConfig:
   app:
-    baseUrl: https://demo.example.com
-    title: Backstage
+    baseUrl: http://backstage-frontend-sixsense-dev.apps-crc.testing
+    title: Sixsense
     googleAnalyticsTrackingId:
   backend:
-    baseUrl: https://demo.example.com
+    baseUrl: http://backstage-backend-sixsense-dev.apps-crc.testing
     listen:
       port: 7000
     cors:
-      origin: https://demo.example.com
+      origin: http://backstage-frontend-sixsense-dev.apps-crc.testing
     database:
       client: pg
       connection:
@@ -101,14 +101,14 @@ appConfig:
         port:
         password:
   sentry:
-    organization: example-org-name
+    organization: SIX
   techdocs:
-    storageUrl: https://demo.example.com/api/techdocs/static/docs
-    requestUrl: https://demo.example.com/api/techdocs
+    storageUrl: https://backstage-backend/api/techdocs/static/docs
+    requestUrl: https://backstage-backend/api/techdocs
   lighthouse:
-    baseUrl: https://demo.example.com/lighthouse-api
+    baseUrl: backstage-backend/lighthouse-api
   rollbar:
-    organization: example-org-name
+    organization: SIX
 
   # Auth config has recently moved into the app config file in upstream Backstage. However,
   # most of this config simply mandates that items like the client id and client secret should

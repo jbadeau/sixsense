@@ -1,0 +1,32 @@
+{{- $frontendUrl := urlParse .Values.appConfig.app.baseUrl}}
+{{- $backendUrl := urlParse .Values.appConfig.backend.baseUrl}}
+{{- $lighthouseUrl := urlParse .Values.appConfig.lighthouse.baseUrl}}
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ include "backend.serviceName" . }}
+spec:
+  host: {{ $backendUrl.host }}
+  to:
+    kind: Service
+    name: {{ include "backend.serviceName" . }}
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: []
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ include "frontend.serviceName" . }}
+spec:
+  host: {{ $frontendUrl.host }}
+  to:
+    kind: Service
+    name: {{ include "frontend.serviceName" . }}
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: []

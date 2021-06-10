@@ -55,7 +55,7 @@ metadata:
 
 spec:
   ports:
-    - port: 80
+    - port: 8080
       targetPort: {{ .Values.frontend.containerPort }}
 
   selector:
