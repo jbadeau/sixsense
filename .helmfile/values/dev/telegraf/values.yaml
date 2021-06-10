@@ -10,6 +10,13 @@ serviceAccount:
 service:
   enabled: false
 
+env:
+  - name: INFLUX_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: influxdb
+        key: admin-user-password
+
 config:
   outputs:
     - influxdb:
@@ -17,7 +24,7 @@ config:
           - "http://influxdb:8086"
         database: "jira"
         username: "admin"
-        password: $admin-user-token
+        password: "${INFLUX_PASSWORD}"
   inputs:
     - kafka_consumer:
         brokers: ["kafka:9092"]

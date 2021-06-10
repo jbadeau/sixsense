@@ -53,8 +53,6 @@ releases:
     chart: influxdata/telegraf
     values:
       - values/dev/telegraf/values.yaml
-    transformers:
-      - transformers/telegraf/patch.yaml
   - name: kafka-ui
     namespace: sixsense-dev
     chart: kafka-ui/kafka-ui
