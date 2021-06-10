@@ -11,18 +11,18 @@ service:
   enabled: false
 
 env:
-  - name: INFLUX_PASSWORD
+  - name: INFLUX_TOKEN
     valueFrom:
       secretKeyRef:
         name: influxdb
-        key: admin-user-password
+        key: admin-user-token
 
 config:
   outputs:
     - influxdb_v2:
         urls:
           - "http://influxdb:8086"
-        token: "${INFLUX_PASSWORD}"
+        token: "${INFLUX_TOKEN}"
         organization: primary
         bucket: primary
   inputs:
