@@ -18,6 +18,18 @@ repositories:
     url: https://provectus.github.io/kafka-ui
 
 releases:
+  # delta lake
+  - name: minio
+    namespace: sixsense-dev
+    chart: bitnami/minio
+    values:
+      - values/dev/minio/values.yaml
+  - name: spark
+    namespace: sixsense-dev
+    chart: bitnami/spark
+    values:
+      - values/dev/spark/values.yaml
+
   # confluent
   - name: cp-schema-registry
     namespace: sixsense-dev
@@ -42,18 +54,6 @@ releases:
     values:
       - values/dev/kafka-connect-jira/values.yaml
 
-  # delta lake
-  - name: minio
-    namespace: sixsense-dev
-    chart: bitnami/minio
-    values:
-      - values/dev/minio/values.yaml
-  - name: spark
-    namespace: sixsense-dev
-    chart: bitnami/spark
-    values:
-      - values/dev/spark/values.yaml
-
   # influx
   - name: influxdb
     namespace: sixsense-dev
@@ -73,7 +73,7 @@ releases:
     values:
       - values/dev/backstage/values.yaml
 
-  # workflow
+  # workflows
   - name: jira-oslc
     namespace: sixsense-dev
     chart: ../modules/jira-oslc/.helm
