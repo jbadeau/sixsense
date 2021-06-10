@@ -1,4 +1,5 @@
-envFromSecret: "influxdb"
+#temporary disabled till PR merged: https://github.com/influxdata/helm-charts/pull/327
+#envFromSecret: "influxdb"
 
 rbac:
   create: false
