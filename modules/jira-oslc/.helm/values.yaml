@@ -20,7 +20,7 @@ worker:
 jobs:
   - name: jira-issues
     image: tomassatka/spark-job-jira
-    tag: 0.0.17
+    tag: 0.0.18
     jobPath: /jobs/jira-oslc-0.0.0-SNAPSHOT.jar
     command:
       class: com.sixgroup.sixsense.jira.oslc.JiraIssueToOslcChangeRequest

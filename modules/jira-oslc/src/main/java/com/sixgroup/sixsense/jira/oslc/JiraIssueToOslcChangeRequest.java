@@ -39,16 +39,17 @@ public class JiraIssueToOslcChangeRequest {
                 .load();
 
         Dataset<Row>output = df.select(from_avro(col("value"), fromAvroConfig).alias("value"));
+        Dataset<String> json = output.toJSON();
 
 ////TO DISPLAY IN CONSOLE
-//        output.writeStream()
+//        json.writeStream()
 //                .outputMode("append")
 //                .option("checkpointLocation", System.getenv("CHECKPOINT_LOCATION"))
 //                .format("console")
 //                .option("truncate", false)
 //                .start().awaitTermination();
 
-        output
+        json
             .selectExpr("CAST(value AS STRING)")
             .writeStream()
             .format("kafka")
@@ -57,5 +58,6 @@ public class JiraIssueToOslcChangeRequest {
             .option("checkpointLocation", System.getenv("CHECKPOINT_LOCATION"))
             .start()
             .awaitTermination();
+
     }
 }
