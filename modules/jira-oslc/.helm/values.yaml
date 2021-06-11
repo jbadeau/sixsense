@@ -1,22 +1,13 @@
-name: jira-issues
-image: tomassatka/spark-job-jira
-tag: 0.0.20
-jobPath: /jobs/jira-oslc-0.0.0-SNAPSHOT.jar
-command:
-  class: com.sixgroup.sixsense.jira.oslc.JiraIssueToOslcChangeRequest
-  packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-core_2.12:3.1.2,org.apache.spark:spark-sql_2.12:3.1.2,org.apache.spark:spark-catalyst_2.12:3.1.2,org.apache.spark:spark-streaming_2.12:3.1.2,org.apache.spark:spark-avro_2.12:3.1.2,za.co.absa:abris_2.12:4.2.0,com.fasterxml.jackson.core:jackson-databind:2.10.0,com.fasterxml.jackson.core:jackson-annotations:2.10.0
-  repositories: https://packages.confluent.io/maven
- env:
-  extraEnvVars:
-    - name: KAFKA_JIRA_ISSUE_TOPIC
-      value: jira-topic-issues
-    - name: KAFKA_OSLC_CHANGE_REQUEST_TOPIC
-      value: oslc-topic-changerequests
-    - name: KAFKA_GROUP_ID
-      value: "jira"
-    - name: BOOTSTRAP_SERVER
-      value: "kafka:9092"
-    - name: CHECKPOINT_LOCATION
-      value: "/checkpoint"
-    - name: SCHEMA_REGISTRY_URL
-      value: "http://cp-schema-registry:8081"
+image:
+  repository: tomassatka/spark-job-jira
+  pullPolicy: IfNotPresent
+  tag: 0.0.23
+mainClass: com.sixgroup.sixsense.jira.oslc.JiraIssueToOslcChangeRequest
+driver:
+  env:
+    KAFKA_JIRA_ISSUE_TOPIC: 'jira-topic-issues'
+    KAFKA_OSLC_CHANGE_REQUEST_TOPIC: 'oslc-topic-changerequests'
+    KAFKA_GROUP_ID: 'jira'
+    BOOTSTRAP_SERVER: 'kafka:9092'
+    CHECKPOINT_LOCATION: '/checkpoint'
+    SCHEMA_REGISTRY_URL: 'http://cp-schema-registry:8081'

@@ -12,38 +12,49 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: influxdata
     url: https://helm.influxdata.com
-  - name: minio
-    url: https://operator.min.io
   - name: kafka-ui
     url: https://provectus.github.io/kafka-ui
+  - name: spark-operator
+    url: https://googlecloudplatform.github.io/spark-on-k8s-operator
+
+helmDefaults:
+  wait: true
 
 releases:
-  # delta lake
+  # minio
   - name: minio
     namespace: sixsense-dev
     chart: bitnami/minio
     values:
       - values/dev/minio/values.yaml
-  - name: spark
-    namespace: sixsense-dev
-    chart: bitnami/spark
-    values:
-      - values/dev/spark/values.yaml
 
-  # confluent
-  - name: cp-schema-registry
+  # spark
+  - name: spark-operator
     namespace: sixsense-dev
-    chart: ../charts/cp-schema-registry
+    chart: spark-operator/spark-operator
+    needs:
+      - sixsense-dev/sparc-rbac
     values:
-      - values/dev/cp-schema-registry/values.yaml
+      - values/dev/spark-operator/values.yaml
+
+  # kafka
   - name: kafka
     namespace: sixsense-dev
     chart: bitnami/kafka
     values:
       - values/dev/kafka/values.yaml
+  - name: cp-schema-registry
+    namespace: sixsense-dev
+    chart: ../charts/cp-schema-registry
+    needs:
+      - sixsense-dev/kafka
+    values:
+      - values/dev/cp-schema-registry/values.yaml
   - name: kafka-ui
     namespace: sixsense-dev
     chart: kafka-ui/kafka-ui
+    needs:
+      - sixsense-dev/kafka
     values:
       - values/dev/kafka-ui/values.yaml
   - name: kafka-connect-jira
@@ -51,6 +62,7 @@ releases:
     chart: ../modules/kafka-connect-jira/.helm
     needs:
       - sixsense-dev/cp-schema-registry
+      - sixsense-dev/kafka
     values:
       - values/dev/kafka-connect-jira/values.yaml
 
@@ -63,6 +75,8 @@ releases:
   - name: telegraf
     namespace: sixsense-dev
     chart: influxdata/telegraf
+    needs:
+      - sixsense-dev/influxdb
     values:
       - values/dev/telegraf/values.yaml
 
@@ -73,11 +87,14 @@ releases:
     values:
       - values/dev/backstage/values.yaml
 
-  # workflows
+  # apps
   - name: jira-oslc
     namespace: sixsense-dev
     chart: ../modules/jira-oslc/.helm
     needs:
-      - sixsense-dev/cp-schema-registry
+      - sixsense-dev/kafka
+      - sixsense-dev/spark-operator
+      - sixsense-dev/influxdb
+      - sixsense-dev/kafka-connect-jira
     values:
       - values/dev/jira-oslc/values.yaml
