@@ -17,7 +17,7 @@ public class JiraIssueToOslcChangeRequest {
     public static void main(String[] args) throws TimeoutException, StreamingQueryException {
         SparkSession spark = SparkSession.builder()
                 .master("local")
-                .appName("JiraIssueToOslcChangeRequest")
+                .appName("jira-oslc")
                 .getOrCreate();
 
         spark.sparkContext()
@@ -40,14 +40,6 @@ public class JiraIssueToOslcChangeRequest {
 
         Dataset<Row>output = df.select(from_avro(col("value"), fromAvroConfig).alias("value"));
         Dataset<String> json = output.toJSON();
-
-////TO DISPLAY IN CONSOLE
-//        json.writeStream()
-//                .outputMode("append")
-//                .option("checkpointLocation", System.getenv("CHECKPOINT_LOCATION"))
-//                .format("console")
-//                .option("truncate", false)
-//                .start().awaitTermination();
 
         json
             .selectExpr("CAST(value AS STRING)")
