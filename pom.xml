@@ -8,7 +8,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>modules/kafka-connect-jira</module>
+        <module>modules/camel-jira</module>
+        <module>modules/camel-jira-kafka-connector</module>
         <module>modules/jira-oslc</module>
     </modules>
 </project>

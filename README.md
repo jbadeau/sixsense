@@ -24,8 +24,9 @@ confluentinc/cp-schema-registry
 ```
 
 -------------------------------------------------------------------
-## Jira Source connector
-documentation: ../kafka-connect-jira/local/README.md
+## Camel Jira Source connector
+[Oauth steps for atlassian](https://developer.atlassian.com/server/jira/platform/oauth/)  
+[Documentation for jira connector](https://camel.apache.org/camel-kafka-connector/latest/reference/connectors/camel-jira-kafka-source-connector.html)
 
 `cd ../sixsense/kafka-connect-jira/local`
 
@@ -48,16 +49,12 @@ documentation: ../kafka-connect-jira/local/README.md
   -e CONNECT_CONFIG_STORAGE_TOPIC="jira-config" \
   -e CONNECT_OFFSET_STORAGE_TOPIC="jira-offsets" \
   -e CONNECT_STATUS_STORAGE_TOPIC="jira-status" \
-  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.AvroConverter" \
-  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.AvroConverter" \
-  -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
-  -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
+#  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+#  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+#  -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
+#  -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
   -e CONNECT_REST_ADVERTISED_HOST_NAME="localhost" \
   -e CONNECT_PLUGIN_PATH=/usr/share/java,/usr/share/confluent-hub-components \
-  -e CONNECT_JIRA_TABLES=issues \
-  -e CONNECT_JIRA_URL=https://six-group.atlassian.net \
-  -e CONNECT_JIRA_USERNAME=jose.badeau@gmail.com \
-  -e CONNECT_JIRA_API_TOKEN=WsRuJw26jXdWEtlxKBhI41A0 \
   -e CONNECTOR_CONFIG_PROPERTIES=/config/config.properties \
   -e CONNECT_OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets \
   -e CONNECT_LOG4J_ROOT_LOGLEVEL=DEBUG \
@@ -65,7 +62,7 @@ documentation: ../kafka-connect-jira/local/README.md
   -e DEBUG_SUSPEND_FLAG=y \
   -e LOCAL_TEST=true \
   -v "$(pwd)"/config:/config \
-  tomassatka/cp-kafka-connect-base:1.0.13
+  tomassatka/camel-jira-kafka-connector:0.0.5
 ```
 
 

@@ -1,2 +1,2 @@
-FROM alpine:3.13.5
-COPY ./target/jira-oslc-*.jar /jobs/
+FROM gcr.io/spark-operator/spark:v3.1.1
+COPY ./target/jira-oslc.jar /jobs/
