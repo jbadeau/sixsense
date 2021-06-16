@@ -17,9 +17,6 @@ repositories:
   - name: spark-operator
     url: https://googlecloudplatform.github.io/spark-on-k8s-operator
 
-helmDefaults:
-  wait: true
-
 releases:
   # minio
   - name: minio
@@ -32,6 +29,7 @@ releases:
   - name: spark-operator
     namespace: sixsense-dev
     chart: spark-operator/spark-operator
+    wait: true
     needs:
       - sixsense-dev/sparc-rbac
     values:
@@ -41,11 +39,13 @@ releases:
   - name: kafka
     namespace: sixsense-dev
     chart: bitnami/kafka
+    wait: true
     values:
       - values/dev/kafka/values.yaml
   - name: cp-schema-registry
     namespace: sixsense-dev
     chart: ../charts/cp-schema-registry
+    wait: true
     needs:
       - sixsense-dev/kafka
     values:
@@ -62,6 +62,7 @@ releases:
   - name: camel-jira-kafka-connector
     namespace: sixsense-dev
     chart: ../modules/camel-jira-kafka-connector/.helm
+    wait: true
     needs:
       - sixsense-dev/cp-schema-registry
       - sixsense-dev/kafka

@@ -1444,6 +1444,29 @@
     remark-gfm "^1.0.0"
     zen-observable "^0.8.15"
 
+"@backstage/dev-utils@^0.1.17":
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/@backstage/dev-utils/-/dev-utils-0.1.17.tgz#bbb539048b72f2e0a45d99179a87e9efe0f2de20"
+  integrity sha512-isXZ8gTCVoKDk0CeAtsCRKRNvFmFfE9gcJuZFl5soCjgdvdW073fZ/+PpWAfP8kfQA/ThJqh5s0IvkhFSr/IYA==
+  dependencies:
+    "@backstage/catalog-model" "^0.8.1"
+    "@backstage/core" "^0.7.12"
+    "@backstage/integration-react" "^0.1.2"
+    "@backstage/plugin-catalog-react" "^0.2.1"
+    "@backstage/test-utils" "^0.1.13"
+    "@backstage/theme" "^0.2.8"
+    "@material-ui/core" "^4.11.0"
+    "@material-ui/icons" "^4.9.1"
+    "@testing-library/jest-dom" "^5.10.1"
+    "@testing-library/react" "^11.2.5"
+    "@testing-library/user-event" "^13.1.8"
+    "@types/react" "^16.9"
+    react "^16.12.0"
+    react-dom "^16.12.0"
+    react-hot-loader "^4.12.21"
+    react-router "6.0.0-beta.0"
+    react-router-dom "6.0.0-beta.0"
+
 "@backstage/errors@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@backstage/errors/-/errors-0.1.1.tgz#2663b5400936585148b377972ded7dc5d0545bfb"
@@ -13690,7 +13713,7 @@ msal@^1.0.2:
   dependencies:
     tslib "^1.9.3"
 
-msw@^0.21.3:
+msw@^0.21.2, msw@^0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/msw/-/msw-0.21.3.tgz#d073842f9570a08f4041806a2c7303a9b8494602"
   integrity sha512-voPc/EJsjarvi454vSEuozZQQqLG4AUHT6qQL5Ah47lq7sGCpc7icByeUlfvEj5+MvaugN0c7JwXyCa2rxu8cA==

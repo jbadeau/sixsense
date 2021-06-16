@@ -19,10 +19,10 @@ backend:
   database:
     client: pg
     connection:
-      host: ${POSTGRES_HOST}
-      port: ${POSTGRES_PORT}
-      user: ${POSTGRES_USER}
-      password: ${POSTGRES_PASSWORD}
+      host: localhost
+      port: 5432
+      user: postgres
+      password: admin
       # https://node-postgres.com/features/ssl
       #ssl: require # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
         #ca: # if you have a CA file and want to verify it you can uncomment this section
@@ -67,46 +67,8 @@ scaffolder:
 
 catalog:
   rules:
-    - allow: [Component, System, API, Group, User, Resource, Location]
+    - allow: [Component, System, API, Group, User, Resource, Location, Domain]
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
-
-    # Backstage example systems
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
-
-    # Backstage example APIs
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
-
-    # Backstage example resources
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
-
-    # Backstage example organization groups
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme/org.yaml
-
-    # Backstage example templates
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/react-ssr-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/springboot-grpc-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/create-react-app/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/spotify/cookiecutter-golang/blob/master/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/docs-template/template.yaml
-      rules:
-        - allow: [Template]
+      target: https://github.com/jbadeau/sixsense/blob/master/catalog-info.yaml
