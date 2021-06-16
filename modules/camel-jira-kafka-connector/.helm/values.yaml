@@ -30,6 +30,8 @@ configurationOverrides:
   "confluent.topic.replication.factor": "1"
   "confluent.topic.bootstrap.servers": "kafka:9092"
   "offset.storage.file.filename": "/tmp/connect.offsets"
+  "key.converter": "org.apache.kafka.connect.storage.StringConverter"
+  "value.converter": "org.apache.kafka.connect.storage.StringConverter"
 
 configuration:
   name: jira-source
@@ -40,8 +42,6 @@ configuration:
   camel.source.endpoint.verificationCode: DFEN70
   tasks.max: 1
   topics: sixsense-source-jira-issues
-  key.converter: org.apache.kafka.connect.storage.StringConverter
-  value.converter: org.apache.kafka.connect.storage.StringConverter
   camel.component.jira.jiraUrl: https://six-group.atlassian.net
   camel.source.endpoint.jiraUrl: https://six-group.atlassian.net
   camel.source.path.type: NEWISSUES
