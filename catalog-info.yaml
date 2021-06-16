@@ -1,13 +1,215 @@
+# ORGANIZATION
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: six
+spec:
+  type: organization
+  profile:
+    displayName: SIX
+  children: [bfi]
+
+# DEPARTMENT
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: bfi
+spec:
+  type: department
+  parent: six
+
+# USER GROUPS
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: dm-flex-team
+spec:
+  type: team
+  children: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: cuba-team
+spec:
+  type: team
+  parent: flex-team
+  children: []
+
+# USERS
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: nick.fury
+spec:
+  memberOf: [dm-flex-team]
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: bruce.banner
+spec:
+  memberOf: [cuba-team]
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: tony.stark
+spec:
+  memberOf: [cuba-team]
+
+# DOMAIN
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: dm-flex
+spec:
+  owner: dm-flex-team
+
+# SYSTEM
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: cuba
+spec:
+  owner: cuba-team
+  domain: dm-flex
+
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: sixsense
-  description: An example of a Backstage application.
-  # Example for optional annotations
-  # annotations:
-    # github.com/project-slug: backstage/backstage
-    # backstage.io/techdocs-ref: url:https://github.com/backstage/backstage
+  name: cuba
 spec:
-  type: website
-  owner: john@example.com
-  lifecycle: experimental
+  type: service
+  lifecycle: maintain
+  owner: cuba-team
+  system: cuba
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: cuba
+spec:
+  type: openapi
+  lifecycle: maintain
+  owner: cuba-team
+  definition: |
+    openapi: "3.0.0"
+    info:
+      version: 1.0.0
+      title: cuba
+    servers:
+      - url: http://cuba.swagger.io/v1
+    paths:
+      /pets:
+        get:
+          summary: List all pets
+          operationId: listPets
+          tags:
+            - pets
+          parameters:
+            - name: limit
+              in: query
+              description: How many items to return at one time (max 100)
+              required: false
+              schema:
+                type: integer
+                format: int32
+          responses:
+            '200':
+              description: A paged array of pets
+              headers:
+                x-next:
+                  description: A link to the next page of responses
+                  schema:
+                    type: string
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Pets"
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Error"
+        post:
+          summary: Create a pet
+          operationId: createPets
+          tags:
+            - pets
+          responses:
+            '201':
+              description: Null response
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Error"
+      /pets/{petId}:
+        get:
+          summary: Info for a specific pet
+          operationId: showPetById
+          tags:
+            - pets
+          parameters:
+            - name: petId
+              in: path
+              required: true
+              description: The id of the pet to retrieve
+              schema:
+                type: string
+          responses:
+            '200':
+              description: Expected response to a valid request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Pet"
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Error"
+    components:
+      schemas:
+        Pet:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: integer
+              format: int64
+            name:
+              type: string
+            tag:
+              type: string
+        Pets:
+          type: array
+          items:
+            $ref: "#/components/schemas/Pet"
+        Error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: integer
+              format: int32
+            message:
+              type: string
