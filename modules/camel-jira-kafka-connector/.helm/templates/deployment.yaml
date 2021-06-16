@@ -117,7 +117,7 @@ spec:
         {{- end }}
           volumeMounts:
             - name: configuration
-              mountPath: /config/config.properties
+              mountPath: /config
           {{- if .Values.volumeMounts }}
 {{ toYaml .Values.volumeMounts | indent 10 }}
           {{- end}}
