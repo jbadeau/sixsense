@@ -96,6 +96,7 @@ spec:
   system: cuba
   providesApis:
     - cuba
+
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
