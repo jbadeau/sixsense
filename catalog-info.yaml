@@ -65,7 +65,7 @@ metadata:
 spec:
   memberOf: [cuba-team]
 
-# DOMAIN
+# DOMAINS
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Domain
@@ -74,7 +74,7 @@ metadata:
 spec:
   owner: dm-flex-team
 
-# SYSTEM
+# SYSTEMS
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
@@ -84,6 +84,7 @@ spec:
   owner: cuba-team
   domain: dm-flex
 
+# COMPONENTS
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -96,7 +97,21 @@ spec:
   system: cuba
   providesApis:
     - cuba
+  dependsOn:
+    - pentaho
 
+# RESOURCES
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: pentaho
+spec:
+  type: cluster
+  owner: cuba-team
+  system: cuba
+
+# APIS
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
