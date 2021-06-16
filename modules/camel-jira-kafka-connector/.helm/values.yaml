@@ -39,10 +39,6 @@ configurationOverrides:
   "camel.component.jira.jiraUrl": "https://six-group.atlassian.net"
   "camel.source.endpoint.jiraUrl": "https://six-group.atlassian.net"
   "camel.source.path.type": "NEWISSUES"
-  "camel.source.endpoint.privateKey": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAL3O2oDDuw7R6HJsbDn77aut9yuMocfq3pEyjG7V8LqKy6Ow+RnebVc9yCVpmIpi81ff+8p0hOOCfcvhdOCyY4Jdpi2MZkri4KG3+SXIDN9YDgK5Nfl5TgScmHQ0S0gsFReGVuE7wtcpWBD5AXpWpe4JUKSLb/u0nSXXKrMVlXcfAgMBAAECgYEAtWc8B3KJlYliOfGLogM3zCuwneuDNxku6+A+vTM1JmO+akyaVnHxWD7QyYjZY/FcFvEXqQ+hbfrqFW/9jz6OwILpSWd/86iHcjzx0S72ZuTLE9CLOY3p15IYGJyS+k5Zug8pjrzohRK185gQ41Q7LhzcoR15SwOTIEN7Qz1ohkkCQQD01qNFDGDcDaYsz5bPY98M5PqKp9m6AAjnfzS8hzRkoW50PQSwEH9CEGhM5DFlUIQtfcPZScybK6TBek7bkU5LAkEAxnX9KnhF5Wk9gDNIBeRcFzZi6AbaxYgnanfd/Xmv6GC/Vovell4BMXIVHPN4t5ifHlK1TEIle5muii3wNJbl/QJBAM9DT+2o3+oI5+6xQPKJkg3BXVK5avgpBWCrb8JVFoZFnlJqQSimnoQXjaPh3OrucSZte7ja34lQNeXPmygGZucCQGTT7Rt2n4w+O5C2fREBRAhHCVj4oo1Y7y2YWKA/Aq/89zjxNtUOTWzhmPhsehhM4gp12sYzlPeGzLZHQJJ3V8ECQDWe/cXNrZN4xH2UbHFEhuyiSGtu1aukYVdJnT5FeRCjBAxsFJx4fqv45TCajL5/n27JjiuAbSWAphh6dnE7Gb0="
-  "camel.source.endpoint.consumerKey": "OauthKey"
-  "camel.source.endpoint.accessToken": "C1LObOnflYDqQNo8OABdr9O2xQMs6VzA"
-  "camel.source.endpoint.verificationCode": "DFEN70"
   "camel.source.endpoint.jql": "RAW(project='SIXSENSE' AND created > startOfYear(0))"
 
 ## Kafka Connect JVM Heap Option
@@ -131,6 +127,10 @@ volumes:
 secrets:
   # username: kafka123
   # password: connect321
+  camel.source.endpoint.privateKey: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAL3O2oDDuw7R6HJsbDn77aut9yuMocfq3pEyjG7V8LqKy6Ow+RnebVc9yCVpmIpi81ff+8p0hOOCfcvhdOCyY4Jdpi2MZkri4KG3+SXIDN9YDgK5Nfl5TgScmHQ0S0gsFReGVuE7wtcpWBD5AXpWpe4JUKSLb/u0nSXXKrMVlXcfAgMBAAECgYEAtWc8B3KJlYliOfGLogM3zCuwneuDNxku6+A+vTM1JmO+akyaVnHxWD7QyYjZY/FcFvEXqQ+hbfrqFW/9jz6OwILpSWd/86iHcjzx0S72ZuTLE9CLOY3p15IYGJyS+k5Zug8pjrzohRK185gQ41Q7LhzcoR15SwOTIEN7Qz1ohkkCQQD01qNFDGDcDaYsz5bPY98M5PqKp9m6AAjnfzS8hzRkoW50PQSwEH9CEGhM5DFlUIQtfcPZScybK6TBek7bkU5LAkEAxnX9KnhF5Wk9gDNIBeRcFzZi6AbaxYgnanfd/Xmv6GC/Vovell4BMXIVHPN4t5ifHlK1TEIle5muii3wNJbl/QJBAM9DT+2o3+oI5+6xQPKJkg3BXVK5avgpBWCrb8JVFoZFnlJqQSimnoQXjaPh3OrucSZte7ja34lQNeXPmygGZucCQGTT7Rt2n4w+O5C2fREBRAhHCVj4oo1Y7y2YWKA/Aq/89zjxNtUOTWzhmPhsehhM4gp12sYzlPeGzLZHQJJ3V8ECQDWe/cXNrZN4xH2UbHFEhuyiSGtu1aukYVdJnT5FeRCjBAxsFJx4fqv45TCajL5/n27JjiuAbSWAphh6dnE7Gb0=
+  camel.source.endpoint.consumerKey: OauthKey
+  camel.source.endpoint.accessToken: C1LObOnflYDqQNo8OABdr9O2xQMs6VzA
+  camel.source.endpoint.verificationCode: DFEN70
 
 ## These values are used only when "customEnv.CUSTOM_SCRIPT_PATH" is defined.
 ## "livenessProbe" is required only for the edge cases where the custom script to be ran takes too much time
