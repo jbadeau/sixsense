@@ -30,8 +30,6 @@ confluentinc/cp-schema-registry
 
 `cd ../sixsense/kafka-connect-jira/local`
 
-* local testing:
-  * LOCAL_TEST
 * logs:
   * CONNECT_LOG4J_ROOT_LOGLEVEL
 * debug: 
@@ -60,7 +58,6 @@ confluentinc/cp-schema-registry
   -e CONNECT_LOG4J_ROOT_LOGLEVEL=DEBUG \
   -e KAFKA_DEBUG=y \
   -e DEBUG_SUSPEND_FLAG=y \
-  -e LOCAL_TEST=true \
   -v "$(pwd)"/config:/config \
   tomassatka/camel-jira-kafka-connector:0.0.7
 ```

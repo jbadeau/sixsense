@@ -42,8 +42,4 @@ if [ -z "$CLASSPATH" ]; then
     export CLASSPATH="/etc/kafka-connect/jars/*"
 fi
 
-if [ "$LOCAL_TEST" ]; then
-  exec connect-standalone /etc/"${COMPONENT}"/"${COMPONENT}".properties /config/config.properties
-else
-  exec connect-standalone /etc/"${COMPONENT}"/"${COMPONENT}".properties /etc/"${COMPONENT}"/"${COMPONENT}".properties
-fi
+exec connect-standalone /etc/"${COMPONENT}"/"${COMPONENT}".properties /config/config.properties

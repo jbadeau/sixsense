@@ -117,6 +117,8 @@ spec:
         {{- end }}
           {{- if .Values.volumeMounts }}
           volumeMounts:
+            - name: configuration
+              mountPath: /config/config.properties
 {{ toYaml .Values.volumeMounts | indent 10 }}
           {{- end}}
       {{- if .Values.imagePullSecrets }}
@@ -124,6 +126,9 @@ spec:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
       {{- end }}
       volumes:
+        - name: configuration
+          configMap:
+            name: {{ template "cp-kafka-connect.fullname" . }}
       {{- if .Values.volumes }}
 {{ toYaml .Values.volumes | trim | indent 6 }}
       {{- end}}
