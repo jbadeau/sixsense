@@ -6,12 +6,12 @@ replicaCount: 1
 
 ## Image Info
 ## ref: https://hub.docker.com/r/confluentinc/cp-kafka/
-image: tomassatka/camel-jira-kafka-connector
-imageTag: 0.0.5
+image: jbadeau/camel-jira-kafka-connector
+imageTag: latest
 
 ## Specify a imagePullPolicy
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-imagePullPolicy: IfNotPresent
+imagePullPolicy: Always
 
 ## Specify an array of imagePullSecrets.
 ## Secrets must be manually created in the namespace.
@@ -34,7 +34,7 @@ configurationOverrides:
   "tasks.max": "1"
   "confluent.topic.replication.factor": "1"
   "confluent.topic.bootstrap.servers": "kafka:9092"
-  "topics": "jira-topic-issues"
+  "topics": "sixsense-source-jira-issues"
   "offset.storage.file.filename": "/tmp/connect.offsets"
   "camel.component.jira.jiraUrl": "https://six-group.atlassian.net"
   "camel.source.endpoint.jiraUrl": "https://six-group.atlassian.net"

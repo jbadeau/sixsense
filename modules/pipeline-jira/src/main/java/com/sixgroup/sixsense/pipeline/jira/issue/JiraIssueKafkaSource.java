@@ -1,7 +1,5 @@
-package com.sixgroup.sixsense.jira;
+package com.sixgroup.sixsense.pipeline.jira.issue;
 
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import za.co.absa.abris.config.AbrisConfig;
@@ -10,12 +8,12 @@ import za.co.absa.abris.config.FromAvroConfig;
 import static org.apache.spark.sql.functions.col;
 import static za.co.absa.abris.avro.functions.from_avro;
 
-public class JiraKafkaToJiraDelta {
+public class JiraIssueKafkaSource {
 
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder()
                 .master("local")
-                .appName("JiraKafkaToJiraDelta")
+                .appName("JiraIssueKafkaSource")
                 .getOrCreate();
 
 
@@ -29,15 +27,15 @@ public class JiraKafkaToJiraDelta {
         FromAvroConfig abrisConfig = AbrisConfig
                 .fromConfluentAvro()
                 .downloadReaderSchemaByLatestVersion()
-                .andTopicNameStrategy(System.getenv("KAFKA_JIRA_ISSUE_TOPIC"), false)
+                .andTopicNameStrategy(System.getenv("KAFKA_TOPIC_SOURCE_JIRA_ISSUES"), false)
                 .usingSchemaRegistry(System.getenv("SCHEMA_REGISTRY_URL"));
 
         try {
             spark
                     .readStream()
                     .format("kafka")
-                    .option("kafka.bootstrap.servers", System.getenv("BOOTSTRAP_SERVER"))
-                    .option("subscribe", System.getenv("KAFKA_JIRA_ISSUE_TOPIC"))
+                    .option("kafka.bootstrap.servers", System.getenv("KAFKA_BOOTSTRAP_SERVER"))
+                    .option("subscribe", System.getenv("KAFKA_TOPIC_SOURCE_JIRA_ISSUES"))
                     .option("startingOffsets", "earliest")
                     .option("kafka.group.id", System.getenv("KAFKA_GROUP_ID"))
                     .option("mergeSchema", "true")
@@ -48,8 +46,8 @@ public class JiraKafkaToJiraDelta {
                     .format("delta")
                     .outputMode("append")
                     .option("mergeSchema", "true")
-                    .option("checkpointLocation", System.getenv("CHECKPOINT_LOCATION"))
-                    .start(System.getenv("MINIO_BUCKET") + "/" + System.getenv("KAFKA_JIRA_ISSUE_TOPIC"))
+                    .option("checkpointLocation", System.getenv("SPARK_CHECKPOINT_LOCATION"))
+                    .start(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE"))
                     .awaitTermination();
         } catch (StreamingQueryException e) {
             throw new RuntimeException(e);

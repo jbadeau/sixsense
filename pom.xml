@@ -10,7 +10,6 @@
     <modules>
         <module>modules/camel-jira</module>
         <module>modules/camel-jira-kafka-connector</module>
-        <module>modules/jira-oslc</module>
-      <module>jira-oslc</module>
+        <module>modules/pipeline-jira</module>
   </modules>
 </project>

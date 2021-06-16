@@ -1,4 +1,4 @@
 securityContext:
   enabled: false
 
-defaultBuckets: "jira-bucket"
+defaultBuckets: "sixsense-jira"

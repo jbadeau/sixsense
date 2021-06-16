@@ -1,14 +1,17 @@
-package com.sixgroup.sixsense.oslc;
+package com.sixgroup.sixsense.pipeline.jira.issue;
 
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.streaming.OutputMode;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 
-public class JiraDeltaToOslcDelta {
+import java.util.concurrent.TimeoutException;
+
+public class JiraIssueKafkaSink {
 
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder()
                 .master("local")
-                .appName("JiraDeltaToOslcDelta")
+                .appName("JiraIssueKafkaSink")
                 .getOrCreate();
 
         spark.sparkContext().hadoopConfiguration().set("fs.s3a.endpoint", System.getenv("MINIO_ENDPOINT"));
@@ -22,14 +25,18 @@ public class JiraDeltaToOslcDelta {
             spark
                     .readStream()
                     .format("delta")
-                    .load(System.getenv("MINIO_BUCKET") + System.getenv("KAFKA_JIRA_ISSUE_TOPIC"))
+                    .load(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE   §"))
+                    .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
                     .writeStream()
-                    .format("delta")
-                    .outputMode("append")
-                    .option("checkpointLocation", System.getenv("CHECKPOINT_LOCATION"))
-                    .start(System.getenv("MINIO_BUCKET") + "/" + System.getenv("KAFKA_OSLC_CHANGE_REQUEST_TOPIC"))
+                    .format("kafka")
+                    .outputMode(OutputMode.Append())
+                    .option("kafka.bootstrap.servers", System.getenv("KAFKA_BOOTSTRAP_SERVER"))
+                    .option("kafka.group.id", System.getenv("KAFKA_GROUP_ID"))
+                    .option("topic", System.getenv("KAFKA_TOPIC_JIRA_ISSUES"))
+                    .option("checkpointLocation", System.getenv("SPARK_CHECKPOINT_LOCATION"))
+                    .start()
                     .awaitTermination();
-        } catch (StreamingQueryException e) {
+        } catch (StreamingQueryException | TimeoutException e) {
             throw new RuntimeException(e);
         }
     }

@@ -57,14 +57,16 @@ releases:
       - sixsense-dev/kafka
     values:
       - values/dev/kafka-ui/values.yaml
-  - name: kafka-connect-jira
+
+  # camel
+  - name: camel-jira-kafka-connector
     namespace: sixsense-dev
-    chart: ../modules/kafka-connect-jira/.helm
+    chart: ../modules/camel-jira-kafka-connector/.helm
     needs:
       - sixsense-dev/cp-schema-registry
       - sixsense-dev/kafka
     values:
-      - values/dev/kafka-connect-jira/values.yaml
+      - values/dev/camel-jira-kafka-connector/values.yaml
 
   # influx
   - name: influxdb
@@ -87,14 +89,14 @@ releases:
     values:
       - values/dev/backstage/values.yaml
 
-  # apps
-  - name: jira-oslc
+  # pipeline
+  - name: pipeline-jira
     namespace: sixsense-dev
-    chart: ../modules/jira-oslc/.helm
+    chart: ../modules/pipeline-jira/.helm
     needs:
       - sixsense-dev/kafka
       - sixsense-dev/spark-operator
       - sixsense-dev/influxdb
-      - sixsense-dev/kafka-connect-jira
+      - sixsense-dev/camel-jira-kafka-connector
     values:
-      - values/dev/jira-oslc/values.yaml
+      - values/dev/pipeline-jira/values.yaml

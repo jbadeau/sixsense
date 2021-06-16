@@ -42,7 +42,7 @@
     <!-- Camel -->
     <dependency>
       <groupId>org.apache.camel.kafkaconnector</groupId>
-      <artifactId>camel-jira-six</artifactId>
+      <artifactId>camel-jira</artifactId>
       <version>0.9.0</version>
     </dependency>
     <!--START OF GENERATED CODE-->

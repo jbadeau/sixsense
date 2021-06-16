@@ -1,0 +1,19 @@
+image:
+  repository: jbadeau/pipeline-jira
+  pullPolicy: Latest
+  tag: latest
+driver:
+  env:
+    SCHEMA_REGISTRY_URL: 'http://cp-schema-registry:8081'
+
+    KAFKA_BOOTSTRAP_SERVER: 'kafka:9092'
+    KAFKA_GROUP_ID: 'sixsense-jira'
+    KAFKA_TOPIC_SOURCE_JIRA_ISSUES: 'sixsense-source-jira-issues'
+    KAFKA_TOPIC_JIRA_ISSUES: 'sixsense-jira-issues'
+
+    SPARK_CHECKPOINT_LOCATION: '/tmp/checkpoint'
+
+    MINIO_ENDPOINT: 'http://10.217.4.187:9000'
+    MINIO_BUCKET: 's3a://sixsense-jira/'
+
+    DELTA_TABLE_JIRA_ISSUE: 'JIRA_ISSUES'
