@@ -1,18 +1,21 @@
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: jira-oslc
+  name: jira-kafka-to-jira-delta
   namespace: sixsense-dev
 spec:
   type: Java
   mode: cluster
-  image: "tomassatka/spark-job-jira:0.0.23"
+  image: {{.Values.image.repository}}
   imagePullPolicy: Always
-  mainClass: com.sixgroup.sixsense.jira.oslc.JiraIssueToOslcChangeRequest
+  mainClass: com.sixgroup.sixsense.jira.JiraKafkaToJiraDelta
   mainApplicationFile: "local:///jobs/jira-oslc.jar"
   sparkVersion: "3.1.1"
   restartPolicy:
     type: Never
+  volumes:
+    - name: checkpoint
+      emptyDir: {}
   driver:
     cores: 1
     coreLimit: "1200m"
@@ -27,6 +30,108 @@ spec:
       BOOTSTRAP_SERVER: {{ .Values.driver.env.BOOTSTRAP_SERVER }}
       CHECKPOINT_LOCATION: {{ .Values.driver.env.CHECKPOINT_LOCATION }}
       SCHEMA_REGISTRY_URL: {{ .Values.driver.env.SCHEMA_REGISTRY_URL }}
+      MINIO_ENDPOINT: {{ .Values.driver.env.MINIO_ENDPOINT }}
+      MINIO_BUCKET: {{ .Values.driver.env.MINIO_BUCKET }}
+      MINIO_ACCESS_KEY: "Egyn2oyhWC"
+      MINIO_SECRET_KEY: "M7QPPVcXMvzEqcMcVseHowF5mcbSEKj9PsGagD5p"
+    volumeMounts:
+      - name: minio
+        mountPath: /checkpoint
+  executor:
+    cores: 1
+    instances: 1
+    memory: "512m"
+    labels:
+      version: 3.1.1
+---
+
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: jira-delta-to-oslc-delta
+  namespace: sixsense-dev
+spec:
+  type: Java
+  mode: cluster
+  image: {{.Values.image.repository}}
+  imagePullPolicy: Always
+  mainClass: com.sixgroup.sixsense.oslc.JiraDeltaToOslcDelta
+  mainApplicationFile: "local:///jobs/jira-oslc.jar"
+  sparkVersion: "3.1.1"
+  restartPolicy:
+    type: Never
+  volumes:
+    - name: checkpoint
+      emptyDir: {}
+  driver:
+    cores: 1
+    coreLimit: "1200m"
+    memory: "512m"
+    labels:
+      version: 3.1.1
+    serviceAccount: spark
+    envVars:
+      KAFKA_JIRA_ISSUE_TOPIC: {{ .Values.driver.env.KAFKA_JIRA_ISSUE_TOPIC }}
+      KAFKA_OSLC_CHANGE_REQUEST_TOPIC: {{ .Values.driver.env.KAFKA_OSLC_CHANGE_REQUEST_TOPIC }}
+      KAFKA_GROUP_ID: {{ .Values.driver.env.KAFKA_GROUP_ID}}
+      BOOTSTRAP_SERVER: {{ .Values.driver.env.BOOTSTRAP_SERVER }}
+      CHECKPOINT_LOCATION: {{ .Values.driver.env.CHECKPOINT_LOCATION }}
+      SCHEMA_REGISTRY_URL: {{ .Values.driver.env.SCHEMA_REGISTRY_URL }}
+      MINIO_ENDPOINT: {{ .Values.driver.env.MINIO_ENDPOINT }}
+      MINIO_BUCKET: {{ .Values.driver.env.MINIO_BUCKET }}
+      MINIO_ACCESS_KEY: "Egyn2oyhWC"
+      MINIO_SECRET_KEY: "M7QPPVcXMvzEqcMcVseHowF5mcbSEKj9PsGagD5p"
+    volumeMounts:
+      - name: minio
+        mountPath: /checkpoint
+  executor:
+    cores: 1
+    instances: 1
+    memory: "512m"
+    labels:
+      version: 3.1.1
+
+---
+
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: oslc-delta-to-oslc-kafka
+  namespace: sixsense-dev
+spec:
+  type: Java
+  mode: cluster
+  image: {{.Values.image.repository}}
+  imagePullPolicy: Always
+  mainClass: com.sixgroup.sixsense.oslc.OslcDeltaToOslcKafka
+  mainApplicationFile: "local:///jobs/jira-oslc.jar"
+  sparkVersion: "3.1.1"
+  restartPolicy:
+    type: Never
+  volumes:
+    - name: checkpoint
+      emptyDir: {}
+  driver:
+    cores: 1
+    coreLimit: "1200m"
+    memory: "512m"
+    labels:
+      version: 3.1.1
+    serviceAccount: spark
+    envVars:
+      KAFKA_JIRA_ISSUE_TOPIC: {{ .Values.driver.env.KAFKA_JIRA_ISSUE_TOPIC }}
+      KAFKA_OSLC_CHANGE_REQUEST_TOPIC: {{ .Values.driver.env.KAFKA_OSLC_CHANGE_REQUEST_TOPIC }}
+      KAFKA_GROUP_ID: {{ .Values.driver.env.KAFKA_GROUP_ID}}
+      BOOTSTRAP_SERVER: {{ .Values.driver.env.BOOTSTRAP_SERVER }}
+      CHECKPOINT_LOCATION: {{ .Values.driver.env.CHECKPOINT_LOCATION }}
+      SCHEMA_REGISTRY_URL: {{ .Values.driver.env.SCHEMA_REGISTRY_URL }}
+      MINIO_ENDPOINT: {{ .Values.driver.env.MINIO_ENDPOINT }}
+      MINIO_BUCKET: {{ .Values.driver.env.MINIO_BUCKET }}
+      MINIO_ACCESS_KEY: "Egyn2oyhWC"
+      MINIO_SECRET_KEY: "M7QPPVcXMvzEqcMcVseHowF5mcbSEKj9PsGagD5p"
+    volumeMounts:
+      - name: minio
+        mountPath: /checkpoint
   executor:
     cores: 1
     instances: 1

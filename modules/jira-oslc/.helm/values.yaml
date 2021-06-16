@@ -1,7 +1,7 @@
 image:
-  repository: tomassatka/spark-job-jira
+  repository: jbadeau/jira-oslc
   pullPolicy: IfNotPresent
-  tag: 0.0.23
+  tag: latest
 mainClass: com.sixgroup.sixsense.jira.oslc.JiraIssueToOslcChangeRequest
 driver:
   env:
@@ -9,5 +9,7 @@ driver:
     KAFKA_OSLC_CHANGE_REQUEST_TOPIC: 'oslc-topic-changerequests'
     KAFKA_GROUP_ID: 'jira'
     BOOTSTRAP_SERVER: 'kafka:9092'
-    CHECKPOINT_LOCATION: '/checkpoint'
+    CHECKPOINT_LOCATION: '/tmp/checkpoint'
     SCHEMA_REGISTRY_URL: 'http://cp-schema-registry:8081'
+    MINIO_ENDPOINT: 'http://10.217.4.187:9000'
+    MINIO_BUCKET: 's3a://jira-bucket/'

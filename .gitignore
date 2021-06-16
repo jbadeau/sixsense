@@ -39,3 +39,7 @@ site
 *.iml
 target
 *.tgz
+
+.project
+.preferences
+.classpath
