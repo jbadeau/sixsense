@@ -100,7 +100,7 @@ spec:
   providesApis:
     - cuba
   dependsOn:
-    - pentaho
+    - resource:pentaho
 
 # RESOURCES
 ---
