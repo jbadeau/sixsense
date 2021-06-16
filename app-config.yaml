@@ -51,7 +51,7 @@ proxy:
     target: https://six-group.atlassian.net
     headers:
       Authorization:
-        $env: C1LObOnflYDqQNo8OABdr9O2xQMs6VzA
+        $env: JIRA_TOKEN
       Accept: 'application/json'
       Content-Type: 'application/json'
       X-Atlassian-Token: 'nocheck'

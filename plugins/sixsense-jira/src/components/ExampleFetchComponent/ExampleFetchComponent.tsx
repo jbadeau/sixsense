@@ -65,7 +65,7 @@ export const DenseTable = ({ users }: DenseTableProps) => {
 
   return (
     <Table
-      title="Example User List (fetching data from randomuser.me)"
+      title="Jira Issue Changes    "
       options={{ search: false, paging: false }}
       columns={columns}
       data={data}
