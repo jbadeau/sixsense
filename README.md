@@ -49,10 +49,10 @@ confluentinc/cp-schema-registry
   -e CONNECT_CONFIG_STORAGE_TOPIC="jira-config" \
   -e CONNECT_OFFSET_STORAGE_TOPIC="jira-offsets" \
   -e CONNECT_STATUS_STORAGE_TOPIC="jira-status" \
-#  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.AvroConverter" \
-#  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.AvroConverter" \
-#  -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
-#  -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
+  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+  -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
+  -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
   -e CONNECT_REST_ADVERTISED_HOST_NAME="localhost" \
   -e CONNECT_PLUGIN_PATH=/usr/share/java,/usr/share/confluent-hub-components \
   -e CONNECTOR_CONFIG_PROPERTIES=/config/config.properties \
@@ -62,7 +62,7 @@ confluentinc/cp-schema-registry
   -e DEBUG_SUSPEND_FLAG=y \
   -e LOCAL_TEST=true \
   -v "$(pwd)"/config:/config \
-  tomassatka/camel-jira-kafka-connector:0.0.5
+  tomassatka/camel-jira-kafka-connector:0.0.7
 ```
 
 

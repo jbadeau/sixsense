@@ -6,8 +6,8 @@ replicaCount: 1
 
 ## Image Info
 ## ref: https://hub.docker.com/r/confluentinc/cp-kafka/
-image: jbadeau/camel-jira-kafka-connector
-imageTag: latest
+image: tomassatka/camel-jira-kafka-connector
+imageTag: 0.0.7
 
 ## Specify a imagePullPolicy
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -43,9 +43,6 @@ configurationOverrides:
   "camel.source.endpoint.consumerKey": "OauthKey"
   "camel.source.endpoint.accessToken": "C1LObOnflYDqQNo8OABdr9O2xQMs6VzA"
   "camel.source.endpoint.verificationCode": "DFEN70"
-  "camel.component.jira.consumerKey": "OauthKey"
-  "camel.component.jira.accessToken": "C1LObOnflYDqQNo8OABdr9O2xQMs6VzA"
-  "camel.component.jira.verificationCode": "DFEN70"
   "camel.source.endpoint.jql": "RAW(project='SIXSENSE' AND created > startOfYear(0))"
 
 ## Kafka Connect JVM Heap Option
