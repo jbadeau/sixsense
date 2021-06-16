@@ -80,6 +80,8 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: cuba
+  annotations:
+    jira/project-key: SIXSENSE
 spec:
   owner: cuba-team
   domain: dm-flex
