@@ -18,6 +18,7 @@ metadata:
 spec:
   type: department
   parent: six
+  children: [dm-flex-team, cuba-team]
 
 # USER GROUPS
 ---
