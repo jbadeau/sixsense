@@ -16,8 +16,27 @@ repositories:
     url: https://provectus.github.io/kafka-ui
   - name: spark-operator
     url: https://googlecloudplatform.github.io/spark-on-k8s-operator
+  - name: spark-operator
+    url: https://googlecloudplatform.github.io/spark-on-k8s-operator
+  - name: apc-reg
+    url: https://eshepelyuk.github.io/apicurio-registry-helm-chart
 
 releases:
+
+  # microcks
+  - name: microcks
+    namespace: sixsense-dev
+    chart: microcks/microcks
+    values:
+      - values/dev/microcks/values.yaml
+
+  # apicurio-registry
+  - name: apicurio-registry
+    namespace: sixsense-dev
+    chart: apc-reg/apicurio-registry
+    values:
+      - values/dev/apicurio-registry/values.yaml
+
   # minio
   - name: minio
     namespace: sixsense-dev
@@ -30,8 +49,6 @@ releases:
     namespace: sixsense-dev
     chart: spark-operator/spark-operator
     wait: true
-    needs:
-      - sixsense-dev/sparc-rbac
     values:
       - values/dev/spark-operator/values.yaml
 

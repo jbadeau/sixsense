@@ -1,0 +1,4 @@
+microcks:
+  url: microcks.172.22.124.16.nip.io
+keycloak:
+  url: keycloak.172.22.124.16.nip.io
