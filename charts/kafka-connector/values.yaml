@@ -4,9 +4,9 @@ tasksMax: 1
 config:
   topics: sixsense-source-jira-issues
   key:
-    converter: org.apache.kafka.connect.storage.StringConverter
+    converter: org.apache.kafka.connect.json.JsonConverter
   value:
-    converter: org.apache.kafka.connect.storage.StringConverter
+    converter: org.apache.kafka.connect.json.JsonConverter
   camel:
     source:
       path:
