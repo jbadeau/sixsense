@@ -1,4 +1,19 @@
+image: quay.io/microcks/microcks:latest
+
 microcks:
   url: microcks.172.22.124.16.nip.io
+
 keycloak:
   url: keycloak.172.22.124.16.nip.io
+
+features:
+  async:
+    enabled: true
+    defaultBinding: KAFKA
+    defaultFrequency: 30
+    defaultAvroEncoding: REGISTRY
+    kafka:
+      install: false
+      url: sixsense-kafka-bootstrap:9092
+      schemaRegistry:
+        url: http://cp-schema-registry:8081

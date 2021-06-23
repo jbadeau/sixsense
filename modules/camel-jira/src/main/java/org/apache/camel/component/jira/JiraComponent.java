@@ -1,11 +1,23 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.camel.component.jira;
 
 import java.util.Map;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.spi.Metadata;
@@ -14,33 +26,38 @@ import org.apache.camel.support.DefaultComponent;
 
 @Component("jira")
 public class JiraComponent extends DefaultComponent {
-    @Metadata(
-            label = "advanced"
-    )
+
+    @Metadata(label = "advanced")
     private JiraConfiguration configuration;
 
     public JiraComponent() {
-        this((CamelContext)null);
+        this(null);
     }
 
     public JiraComponent(CamelContext context) {
         super(context);
-        this.registerExtension(new JiraVerifierExtension());
+        registerExtension(new JiraVerifierExtension());
     }
 
+    @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        JiraConfiguration config = this.configuration != null ? this.configuration.copy() : new JiraConfiguration();
+        JiraConfiguration config = configuration != null ? configuration.copy() : new JiraConfiguration();
+
         JiraEndpoint endpoint = new JiraEndpoint(uri, this, config);
-        endpoint.setType((JiraType)this.getCamelContext().getTypeConverter().convertTo(JiraType.class, remaining));
-        this.setProperties(endpoint, parameters);
+        endpoint.setType(getCamelContext().getTypeConverter().convertTo(JiraType.class, remaining));
+        setProperties(endpoint, parameters);
         return endpoint;
     }
 
+    /**
+     * To use a shared base jira configuration.
+     */
     public JiraConfiguration getConfiguration() {
-        return this.configuration;
+        return configuration;
     }
 
     public void setConfiguration(JiraConfiguration configuration) {
         this.configuration = configuration;
     }
+
 }

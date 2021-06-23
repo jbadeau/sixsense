@@ -1,9 +1,22 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.camel.component.jira.producer;
+
+import java.util.List;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
@@ -12,97 +25,94 @@ import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
-import java.util.Iterator;
-import java.util.List;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
 
+import static org.apache.camel.component.jira.JiraConstants.*;
+
 public class AddIssueProducer extends DefaultProducer {
+
     public AddIssueProducer(JiraEndpoint endpoint) {
         super(endpoint);
     }
 
+    @Override
     public void process(Exchange exchange) {
-        JiraRestClient client = ((JiraEndpoint)this.getEndpoint()).getClient();
-        String projectKey = (String)exchange.getIn().getHeader("ProjectKey", String.class);
-        Long issueTypeId = (Long)exchange.getIn().getHeader("IssueTypeId", Long.class);
-        String issueTypeName = (String)exchange.getIn().getHeader("IssueTypeName", String.class);
-        String summary = (String)exchange.getIn().getHeader("IssueSummary", String.class);
-        String assigneeName = (String)exchange.getIn().getHeader("IssueAssignee", String.class);
-        String priorityName = (String)exchange.getIn().getHeader("IssuePriorityName", String.class);
-        Long priorityId = (Long)exchange.getIn().getHeader("IssuePriorityId", Long.class);
-        List<String> components = (List)exchange.getIn().getHeader("IssueComponents", List.class);
-        List<String> watchers = (List)exchange.getIn().getHeader("IssueWatchersAdd", List.class);
-        Iterable priorities;
-        Iterator var13;
+        JiraRestClient client = ((JiraEndpoint) getEndpoint()).getClient();
+        // required fields
+        String projectKey = exchange.getIn().getHeader(ISSUE_PROJECT_KEY, String.class);
+        Long issueTypeId = exchange.getIn().getHeader(ISSUE_TYPE_ID, Long.class);
+        String issueTypeName = exchange.getIn().getHeader(ISSUE_TYPE_NAME, String.class);
+        String summary = exchange.getIn().getHeader(ISSUE_SUMMARY, String.class);
+        // optional fields
+        String assigneeName = exchange.getIn().getHeader(ISSUE_ASSIGNEE, String.class);
+        String priorityName = exchange.getIn().getHeader(ISSUE_PRIORITY_NAME, String.class);
+        Long priorityId = exchange.getIn().getHeader(ISSUE_PRIORITY_ID, Long.class);
+        List<String> components = exchange.getIn().getHeader(ISSUE_COMPONENTS, List.class);
+        List<String> watchers = exchange.getIn().getHeader(ISSUE_WATCHERS_ADD, List.class);
+        // search for issueTypeId from an issueTypeName
         if (issueTypeId == null && issueTypeName != null) {
-            priorities = (Iterable)client.getMetadataClient().getIssueTypes().claim();
-            var13 = priorities.iterator();
-
-            while(var13.hasNext()) {
-                IssueType type = (IssueType)var13.next();
+            Iterable<IssueType> issueTypes = client.getMetadataClient().getIssueTypes().claim();
+            for (IssueType type : issueTypes) {
                 if (issueTypeName.equals(type.getName())) {
                     issueTypeId = type.getId();
                     break;
                 }
             }
         }
-
+        // search for priorityId from an priorityName
         if (priorityId == null && priorityName != null) {
-            priorities = (Iterable)client.getMetadataClient().getPriorities().claim();
-            var13 = priorities.iterator();
-
-            while(var13.hasNext()) {
-                Priority pri = (Priority)var13.next();
+            Iterable<Priority> priorities = client.getMetadataClient().getPriorities().claim();
+            for (Priority pri : priorities) {
                 if (priorityName.equals(pri.getName())) {
                     priorityId = pri.getId();
                     break;
                 }
             }
         }
-
         if (projectKey == null) {
             throw new IllegalArgumentException("A valid project key is required.");
-        } else if (issueTypeId == null) {
-            throw new IllegalArgumentException("A valid issue type id is required, actual: id(" + issueTypeId + "), name(" + issueTypeName + ")");
-        } else if (summary == null) {
+        }
+        if (issueTypeId == null) {
+            throw new IllegalArgumentException(
+                    "A valid issue type id is required, actual: id(" + issueTypeId + "), name(" + issueTypeName + ")");
+        }
+
+        if (summary == null) {
             throw new IllegalArgumentException("A summary field is required, actual value: " + summary);
+        }
+
+        IssueInputBuilder builder = new IssueInputBuilder(projectKey, issueTypeId);
+        builder.setDescription(exchange.getIn().getBody(String.class));
+        builder.setSummary(summary);
+        if (components != null && !components.isEmpty()) {
+            builder.setComponentsNames(components);
+        }
+        if (priorityId != null) {
+            builder.setPriorityId(priorityId);
+        }
+        if (assigneeName != null) {
+            builder.setAssigneeName(assigneeName);
+        }
+
+        IssueRestClient issueClient = client.getIssueClient();
+        BasicIssue issueCreated = issueClient.createIssue(builder.build()).claim();
+        Issue issue = issueClient.getIssue(issueCreated.getKey()).claim();
+        if (watchers != null && !watchers.isEmpty()) {
+            for (String watcher : watchers) {
+                issueClient.addWatcher(issue.getWatchers().getSelf(), watcher);
+            }
+        }
+
+        // support InOut
+        if (exchange.getPattern().isOutCapable()) {
+            // copy the header of in message to the out message
+            exchange.getOut().copyFrom(exchange.getIn());
+            exchange.getOut().setBody(issue);
         } else {
-            IssueInputBuilder builder = new IssueInputBuilder(projectKey, issueTypeId);
-            builder.setDescription((String)exchange.getIn().getBody(String.class));
-            builder.setSummary(summary);
-            if (components != null && !components.isEmpty()) {
-                builder.setComponentsNames(components);
-            }
-
-            if (priorityId != null) {
-                builder.setPriorityId(priorityId);
-            }
-
-            if (assigneeName != null) {
-                builder.setAssigneeName(assigneeName);
-            }
-
-            IssueRestClient issueClient = client.getIssueClient();
-            BasicIssue issueCreated = (BasicIssue)issueClient.createIssue(builder.build()).claim();
-            Issue issue = (Issue)issueClient.getIssue(issueCreated.getKey()).claim();
-            if (watchers != null && !watchers.isEmpty()) {
-                Iterator var16 = watchers.iterator();
-
-                while(var16.hasNext()) {
-                    String watcher = (String)var16.next();
-                    issueClient.addWatcher(issue.getWatchers().getSelf(), watcher);
-                }
-            }
-
-            if (exchange.getPattern().isOutCapable()) {
-                exchange.getOut().copyFrom(exchange.getIn());
-                exchange.getOut().setBody(issue);
-            } else {
-                exchange.getIn().setBody(issue);
-            }
-
+            exchange.getIn().setBody(issue);
         }
     }
+
 }

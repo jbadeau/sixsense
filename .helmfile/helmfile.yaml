@@ -16,26 +16,23 @@ repositories:
     url: https://provectus.github.io/kafka-ui
   - name: spark-operator
     url: https://googlecloudplatform.github.io/spark-on-k8s-operator
-  - name: spark-operator
-    url: https://googlecloudplatform.github.io/spark-on-k8s-operator
-  - name: apc-reg
-    url: https://eshepelyuk.github.io/apicurio-registry-helm-chart
 
 releases:
 
-  # microcks
-  - name: microcks
+  # operators
+  - name: spark-operator
     namespace: sixsense-dev
-    chart: microcks/microcks
+    chart: spark-operator/spark-operator
+    wait: true
     values:
-      - values/dev/microcks/values.yaml
+      - values/dev/spark-operator/values.yaml
 
-  # apicurio-registry
-  - name: apicurio-registry
+  - name: strimzi-kafka-operator
     namespace: sixsense-dev
-    chart: apc-reg/apicurio-registry
+    chart: strimzi/strimzi-kafka-operator
+    wait: true
     values:
-      - values/dev/apicurio-registry/values.yaml
+      - values/dev/strimzi-kafka-operator/values.yaml
 
   # minio
   - name: minio
@@ -44,77 +41,80 @@ releases:
     values:
       - values/dev/minio/values.yaml
 
-  # spark
-  - name: spark-operator
-    namespace: sixsense-dev
-    chart: spark-operator/spark-operator
-    wait: true
-    values:
-      - values/dev/spark-operator/values.yaml
-
   # kafka
-  - name: kafka
+  - name: kafka-cluster
     namespace: sixsense-dev
-    chart: bitnami/kafka
+    chart: ../charts/kafka-cluster
+    needs:
+      - sixsense-dev/strimzi-kafka-operator
     wait: true
     values:
-      - values/dev/kafka/values.yaml
+      - values/dev/kafka-cluster/values.yaml
+
   - name: cp-schema-registry
     namespace: sixsense-dev
     chart: ../charts/cp-schema-registry
     wait: true
     needs:
-      - sixsense-dev/kafka
+      - sixsense-dev/kafka-cluster
     values:
       - values/dev/cp-schema-registry/values.yaml
+
   - name: kafka-ui
     namespace: sixsense-dev
     chart: kafka-ui/kafka-ui
-    needs:
-      - sixsense-dev/kafka
     values:
       - values/dev/kafka-ui/values.yaml
 
-  # camel
-  - name: camel-jira-kafka-connector
+
+  # kafka connectors
+  - name: kafka-connector
     namespace: sixsense-dev
-    chart: ../modules/camel-jira-kafka-connector/.helm
+    chart: ../charts/kafka-connector
     wait: true
     needs:
       - sixsense-dev/cp-schema-registry
-      - sixsense-dev/kafka
     values:
-      - values/dev/camel-jira-kafka-connector/values.yaml
+      - values/dev/kafka-connector/values.yaml
 
   # influx
-  - name: influxdb
-    namespace: sixsense-dev
-    chart: bitnami/influxdb
-    values:
-      - values/dev/influxdb/values.yaml
-  - name: telegraf
-    namespace: sixsense-dev
-    chart: influxdata/telegraf
-    needs:
-      - sixsense-dev/influxdb
-    values:
-      - values/dev/telegraf/values.yaml
-
-  # backstage
-  - name: backstage
-    namespace: sixsense-dev
-    chart: ../charts/backstage
-    values:
-      - values/dev/backstage/values.yaml
+#  - name: influxdb
+#    namespace: sixsense-dev
+#    chart: bitnami/influxdb
+#    values:
+#      - values/dev/influxdb/values.yaml
+#
+#  - name: telegraf
+#    namespace: sixsense-dev
+#    chart: influxdata/telegraf
+#    needs:
+#      - sixsense-dev/influxdb
+#    values:
+#      - values/dev/telegraf/values.yaml
 
   # pipeline
-  - name: pipeline-jira
-    namespace: sixsense-dev
-    chart: ../modules/pipeline-jira/.helm
-    needs:
-      - sixsense-dev/kafka
-      - sixsense-dev/spark-operator
-      - sixsense-dev/influxdb
-      - sixsense-dev/camel-jira-kafka-connector
-    values:
-      - values/dev/pipeline-jira/values.yaml
+#  - name: pipeline-jira
+#    namespace: sixsense-dev
+#    chart: ../modules/pipeline-jira/.helm
+#    needs:
+#      - sixsense-dev/kafka-connector
+#      - sixsense-dev/influxdb
+#      - sixsense-dev/minio
+#    values:
+#      - values/dev/pipeline-jira/values.yaml
+
+  # microcks
+#  - name: microcks
+#    namespace: sixsense-dev
+#    chart: microcks/microcks
+#    needs:
+#      - sixsense-dev/cp-schema-registry
+#    values:
+#      - values/dev/microcks/values.yaml
+
+  # backstage
+#  - name: backstage
+#    namespace: sixsense-dev
+#    chart: ../charts/backstage
+#    values:
+#      - values/dev/backstage/values.yaml

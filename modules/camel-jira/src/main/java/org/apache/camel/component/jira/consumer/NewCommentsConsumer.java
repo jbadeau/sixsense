@@ -1,77 +1,92 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.camel.component.jira.consumer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.atlassian.jira.rest.client.api.domain.Comment;
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Consumes new comments on JIRA issues.
+ *
+ * NOTE: In your JQL, try to optimize the query as much as possible! For example, the JIRA Toolkit Plugin includes a //
+ * "Number of comments" custom field -- use '"Number of comments" > 0' in your query. Also try to minimize based on //
+ * state (status=Open), increase the polling delay, etc. We have to do a separate query for *every single* resulting
+ * ticket in order to load its comments! For large organizations, the JIRA API can be significantly slow.
+ */
 public class NewCommentsConsumer extends AbstractJiraConsumer {
+
     private static final transient Logger LOG = LoggerFactory.getLogger(NewCommentsConsumer.class);
+
     private Long lastCommentId = -1L;
 
     public NewCommentsConsumer(JiraEndpoint endpoint, Processor processor) {
         super(endpoint, processor);
     }
 
+    @Override
     protected int poll() throws Exception {
-        List<Comment> newComments = this.getComments();
+        List<Comment> newComments = getComments();
         int max = newComments.size() - 1;
-
-        for(int i = max; i > -1; --i) {
-            Comment newComment = (Comment)newComments.get(i);
-            Exchange e = this.createExchange(true);
+        // retrieve from last to first item LIFO
+        for (int i = max; i > -1; i--) {
+            Comment newComment = newComments.get(i);
+            Exchange e = createExchange(true);
             e.getIn().setBody(newComment);
-            this.getProcessor().process(e);
+            getProcessor().process(e);
         }
-
         return newComments.size();
     }
 
+    @Override
     protected void doStart() throws Exception {
         super.doStart();
-        this.getComments();
+        // read the actual comments, the next poll outputs only the new comments added after the route start
+        getComments();
     }
 
+    // In the end, we want *new* comments oldest to newest.
+    @SuppressWarnings("ConstantConditions")
     private List<Comment> getComments() {
-        LOG.debug("Start: Jira NewCommentsConsumer: retrieving issue comments. Last comment id: {}", this.lastCommentId);
-        List<Comment> newComments = new ArrayList();
-        List<Issue> issues = this.getIssues();
-        Iterator var3 = issues.iterator();
-
-        while(var3.hasNext()) {
-            Issue issue = (Issue)var3.next();
-            Issue fullIssue = (Issue)this.client().getIssueClient().getIssue(issue.getKey()).claim();
-            Iterator var6 = fullIssue.getComments().iterator();
-
-            while(var6.hasNext()) {
-                Comment comment = (Comment)var6.next();
-                if (comment.getId() > this.lastCommentId) {
+        LOG.debug("Start: Jira NewCommentsConsumer: retrieving issue comments. Last comment id: {}", lastCommentId);
+        List<Comment> newComments = new ArrayList<>();
+        List<Issue> issues = getIssues();
+        for (Issue issue : issues) {
+            Issue fullIssue = client().getIssueClient().getIssue(issue.getKey()).claim();
+            for (Comment comment : fullIssue.getComments()) {
+                if (comment.getId() > lastCommentId) {
                     newComments.add(comment);
                 }
             }
         }
-
-        var3 = newComments.iterator();
-
-        while(var3.hasNext()) {
-            Comment c = (Comment)var3.next();
-            if (c.getId() > this.lastCommentId) {
-                this.lastCommentId = c.getId();
+        for (Comment c : newComments) {
+            if (c.getId() > lastCommentId) {
+                lastCommentId = c.getId();
             }
         }
-
-        LOG.debug("End: Jira NewCommentsConsumer: retrieving issue comments. {} new comments since last run.", newComments.size());
+        LOG.debug("End: Jira NewCommentsConsumer: retrieving issue comments. {} new comments since last run.",
+                newComments.size());
         return newComments;
     }
 }

@@ -1,111 +1,0 @@
-��		�YISSUE_WATCHERS_ADDgetAccessTokensecretPropertyNamesgetThreadLocalContextLOG
-lastCommentId
-getPlatformId
-getMaxResultssetConsumerKeysetVerificationCodenameclientsetThreadLocalContext	allowNullvaluegetJqlprocessExchangeurlMode
-propertyNameslambda$initIssues$0changed
-ADDWORKLOGgetType
-setMaxResults
-configurationverifyConnectivityregisterConvertersgetHomeDirectorysetType	component
-privateKeyISSUE_PRIORITY_NAME
-ISSUE_SUMMARY
-FETCHISSUEmethoddelayexchangeentityISSUE_WATCHERS_REMOVE
-watchedIssuesverificationCode
-initIssues
-parametersgetUsername
-ISSUE_CHANGED	processor
-access$0003$SwitchMap$org$apache$camel$component$jira$JiraType<init>
-maxResults
-httpClientsetConfigurationsetUsernameWATCHERStypejiraURIbaseUrlregistryACCESS_TOKENpollsetDelayverifyParametersissueKey	serverUrigetCommentstransformationuriSECRET_PROPERTY_NAMESprocess
-artifactId	getIssuesDEFAULT_MINUTES_SPENTBASEISSUE_WATCHED_ISSUESgenericFileNEWCOMMENTSexecutegetWatchedFieldsaccessTokenobjusername
-ISSUE_COMMENTdestroyADDISSUEgroupIdcheckIfIssueChangedgetBuildNumber
-ignoreCasejqlwatchedFieldsList
-unregisterAlladdTypeConvertergetPropertyValuecreateClientthis$0
-getJiraUrl
-genericToFilegetCamelContextrequestUPDATEISSUEcreateProducerdoStopgetPassword
-access$100hasFieldChangedsetAccessTokendoStartCONSUMER_KEYissuegetDisplayNameval$defaultHttpClientFactorysetCamelContextflushCacheByUriPatternx1buildersetPassword
-unregister	LINK_TYPEJIRA_REST_CLIENT_VERSIONstartUNKNOWN_VERSIONsetJqlfromType	configureATTACHgetOptionValuevalueOfgetBuildDatecontextmaxPerQueryo
-newRequestISSUE_PROJECT_KEYsgetConsumerKeyCHILD_ISSUE_KEY	remainingendpointtoTypeval$httpClientcamelContextWATCHUPDATESpasswordISSUE_TRANSITION_IDbuildUribodyregister$VALUES
-watchedFieldsgetOAuthRsaSigner<clinit>
-FETCHCOMMENTSISSUE_PRIORITY_IDJIRAVERIFICATION_CODEJIRA_REST_CLIENT_FACTORYcontentType
-access$200watchedIssuesKeyscreatewatchChangeJIRA_URLjiraUrlgetConfigurationPRIVATE_KEYgetOrCreateConfiguration	fieldNamegetNewIssuessetWatchedFieldsISSUE_TYPE_NAMEDELETEISSUEgetDelayauthenticationHandleroriginaltargetADDISSUELINKcreateConsumersetSendOnlyUpdatedField	isEnabledISSUE_ASSIGNEEencode	ISSUE_KEY
-ISSUE_TYPE_ID	NEWISSUESISSUE_COMPONENTSisLenientProperties
-ADDCOMMENT	getClient
-setJiraUrl
-urlPatternvaluesTRANSITIONISSUE
-getOptionType
-getVersionPARENT_ISSUE_KEYschemeloadconsumerKey
-getBaseUrl
-latestIssueId	setClient
-MINUTES_SPENTpublish
-getPrivateKeycreateEndpoint
-propertiesauthorizationServerUrlsendOnlyUpdatedFieldcopygetUrix0clearThreadLocalContextgetVerificationCode
-setPrivateKeylambda$registerConverters$0isSendOnlyUpdatedFieldPROPERTY_NAMES�4   com util ScheduledPollConsumer JiraEndpoint ApplicationProperties  OAuthAuthenticatedRequestBuilder RestClientApplicationProperties
-MavenUtils firstVersion DefaultRequestBuilder !DefaultComponentVerifierExtension 	atlassian 	REPORTING UriPath
-HttpClient EndpointUriFactory Consumer TransitionIssueProducer oauth FileConverterLoader api 50 net Integer Category Status,Priority required UriParam java advanced slf4j UpdateIssueProducer annotations CamelContextAware scheme AbstractJiraConsumer io JiraType JiraOAuthAuthenticationHandler DefaultRequest 2 OAuthRsaSigner DeferredContextBinding !AsynchronousJiraRestClientFactory TypeConverterLoaderException OAuthGetAccessToken ConversionMethod Endpoint Issue 6000 spec Map internal ThreadLocalContextManager security Set TypeConverterRegistry IOException client URI apache WatcherProducer support HashMap
-JiraComponent AddCommentProducer executor DefaultProducer GenericFile "OAuthAsynchronousHttpClientFactory Class InvalidPayloadException title JiraVerifierExtension 	Component FetchCommentsProducer JiraEndpointUriFactory OAuthParameters syntax
-FileConverter AddWorkLogProducer createClient PropertyConfigurerSupport NewIssuesConsumer Pattern OAuthHttpClientDecorator 	Processor ResponsePromise async file 	component DeleteIssueProducer 	Converter Method UriEndpoint 	jira:type NoSuchAlgorithmException AddIssueProducer PropertyConfigurerGetter true FetchIssueProducer AuthenticationHandler producer DisposableHttpClient UrlMode javax 	Cloneable TypeConverterLoader event Long File httpcomponents
-JiraConstants Enum EventPublisher AddIssueLinkProducer JiraOAuthGetAccessToken auth NewCommentsConsumer spi InvalidKeySpecException JiraRestClient ComponentVerifierExtension jira 	Exception JiraEndpointConfigurer Logger
-annotation 1 String WatchUpdatesConsumer Producer AttachFileProducer defaultValue Nonnull secret 3.0 camel CamelContext google EndpointUriFactorySupport Result List Comment 	extension URISyntaxException A Exchange domain NoOpEventPublisher regex JiraConfiguration ResponseTransformation Date Jira Metadata GeneratedPropertyConfigurer
-httpclient rest SimpleTypeConverter DefaultEndpoint verifier DefaultComponent sal Object org generateLoader lang Request value 	UriParams label DefaultHttpClientFactory consumer API Builder JiraComponentConfigurer &OAuthAsynchronousJiraRestClientFactory category�' 
-nt�>q
-�.
-)
-�*�1_Y��1}� <
-g{��2
-6Z-i�%jD
-7�
-<w
-/O+ &p;�)Hls~o�&�=�8b4z�A�59�V k�� �'>��#^,1�IX�.\�
-|
-�
-�#[
-F}
-Q
-
-B
-�2
-�
-r
-
-�
-
-N
-'
-K
-�/%xU�
-(vG�*	��3W
-hCucR�]Mf!?y��dm:`�,"
-L@�$�"E�!0\
-�
-T � VO &  :     =     z  �
-  	  7    s  l  Z   F
-  ;   �  �$ G
-   > H   �  R  �  :  4   �"  Q  4  X  \   F &  �'  9  �  �  �%  �      J   �(  )2      �   1 d ,7  2 F  E 4)  Y      p 6 7? ?  ,  #  {  $  D  �  W  j    �  h  T  [  8  .  @  B  -  5  b  `  	
-	  !#$%"*+"$	/08$9<>CDEIJDLI5O1QRTL|��    | J s <    <� +
-  � A '   � 1 C �R    �$ I   �,    1   3�- �G : M n   M  5    F 2 ~  PX 1  �
- e N   t  � S    1�  ? �S �:     O      M N    �  � [     ?       � PK   VO + 1 @ C �1 MAB . f D   �T    E  %     �G    k C   5  Q k 	   �X    M .# c `    1  � � 1   1     g    �L    a	 7-. K%U 1�  9 �Sr |  �
-PX �Q I   V 
-/ m i 01 �.�' E 5 % �U    q $ �> �(        ^  @�- � 
-   � 1' C�& �& IN �/ /� 	" �S z  Y j  O G     7   	  �F �=  �# � 1% C�& �  �D�N�5 b "   ]  �     > VO + �I E  �, O   G * Yx�2 �    h� " �S �A   X �< 5   �3  �D *    �K  � �2 G �P �  F  M �    �E  : 1    �� " �S 1     23 �? = F $ 1  �
-.  7 7 �M H;< C�	+ p  �
- 4 =  1  �O \
-  :�{# ,    u  � �V   	 ?
-  ) M .6 # �?	 A   W   	M     �B   M �W�
-    �)  �! �B M UF � 1& C 1 I �F)O�#   : 1  "   1 & 8 1 ! 3�- �  5 @�- B) 3   T0�
- �( �C �
-" �% �;��? ���-	8�	(  w   ! ��	 v Y �9 3	 C Z : # > T��? �8��? �7 6��? Y
-��-	�/2O��	�-	�/) �0��? ��? L��? � 9 �P��	e�-	�/7?�� I +S I� O��-	8�	�+��? )��-	8�	� �
- _� �* �- _� �H ��-	8�	"��? y �  o�
- ���? ; �" � Q��-	8�	$O��	3�Y R l �6 �4 I
-��-	d��? � J � ���? �F��-	8�	� � - �J �5 ���	�-	�/��A }��? ( ; �#�� �@��? H D ' &{   Sz +/#p|   Sz +4
-m�   Zu!  /a);o!  #;SZ\IU%g1 \gJr[wdV t!  Za)n!,   \4Sk�  6=?I<>GB8,C	THD7J) �!-   $��!   -zAR]+:.Hu?|� !4   \{�!-   $�	!-   $z!  
-Z\=�!-   $�
-!-   $s�!6  *ZaDP�!-   $f1  ^2U�(v!  O3	Za6)7V>_�!-  Z8�=� .xmp��1@  MN'E1QA5Z^kny!B   f8z y3&Yo
-EKq	h!G @\-c	e
-��+	}�!-   $~
->z�  ^Wil!K K%!"LZ !'"T
-L*NBXbs��4S�0S
-	�
-$	}P	aJ	�
-x!H  $v�!-   $�
-!-   $j!L &F:P09(\5<QO,01h9CF`Gj(l� �!-  R$}z	 2Z^ti!,   \4S@q!U  Z\M

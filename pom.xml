@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sixgroup.sixsense</groupId>
@@ -11,5 +12,35 @@
         <module>modules/camel-jira</module>
         <module>modules/camel-jira-kafka-connector</module>
         <module>modules/pipeline-jira</module>
-  </modules>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>repsy</id>
+            <name>Repsy Cloud Repo</name>
+            <!-- ################################################################# -->
+            <!-- Please change the following URL with your repsy username -->
+            <url>https://repo.repsy.io/mvn/myuser/default</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>repsy</id>
+            <name>repsy</name>
+            <url>https://repo.repsy.io/mvn/jbadeau/default</url>
+        </repository>
+        <snapshotRepository>
+            <id>repsy</id>
+            <name>repsy</name>
+            <url>https://repo.repsy.io/mvn/jbadeau/default</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
