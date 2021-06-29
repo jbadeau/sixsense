@@ -87,7 +87,7 @@ releases:
     values:
       - values/dev/telegraf/values.yaml
 
-   pipeline
+  # pipeline
   - name: pipeline-jira
     namespace: sixsense-dev
     chart: ../modules/pipeline-jira/.helm
@@ -98,7 +98,7 @@ releases:
     values:
       - values/dev/pipeline-jira/values.yaml
 
-   microcks
+   # microcks
   - name: microcks
     namespace: sixsense-dev
     chart: microcks/microcks
@@ -107,7 +107,7 @@ releases:
     values:
       - values/dev/microcks/values.yaml
 
-   backstage
+  # backstage
   - name: backstage
     namespace: sixsense-dev
     chart: ../charts/backstage
