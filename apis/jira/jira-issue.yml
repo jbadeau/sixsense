@@ -1,0 +1,364 @@
+asyncapi: '2.0.0'
+id: 'io.confluent.connect.avro.jira.issue'
+info:
+  title: Jira Issue
+  version: 0.1.2
+  description: Jira issue
+defaultContentType: application/json
+channels:
+  user/signedup:
+    description: Jira issues
+    subscribe:
+      summary: Receive informations about user signed up
+      operationId: findAllIssues
+      message:
+        description: An event describing that a user just signed up.
+        bindings:
+          kafka:
+            key:
+              type: string
+              description: Timestamp of event as milliseconds since 1st Jan 1970
+        traits:
+          - $ref: '#/components/messageTraits/commonHeaders'
+        headers:
+          type: object
+          properties:
+            sentAt:
+              type: string
+              format: date-time
+              description: Date and time when the event was sent
+        contentType: avro/binary
+        schemaFormat: application/vnd.apache.avro+json;version=1.9.0
+        payload:
+          $ref: './jira-issue.avsc#/ConnectDefault'
+        examples:
+          - issue2:
+              summary: Issue 2
+              payload:
+                expand: operations,versionedRepresentations,editmeta,changelog,renderedFields
+                id: '10001'
+                self: https://six-group.atlassian.net/rest/api/2/issue/10001
+                key: SIXSENSE-2
+                fields:
+                  statuscategorychangedate: 2021-05-27T12:13:49.836+0000
+                  issuetype:
+                    self: https://six-group.atlassian.net/rest/api/2/issuetype/10001
+                    id: '10001'
+                    description: Functionality or a feature expressed as a user goal.
+                    iconUrl: >-
+                      https://six-group.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype
+                    name: Story
+                    subtask: false
+                    avatarId: 10315
+                    hierarchyLevel: 0
+                  timespent: null
+                  customfield_10030: null
+                  project:
+                    self: https://six-group.atlassian.net/rest/api/2/project/10000
+                    id: '10000'
+                    key: SIXSENSE
+                    name: sixsense
+                    projectTypeKey: software
+                    simplified: false
+                    avatarUrls:
+                      48x48: >-
+                        https://six-group.atlassian.net/secure/projectavatar?pid=10000&avatarId=10407
+                      24x24: >-
+                        https://six-group.atlassian.net/secure/projectavatar?size=small&s=small&pid=10000&avatarId=10407
+                      16x16: >-
+                        https://six-group.atlassian.net/secure/projectavatar?size=xsmall&s=xsmall&pid=10000&avatarId=10407
+                      32x32: >-
+                        https://six-group.atlassian.net/secure/projectavatar?size=medium&s=medium&pid=10000&avatarId=10407
+                  fixVersions: []
+                  aggregatetimespent: null
+                  resolution: null
+                  customfield_10027: []
+                  customfield_10028: null
+                  customfield_10029: null
+                  resolutiondate: null
+                  workratio: -1
+                  lastViewed: null
+                  watches:
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/watchers
+                    watchCount: 1
+                    isWatching: false
+                  created: 2021-05-27T12:13:49.570+0000
+                  customfield_10020: null
+                  customfield_10021: null
+                  customfield_10022: null
+                  priority:
+                    self: https://six-group.atlassian.net/rest/api/2/priority/3
+                    iconUrl: https://six-group.atlassian.net/images/icons/priorities/medium.svg
+                    name: Medium
+                    id: '3'
+                  customfield_10023: null
+                  customfield_10024: null
+                  customfield_10025: null
+                  labels: []
+                  customfield_10026: null
+                  customfield_10016: null
+                  customfield_10017: null
+                  customfield_10018:
+                    hasEpicLinkFieldDependency: false
+                    showField: false
+                    nonEditableReason:
+                      reason: PLUGIN_LICENSE_ERROR
+                      message: The Parent Link is only available to Jira Premium users.
+                  customfield_10019: '0|i00007:'
+                  timeestimate: null
+                  aggregatetimeoriginalestimate: null
+                  versions: []
+                  issuelinks: []
+                  assignee: null
+                  updated: 2021-05-27T12:13:49.570+0000
+                  status:
+                    self: https://six-group.atlassian.net/rest/api/2/status/10000
+                    description: ''
+                    iconUrl: https://six-group.atlassian.net/
+                    name: To Do
+                    id: '10000'
+                    statusCategory:
+                      self: https://six-group.atlassian.net/rest/api/2/statuscategory/2
+                      id: 2
+                      key: new
+                      colorName: blue-gray
+                      name: To Do
+                  components: []
+                  timeoriginalestimate: null
+                  description: null
+                  customfield_10010: null
+                  customfield_10014: null
+                  customfield_10015: null
+                  customfield_10005: null
+                  customfield_10006: null
+                  customfield_10007: null
+                  security: null
+                  customfield_10008: null
+                  customfield_10009: null
+                  aggregatetimeestimate: null
+                  summary: test2
+                  creator:
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  subtasks: []
+                  reporter:
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  aggregateprogress:
+                    progress: 0
+                    total: 0
+                  customfield_10000: '{}'
+                  customfield_10001: null
+                  customfield_10002: null
+                  customfield_10003: null
+                  customfield_10004: null
+                  environment: null
+                  duedate: null
+                  progress:
+                    progress: 0
+                    total: 0
+                  votes:
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/votes
+                    votes: 0
+                    hasVoted: false
+          - issue1:
+              summary: Issue 1
+              payload:
+                expand: operations,versionedRepresentations,editmeta,changelog,renderedFields
+                id: '10000'
+                self: https://six-group.atlassian.net/rest/api/2/issue/10000
+                key: SIXSENSE-1
+                fields:
+                  statuscategorychangedate: 2021-05-27T12:20:11.496+0000
+                  issuetype:
+                    self: https://six-group.atlassian.net/rest/api/2/issuetype/10001
+                    id: '10001'
+                    description: Functionality or a feature expressed as a user goal.
+                    iconUrl: >-
+                      https://six-group.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype
+                    name: Story
+                    subtask: false
+                    avatarId: 10315
+                    hierarchyLevel: 0
+                  timespent: null
+                  customfield_10030: null
+                  project:
+                    self: https://six-group.atlassian.net/rest/api/2/project/10000
+                    id: '10000'
+                    key: SIXSENSE
+                    name: sixsense
+                    projectTypeKey: software
+                    simplified: false
+                    avatarUrls:
+                      48x48: >-
+                        https://six-group.atlassian.net/secure/projectavatar?pid=10000&avatarId=10407
+                      24x24: >-
+                        https://six-group.atlassian.net/secure/projectavatar?size=small&s=small&pid=10000&avatarId=10407
+                      16x16: >-
+                        https://six-group.atlassian.net/secure/projectavatar?size=xsmall&s=xsmall&pid=10000&avatarId=10407
+                      32x32: >-
+                        https://six-group.atlassian.net/secure/projectavatar?size=medium&s=medium&pid=10000&avatarId=10407
+                  fixVersions: []
+                  aggregatetimespent: null
+                  resolution: null
+                  customfield_10027: []
+                  customfield_10028: null
+                  customfield_10029: null
+                  resolutiondate: null
+                  workratio: -1
+                  lastViewed: null
+                  watches:
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/watchers
+                    watchCount: 1
+                    isWatching: false
+                  created: 2021-05-27T11:45:28.947+0000
+                  customfield_10020: null
+                  customfield_10021: null
+                  customfield_10022: null
+                  priority:
+                    self: https://six-group.atlassian.net/rest/api/2/priority/3
+                    iconUrl: https://six-group.atlassian.net/images/icons/priorities/medium.svg
+                    name: Medium
+                    id: '3'
+                  customfield_10023: null
+                  customfield_10024: null
+                  customfield_10025: null
+                  labels: []
+                  customfield_10026: null
+                  customfield_10016: null
+                  customfield_10017: null
+                  customfield_10018:
+                    hasEpicLinkFieldDependency: false
+                    showField: false
+                    nonEditableReason:
+                      reason: PLUGIN_LICENSE_ERROR
+                      message: The Parent Link is only available to Jira Premium users.
+                  customfield_10019: '0|hzzzzz:'
+                  aggregatetimeoriginalestimate: null
+                  timeestimate: null
+                  versions: []
+                  issuelinks: []
+                  assignee:
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  updated: 2021-05-27T12:20:11.495+0000
+                  status:
+                    self: https://six-group.atlassian.net/rest/api/2/status/3
+                    description: This issue is being actively worked on at the moment by the assignee.
+                    iconUrl: https://six-group.atlassian.net/images/icons/statuses/inprogress.png
+                    name: In Progress
+                    id: '3'
+                    statusCategory:
+                      self: https://six-group.atlassian.net/rest/api/2/statuscategory/4
+                      id: 4
+                      key: indeterminate
+                      colorName: yellow
+                      name: In Progress
+                  components: []
+                  timeoriginalestimate: null
+                  description: null
+                  customfield_10010: null
+                  customfield_10014: null
+                  customfield_10015: null
+                  customfield_10005: null
+                  customfield_10006: null
+                  customfield_10007: null
+                  security: null
+                  customfield_10008: null
+                  aggregatetimeestimate: null
+                  customfield_10009: null
+                  summary: test
+                  creator:
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  subtasks: []
+                  reporter:
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: >-
+                        https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  aggregateprogress:
+                    progress: 0
+                    total: 0
+                  customfield_10000: '{}'
+                  customfield_10001: null
+                  customfield_10002: null
+                  customfield_10003: null
+                  customfield_10004: null
+                  environment: null
+                  duedate: null
+                  progress:
+                    progress: 0
+                    total: 0
+                  votes:
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/votes
+                    votes: 0
+                    hasVoted: false

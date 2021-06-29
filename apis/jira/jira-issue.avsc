@@ -1,0 +1,176 @@
+{
+  "schema": {
+    "type": "record",
+    "name": "ConnectDefault",
+    "namespace": "io.confluent.connect.avro",
+    "fields": [
+      {
+        "name": "type",
+        "type": "string"
+      },
+      {
+        "name": "data",
+        "type": {
+          "type": "record",
+          "name": "data",
+          "namespace": "",
+          "fields": [
+            {
+              "name": "expand",
+              "type": "string"
+            },
+            {
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            },
+            {
+              "name": "key",
+              "type": "string"
+            },
+            {
+              "name": "fields",
+              "type": {
+                "type": "record",
+                "name": "fields",
+                "namespace": "data",
+                "fields": [
+                  {
+                    "name": "issuetype",
+                    "type": {
+                      "type": "record",
+                      "name": "issuetype",
+                      "namespace": "data.fields",
+                      "fields": [
+                        {
+                          "name": "self",
+                          "type": "string"
+                        },
+                        {
+                          "name": "id",
+                          "type": "string"
+                        },
+                        {
+                          "name": "description",
+                          "type": "string"
+                        },
+                        {
+                          "name": "iconUrl",
+                          "type": "string"
+                        },
+                        {
+                          "name": "name",
+                          "type": "string"
+                        },
+                        {
+                          "name": "subtask",
+                          "type": "boolean"
+                        },
+                        {
+                          "name": "avatarId",
+                          "type": "int"
+                        },
+                        {
+                          "name": "hierarchyLevel",
+                          "type": "int"
+                        }
+                      ],
+                      "connect.name": "data.fields.issuetype"
+                    }
+                  },
+                  {
+                    "name": "description",
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "default": null
+                  },
+                  {
+                    "name": "resolution",
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "default": null
+                  },
+                  {
+                    "name": "updated",
+                    "type": "string"
+                  },
+                  {
+                    "name": "status",
+                    "type": {
+                      "type": "record",
+                      "name": "status",
+                      "namespace": "data.fields",
+                      "fields": [
+                        {
+                          "name": "self",
+                          "type": "string"
+                        },
+                        {
+                          "name": "description",
+                          "type": "string"
+                        },
+                        {
+                          "name": "iconUrl",
+                          "type": "string"
+                        },
+                        {
+                          "name": "name",
+                          "type": "string"
+                        },
+                        {
+                          "name": "id",
+                          "type": "string"
+                        },
+                        {
+                          "name": "statusCategory",
+                          "type": {
+                            "type": "record",
+                            "name": "statusCategory",
+                            "namespace": "data.fields.status",
+                            "fields": [
+                              {
+                                "name": "self",
+                                "type": "string"
+                              },
+                              {
+                                "name": "id",
+                                "type": "int"
+                              },
+                              {
+                                "name": "key",
+                                "type": "string"
+                              },
+                              {
+                                "name": "colorName",
+                                "type": "string"
+                              },
+                              {
+                                "name": "name",
+                                "type": "string"
+                              }
+                            ],
+                            "connect.name": "data.fields.status.statusCategory"
+                          }
+                        }
+                      ],
+                      "connect.name": "data.fields.status"
+                    }
+                  }
+                ],
+                "connect.name": "data.fields"
+              }
+            }
+          ],
+          "connect.name": "data"
+        }
+      }
+    ]
+  }
+}
