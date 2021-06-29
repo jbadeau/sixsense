@@ -1,5 +1,5 @@
-asyncapi: '2.0.0'
-id: 'io.confluent.connect.avro.jira.issue'
+asyncapi: 2.0.0
+id: io.confluent.connect.avro.jira.issue
 info:
   title: Jira Issue
   version: 0.1.2
@@ -35,14 +35,15 @@ channels:
           - issue2:
               summary: Issue 2
               payload:
-                expand: operations,versionedRepresentations,editmeta,changelog,renderedFields
+                expand: >-
+                  operations,versionedRepresentations,editmeta,changelog,renderedFields
                 id: '10001'
-                self: https://six-group.atlassian.net/rest/api/2/issue/10001
+                self: 'https://six-group.atlassian.net/rest/api/2/issue/10001'
                 key: SIXSENSE-2
                 fields:
-                  statuscategorychangedate: 2021-05-27T12:13:49.836+0000
+                  statuscategorychangedate: '2021-05-27T12:13:49.836+0000'
                   issuetype:
-                    self: https://six-group.atlassian.net/rest/api/2/issuetype/10001
+                    self: 'https://six-group.atlassian.net/rest/api/2/issuetype/10001'
                     id: '10001'
                     description: Functionality or a feature expressed as a user goal.
                     iconUrl: >-
@@ -54,7 +55,7 @@ channels:
                   timespent: null
                   customfield_10030: null
                   project:
-                    self: https://six-group.atlassian.net/rest/api/2/project/10000
+                    self: 'https://six-group.atlassian.net/rest/api/2/project/10000'
                     id: '10000'
                     key: SIXSENSE
                     name: sixsense
@@ -79,16 +80,18 @@ channels:
                   workratio: -1
                   lastViewed: null
                   watches:
-                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/watchers
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/watchers
                     watchCount: 1
                     isWatching: false
-                  created: 2021-05-27T12:13:49.570+0000
+                  created: '2021-05-27T12:13:49.570+0000'
                   customfield_10020: null
                   customfield_10021: null
                   customfield_10022: null
                   priority:
-                    self: https://six-group.atlassian.net/rest/api/2/priority/3
-                    iconUrl: https://six-group.atlassian.net/images/icons/priorities/medium.svg
+                    self: 'https://six-group.atlassian.net/rest/api/2/priority/3'
+                    iconUrl: >-
+                      https://six-group.atlassian.net/images/icons/priorities/medium.svg
                     name: Medium
                     id: '3'
                   customfield_10023: null
@@ -110,15 +113,16 @@ channels:
                   versions: []
                   issuelinks: []
                   assignee: null
-                  updated: 2021-05-27T12:13:49.570+0000
+                  updated: '2021-05-27T12:13:49.570+0000'
                   status:
-                    self: https://six-group.atlassian.net/rest/api/2/status/10000
+                    self: 'https://six-group.atlassian.net/rest/api/2/status/10000'
                     description: ''
-                    iconUrl: https://six-group.atlassian.net/
+                    iconUrl: 'https://six-group.atlassian.net/'
                     name: To Do
                     id: '10000'
                     statusCategory:
-                      self: https://six-group.atlassian.net/rest/api/2/statuscategory/2
+                      self: >-
+                        https://six-group.atlassian.net/rest/api/2/statuscategory/2
                       id: 2
                       key: new
                       colorName: blue-gray
@@ -186,20 +190,22 @@ channels:
                     progress: 0
                     total: 0
                   votes:
-                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/votes
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/votes
                     votes: 0
                     hasVoted: false
           - issue1:
               summary: Issue 1
               payload:
-                expand: operations,versionedRepresentations,editmeta,changelog,renderedFields
+                expand: >-
+                  operations,versionedRepresentations,editmeta,changelog,renderedFields
                 id: '10000'
-                self: https://six-group.atlassian.net/rest/api/2/issue/10000
+                self: 'https://six-group.atlassian.net/rest/api/2/issue/10000'
                 key: SIXSENSE-1
                 fields:
-                  statuscategorychangedate: 2021-05-27T12:20:11.496+0000
+                  statuscategorychangedate: '2021-05-27T12:20:11.496+0000'
                   issuetype:
-                    self: https://six-group.atlassian.net/rest/api/2/issuetype/10001
+                    self: 'https://six-group.atlassian.net/rest/api/2/issuetype/10001'
                     id: '10001'
                     description: Functionality or a feature expressed as a user goal.
                     iconUrl: >-
@@ -211,7 +217,7 @@ channels:
                   timespent: null
                   customfield_10030: null
                   project:
-                    self: https://six-group.atlassian.net/rest/api/2/project/10000
+                    self: 'https://six-group.atlassian.net/rest/api/2/project/10000'
                     id: '10000'
                     key: SIXSENSE
                     name: sixsense
@@ -236,16 +242,18 @@ channels:
                   workratio: -1
                   lastViewed: null
                   watches:
-                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/watchers
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/watchers
                     watchCount: 1
                     isWatching: false
-                  created: 2021-05-27T11:45:28.947+0000
+                  created: '2021-05-27T11:45:28.947+0000'
                   customfield_10020: null
                   customfield_10021: null
                   customfield_10022: null
                   priority:
-                    self: https://six-group.atlassian.net/rest/api/2/priority/3
-                    iconUrl: https://six-group.atlassian.net/images/icons/priorities/medium.svg
+                    self: 'https://six-group.atlassian.net/rest/api/2/priority/3'
+                    iconUrl: >-
+                      https://six-group.atlassian.net/images/icons/priorities/medium.svg
                     name: Medium
                     id: '3'
                   customfield_10023: null
@@ -283,15 +291,19 @@ channels:
                     active: true
                     timeZone: Etc/GMT
                     accountType: atlassian
-                  updated: 2021-05-27T12:20:11.495+0000
+                  updated: '2021-05-27T12:20:11.495+0000'
                   status:
-                    self: https://six-group.atlassian.net/rest/api/2/status/3
-                    description: This issue is being actively worked on at the moment by the assignee.
-                    iconUrl: https://six-group.atlassian.net/images/icons/statuses/inprogress.png
+                    self: 'https://six-group.atlassian.net/rest/api/2/status/3'
+                    description: >-
+                      This issue is being actively worked on at the moment by
+                      the assignee.
+                    iconUrl: >-
+                      https://six-group.atlassian.net/images/icons/statuses/inprogress.png
                     name: In Progress
                     id: '3'
                     statusCategory:
-                      self: https://six-group.atlassian.net/rest/api/2/statuscategory/4
+                      self: >-
+                        https://six-group.atlassian.net/rest/api/2/statuscategory/4
                       id: 4
                       key: indeterminate
                       colorName: yellow
@@ -359,6 +371,7 @@ channels:
                     progress: 0
                     total: 0
                   votes:
-                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/votes
+                    self: >-
+                      https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/votes
                     votes: 0
                     hasVoted: false
