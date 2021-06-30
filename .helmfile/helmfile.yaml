@@ -35,7 +35,7 @@ releases:
   - name: minio
     namespace: sixsense-dev
     chart: bitnami/minio
-    version: 6.8.3
+    version: 7.1.0
     values:
       - values/dev/minio/values.yaml
 
