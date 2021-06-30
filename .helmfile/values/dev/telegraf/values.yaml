@@ -27,8 +27,8 @@ config:
         bucket: primary
   inputs:
     - kafka_consumer:
-        brokers: ["kafka:9092"]
-        topics: ["oslc-topic-changerequests"]
+        brokers: ["sixsense-kafka-bootstrap:9092"]
+        topics: ["JiraIssues-0.1.0-master-jira-issues"]
         max_message_len: 1000000
         data_format: "json"
 pdb:
