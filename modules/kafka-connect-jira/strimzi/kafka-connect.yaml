@@ -1,0 +1,80 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: jira-source-connector 
+  annotations:
+    strimzi.io/use-connector-resources: "true"
+spec:
+  replicas: 1
+  bootstrapServers: kafka-cluster-kafka-bootstrap:9092
+  config:
+    group.id: jira
+    offset.storage.topic: jira-offsets
+    config.storage.topic: jira-config
+    status.storage.topic: jira-storage
+    key.converter: io.confluent.connect.avro.AvroConverter 
+    value.converter: io.confluent.connect.avro.AvroConverter
+    config.storage.replication.factor: 3
+    offset.storage.replication.factor: 3
+    status.storage.replication.factor: 3
+    key.converter.schema.registry.url: http://localhost:8081
+    value.converter.schema.registry.url: http://localhost:8081
+  externalConfiguration:
+    volumes:
+      - name: connector-config
+        configMap:
+          name: jira-source-connect
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "1"
+      memory: 2Gi
+  logging: 
+    type: inline
+    loggers:
+      log4j.rootLogger: "INFO"
+  readinessProbe: 
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
+  livenessProbe:
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
+  jvmOptions: 
+    "-Xmx": "1g"
+    "-Xms": "1g"
+  image: tomassatka/cp-kafka-connect-base:1.0.3
+  template:
+    connectContainer:
+      env:
+        - name: "CONNECTOR_CONFIG_PROPERTIES"
+          value: "/opt/kafka/external-configuration/connector-config/config.properties"
+        - name: "CONNECT_BOOTSTRAP_SERVERS"
+          value: "kafka-cluster-kafka-bootstrap:9092"
+        - name: "CONNECT_GROUP_ID"
+          value: "jira"
+        - name: "CONNECT_CONFIG_STORAGE_TOPIC"
+          value: "jira-config"
+        - name: "CONNECT_OFFSET_STORAGE_TOPIC"
+          value: "jira-offsets"
+        - name: "CONNECT_STATUS_STORAGE_TOPIC"
+          value: "jira-status"
+        - name: "CONNECT_KEY_CONVERTER"
+          value: "io.confluent.connect.avro.AvroConverter"
+        - name: "CONNECT_VALUE_CONVERTER"
+          value: "io.confluent.connect.avro.AvroConverter"
+        - name: "CONNECT_INTERNAL_KEY_CONVERTER"
+          value: "io.confluent.connect.avro.AvroConverter"
+        - name: "CONNECT_INTERNAL_VALUE_CONVERTER"
+          value: "io.confluent.connect.avro.AvroConverter"
+        - name: "CONNECT_REST_ADVERTISED_HOST_NAME"
+          value: "localhost"
+        - name: "CONNECT_PLUGIN_PATH"
+          value: "/usr/share/java,/usr/share/confluent-hub-components"
+        - name: "CONNECT_OFFSET_STORAGE_FILE_FILENAME"
+          value: "/tmp/connect.offsets"
+        - name: "CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL"
+          value: "http://localhost:8081"
+        - name: "CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL"
+          value: "http://localhost:8081"

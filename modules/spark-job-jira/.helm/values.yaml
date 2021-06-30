@@ -1,0 +1,20 @@
+image:
+  repository: ghcr.io/jbadeau/spark-job-jira
+  pullPolicy: Always
+  pullSecret: ghcr.io
+  tag: latest
+driver:
+  env:
+    SCHEMA_REGISTRY_URL: 'http://cp-schema-registry:8081'
+
+    KAFKA_BOOTSTRAP_SERVER: 'sixsense-kafka-bootstrap:9092'
+    KAFKA_GROUP_ID: 'sixsense-jira'
+    KAFKA_TOPIC_SOURCE_JIRA_ISSUES: 'JiraIssues-0.1.0-source-jira-issues'
+    KAFKA_TOPIC_JIRA_ISSUES: 'JiraIssues-0.1.0-master-jira-issues'
+
+    SPARK_CHECKPOINT_LOCATION: '/tmp/checkpoint'
+
+    MINIO_ENDPOINT: 'http://10.217.5.127:9000'
+    MINIO_BUCKET: 's3a://sixsense-jira'
+
+    DELTA_TABLE_JIRA_ISSUE: 'JIRA_ISSUES'

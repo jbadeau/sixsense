@@ -163,5 +163,4 @@
             <url>https://repo.repsy.io/mvn/jbadeau/default</url>
         </snapshotRepository>
     </distributionManagement>
-
 </project>
