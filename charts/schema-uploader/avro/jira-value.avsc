@@ -1,0 +1,268 @@
+{
+  "type": "record",
+  "name": "SimplifiedIssue",
+  "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "key",
+      "type": "string"
+    },
+    {
+      "name": "self",
+      "type": "string"
+    },
+    {
+      "name": "summary",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedStatus",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "iconUrl",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "statusCategory",
+            "type": {
+              "type": "record",
+              "name": "SimplifiedStatusCategory",
+              "namespace": "com.atlassian.jira.rest.client.api.simple",
+              "fields": [
+                {
+                  "name": "id",
+                  "type": "long"
+                },
+                {
+                  "name": "self",
+                  "type": "string"
+                },
+                {
+                  "name": "key",
+                  "type": "string"
+                },
+                {
+                  "name": "colorName",
+                  "type": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "issueType",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedIssueType",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "iconUri",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "isSubtask",
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    {
+      "name": "project",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedBasicProject",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "reporter",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedUser",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "emailAddress",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "name": "timezone",
+            "type": "string"
+          },
+          {
+            "name": "displayName",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "assignee",
+      "type": ["null", "com.atlassian.jira.rest.client.api.domain.simple.SimplifiedUser"],
+      "default": null
+    },
+    {
+      "name": "priority",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedBasicPriority",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "votes",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedBasicVotes",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "votes",
+            "type": "int"
+          },
+          {
+            "name": "hasVoted",
+            "type": "boolean"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "watchers",
+      "type": {
+        "type": "record",
+        "name": "SimplifiedBasicWatchers",
+        "namespace": "com.atlassian.jira.rest.client.api.domain.simple",
+        "fields": [
+          {
+            "name": "numWatchers",
+            "type": "int"
+          },
+          {
+            "name": "isWatching",
+            "type": "boolean"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

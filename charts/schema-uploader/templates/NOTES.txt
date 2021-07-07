@@ -1,0 +1,12 @@
+Confluent Schema-Registry schemas are now uploaded on your Kubernetes cluster. For more information on
+Schema-Registry, please navigate to https://github.com/confluentinc/schema-registry
+
+Schema-registry:
+  url: {{ .Values.schemaRegistry.url }}
+  subjects check: http://{{ .Values.schemaRegistry.url }}/subjects
+
+Schemas:
+  {{- range .Values.jobs }}
+    schema name: {{ .name }}
+    file: {{ .file }}
+  {{- end }}

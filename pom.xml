@@ -13,6 +13,7 @@
         <module>modules/kafka-connect-jira</module>
         <module>modules/camel-jira</module>
         <module>modules/camel-jira-kafka-connector</module>
+        <module>modules/camel-jira-avro-converter</module>
         <module>modules/spark-job-jira</module>
     </modules>
 

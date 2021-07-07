@@ -1,0 +1,7 @@
+schemaRegistry:
+  url: schema-registry:8081
+jobs:
+  - name: jira-key
+    file: jira-key.avsc
+  - name: jira-value
+    file: jira-value.avsc
