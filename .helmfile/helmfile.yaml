@@ -1,9 +1,4 @@
-# Chart repositories used from within this state file
-#
-# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
-# to use repositories other than the official repository or one backend by chartmuseum.
 repositories:
-  # To use official "stable" charts a.k.a https://github.com/helm/charts/tree/master/stable
   - name: stable
     url: https://charts.helm.sh/stable
   - name: incubator
@@ -23,6 +18,7 @@ releases:
   - name: spark-operator
     namespace: sixsense-dev
     chart: spark-operator/spark-operator
+    version: 1.1.3
     wait: true
     values:
       - values/dev/spark-operator/values.yaml
@@ -30,6 +26,7 @@ releases:
   - name: strimzi-kafka-operator
     namespace: sixsense-dev
     chart: strimzi/strimzi-kafka-operator
+    version: 0.24.0
     wait: true
     values:
       - values/dev/strimzi-kafka-operator/values.yaml
@@ -38,6 +35,7 @@ releases:
   - name: minio
     namespace: sixsense-dev
     chart: bitnami/minio
+    version: 7.1.0
     values:
       - values/dev/minio/values.yaml
 
@@ -45,6 +43,7 @@ releases:
   - name: kafka-cluster
     namespace: sixsense-dev
     chart: ../charts/kafka-cluster
+    version: 0.1.0
     needs:
       - sixsense-dev/strimzi-kafka-operator
     wait: true
@@ -54,6 +53,7 @@ releases:
   - name: cp-schema-registry
     namespace: sixsense-dev
     chart: ../charts/cp-schema-registry
+    version: 1.2.3
     wait: true
     needs:
       - sixsense-dev/kafka-cluster
@@ -63,6 +63,7 @@ releases:
   - name: kafka-ui
     namespace: sixsense-dev
     chart: kafka-ui/kafka-ui
+    version: 0.0.1
     values:
       - values/dev/kafka-ui/values.yaml
 
@@ -71,6 +72,7 @@ releases:
   - name: kafka-connector
     namespace: sixsense-dev
     chart: ../charts/kafka-connector
+    version: 0.1.0
     wait: true
     needs:
       - sixsense-dev/cp-schema-registry
@@ -81,40 +83,45 @@ releases:
   - name: influxdb
     namespace: sixsense-dev
     chart: bitnami/influxdb
+    version: 2.2.9
     values:
       - values/dev/influxdb/values.yaml
 
   - name: telegraf
     namespace: sixsense-dev
     chart: influxdata/telegraf
+    version: 1.8.2
     needs:
       - sixsense-dev/influxdb
     values:
       - values/dev/telegraf/values.yaml
 
-   pipeline
-  - name: pipeline-jira
+  # jobs
+  - name: spark-job-jira
     namespace: sixsense-dev
-    chart: ../modules/pipeline-jira/.helm
+    chart: ../modules/spark-job-jira/.helm
+    version: 0.1.0
     needs:
       - sixsense-dev/kafka-connector
       - sixsense-dev/influxdb
       - sixsense-dev/minio
     values:
-      - values/dev/pipeline-jira/values.yaml
+      - values/dev/spark-job-jira/values.yaml
 
-   microcks
+   # microcks
   - name: microcks
     namespace: sixsense-dev
     chart: microcks/microcks
+    version: 1.2.1
     needs:
       - sixsense-dev/cp-schema-registry
     values:
       - values/dev/microcks/values.yaml
 
-   backstage
+  # backstage
   - name: backstage
     namespace: sixsense-dev
     chart: ../charts/backstage
+    version: 0.0.0
     values:
       - values/dev/backstage/values.yaml

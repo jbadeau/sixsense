@@ -7,10 +7,9 @@
   },
   "scripts": {
     "dev": "concurrently \"yarn start\" \"yarn start-backend\"",
-    "start": "yarn workspace app start",
-    "start-backend": "yarn workspace backend start",
+    "start": "lerna run start",
     "build": "lerna run build",
-    "build-image": "yarn workspace backend build-image",
+    "build-image": "lerna run build-image",
     "tsc": "tsc",
     "tsc:full": "tsc --skipLibCheck false --incremental false",
     "clean": "backstage-cli clean && lerna run clean",

@@ -75,3 +75,10 @@ docker run -p 9000:9000 \
   -e "MINIO_ROOT_PASSWORD=minioadmin" \
   minio/minio server /data
 ```
+
+Local Jira
+
+localhost:8080
+user: jbadeau
+password: jC9UAF4gC4$*An2
+access token: OTg4NTAwMTQ0MzM1Oq5gathNFpuVjdbCMmMiDUnqbK3T

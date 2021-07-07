@@ -110,12 +110,12 @@
     <distributionManagement>
         <repository>
             <id>repsy</id>
-            <name>repsy</name>
+            <name>My Private Maven Repositoty on Repsy</name>
             <url>https://repo.repsy.io/mvn/jbadeau/default</url>
         </repository>
         <snapshotRepository>
             <id>repsy</id>
-            <name>repsy</name>
+            <name>My Private Maven Repositoty on Repsy</name>
             <url>https://repo.repsy.io/mvn/jbadeau/default</url>
         </snapshotRepository>
     </distributionManagement>

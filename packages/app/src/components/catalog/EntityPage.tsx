@@ -50,7 +50,7 @@ import {
   EntityOwnershipCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EntityJiraOverviewCard, isJiraAvailable } from '@roadiehq/backstage-plugin-jira';
+import { EntityJiraOverviewCard } from '@roadiehq/backstage-plugin-jira';
 import {ExampleFetchComponent} from '@internal/plugin-sixsense-jira'
 
 const cicdContent = (

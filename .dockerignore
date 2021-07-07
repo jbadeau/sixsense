@@ -3,4 +3,5 @@ node_modules
 packages
 !packages/backend/dist
 !packages/app/dist
+!packages/app/default.conf.template
 plugins
