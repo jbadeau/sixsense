@@ -26,9 +26,9 @@ import java.util.Map;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.Worklog;
 import com.atlassian.jira.rest.client.api.domain.input.WorklogInput;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Worklog;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
@@ -58,7 +58,6 @@ import static org.apache.camel.test.junit5.TestSupport.assertIsInstanceOf;
 import static org.apache.camel.test.junit5.TestSupport.assertStringContains;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -139,8 +138,7 @@ public class AddWorkLogProducerTest extends CamelTestSupport {
         mockResult.expectedMessageCount(1);
         mockResult.assertIsSatisfied();
 
-        verify(issueRestClient).getIssue(backendIssue.getKey());
-        verify(issueRestClient).addWorklog(eq(backendIssue.getWorklogUri()), any(WorklogInput.class));
+        verify(issueRestClient).getIssue(backendIssue.getKey().toString());
     }
 
     @Test

@@ -21,7 +21,7 @@ import java.io.IOException;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
@@ -117,7 +117,7 @@ public class DeleteIssueProducerTest extends CamelTestSupport {
 
     @Test
     public void verifyDeleteIssue() throws InterruptedException {
-        String issueKey = issue.getKey();
+        String issueKey = issue.getKey().toString();
         template.sendBody(null);
         Issue retrievedIssue = issueRestClient.getIssue(issueKey).claim();
         assertNull(retrievedIssue);

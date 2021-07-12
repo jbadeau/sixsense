@@ -18,6 +18,7 @@ package com.atlassian.jira.rest.client.api.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 
 /**
  * Represents search results - links to issues matching given filter (JQL query) with basic

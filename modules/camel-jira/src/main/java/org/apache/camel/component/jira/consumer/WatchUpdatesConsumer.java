@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraConstants;
@@ -98,9 +98,9 @@ public class WatchUpdatesConsumer extends AbstractJiraConsumer {
 
         if (!Objects.equals(originalField, changedField)) {
             if (!((JiraEndpoint) getEndpoint()).isSendOnlyUpdatedField()) {
-                processExchange(changed, changed.getKey(), fieldName);
+                processExchange(changed, changed.getKey().toString(), fieldName);
             } else {
-                processExchange(changedField, changed.getKey(), fieldName);
+                processExchange(changedField, changed.getKey().toString(), fieldName);
             }
             return true;
         }

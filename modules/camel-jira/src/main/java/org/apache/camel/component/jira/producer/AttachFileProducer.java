@@ -18,10 +18,11 @@ package org.apache.camel.component.jira.producer;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.component.jira.JiraEndpoint;
@@ -40,7 +41,7 @@ public class AttachFileProducer extends DefaultProducer {
     }
 
     @Override
-    public void process(Exchange exchange) throws InvalidPayloadException {
+    public void process(Exchange exchange) throws InvalidPayloadException, URISyntaxException {
         String issueKey = exchange.getIn().getHeader(ISSUE_KEY, String.class);
         if (issueKey == null) {
             throw new IllegalArgumentException(
@@ -50,7 +51,7 @@ public class AttachFileProducer extends DefaultProducer {
         JiraRestClient client = ((JiraEndpoint) getEndpoint()).getClient();
         IssueRestClient issueClient = client.getIssueClient();
         Issue issue = issueClient.getIssue(issueKey).claim();
-        URI attachmentsUri = issue.getAttachmentsUri();
+        URI attachmentsUri = new URI(issue.getSelf().toString());
         issueClient.addAttachments(attachmentsUri, file);
     }
 }

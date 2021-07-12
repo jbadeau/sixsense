@@ -23,8 +23,8 @@ import java.util.Date;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Comment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Comment;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
@@ -121,10 +121,10 @@ public class AddCommentProducerTest extends CamelTestSupport {
     public void verifyLastComment() throws InterruptedException {
         template.sendBodyAndHeader(comment, ISSUE_KEY, backendIssue.getKey());
 
-        Issue issue = issueRestClient.getIssue(backendIssue.getKey()).claim();
+        Issue issue = issueRestClient.getIssue(backendIssue.getKey().toString()).claim();
         String lastComment = null;
         for (Comment c : issue.getComments()) {
-            lastComment = c.getBody();
+            lastComment = c.getBody().toString();
         }
         assertEquals(comment, lastComment);
         mockResult.expectedMessageCount(1);

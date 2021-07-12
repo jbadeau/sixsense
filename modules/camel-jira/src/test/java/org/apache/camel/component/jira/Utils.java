@@ -18,30 +18,31 @@ package org.apache.camel.component.jira;
 
 import java.net.URI;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import com.atlassian.jira.rest.client.api.StatusCategory;
-import com.atlassian.jira.rest.client.api.domain.Attachment;
-import com.atlassian.jira.rest.client.api.domain.BasicComponent;
-import com.atlassian.jira.rest.client.api.domain.BasicPriority;
-import com.atlassian.jira.rest.client.api.domain.BasicWatchers;
-import com.atlassian.jira.rest.client.api.domain.Comment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.IssueLink;
-import com.atlassian.jira.rest.client.api.domain.IssueLinkType;
-import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Priority;
-import com.atlassian.jira.rest.client.api.domain.Resolution;
-import com.atlassian.jira.rest.client.api.domain.Status;
-import com.atlassian.jira.rest.client.api.domain.User;
-import com.atlassian.jira.rest.client.api.domain.Worklog;
+import com.atlassian.jira.server.rest.client.api.domain.Attachment;
+import com.atlassian.jira.server.rest.client.api.domain.BasicComponent;
+import com.atlassian.jira.server.rest.client.api.domain.BasicPriority;
+import com.atlassian.jira.server.rest.client.api.domain.BasicWatchers;
+import com.atlassian.jira.server.rest.client.api.domain.Comment;
+import com.atlassian.jira.server.rest.client.api.domain.Direction;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.IssueLink;
+import com.atlassian.jira.server.rest.client.api.domain.IssueLinkType;
+import com.atlassian.jira.server.rest.client.api.domain.IssueType;
+import com.atlassian.jira.server.rest.client.api.domain.Resolution;
+import com.atlassian.jira.server.rest.client.api.domain.Status;
+import com.atlassian.jira.server.rest.client.api.domain.StatusCategory;
+import com.atlassian.jira.server.rest.client.api.domain.User;
+import com.atlassian.jira.server.rest.client.api.domain.Worklog;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.LoggerFactory;
 
 import static com.atlassian.jira.rest.client.api.domain.User.S48_48;
@@ -50,16 +51,17 @@ import static org.apache.camel.component.jira.JiraTestConstants.TEST_JIRA_URL;
 
 public final class Utils {
     public static User userAssignee;
+
     static {
         try {
-            userAssignee = new User(
-                    null, "user-test", "User Test", "user@test", true, null, buildUserAvatarUris("user-test", 10082L), null);
+            userAssignee = new User("user@test", true, "Europe/Zurich", "User Test", null, "user-test", null);
         } catch (Exception e) {
 
             LoggerFactory.getLogger(Utils.class).debug("Failed to build test user: {}", e.getMessage(), e);
         }
     }
-    private static IssueType issueType = new IssueType(null, 1L, "Bug", false, "Bug", null);
+
+    private static IssueType issueType = new IssueType(1L, "Bug", null, null, "Bug", false);
 
     private Utils() {
     }
@@ -73,33 +75,37 @@ public final class Utils {
             BasicPriority priority, User assignee, Collection<BasicComponent> components, BasicWatchers watchers) {
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + id);
         return new Issue(
-                summary, selfUri, KEY + "-" + id, id, null, issueType, null, description, priority, null, null, null,
-                assignee, null, null, null, null, null, components, null, null, null, null, null, null, null, watchers,
-                null, null, null, null, null);
+                id, KEY + "-" + id, selfUri.toString(), summary,
+                null, description, null, LocalDateTime.now(), null, null, issueType, null, null,
+                (components == null) ? null : new ArrayList<>(components), null,
+                assignee, null, null, null, null, null, null, null, null, null, null, watchers, null, null, null,
+                null, null);
     }
 
     public static Issue transitionIssueDone(Issue issue, Status status, Resolution resolution) {
         return new Issue(
-                issue.getSummary(), issue.getSelf(), issue.getKey(), issue.getId(), null, issue.getIssueType(),
-                status, issue.getDescription(), issue.getPriority(), resolution, null, null,
-                issue.getAssignee(), null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+                issue.getId(), issue.getKey(), issue.getSelf().toString(), issue.getSummary(),
+                null, issue.getDescription(), null, null, null, status, issue.getIssueType(), null, null, null, null,
+                issue.getAssignee(), resolution, null, issue.getPriority(),
+                null, null, null, null, null, null, null, null,
                 null, null, null, null, null);
     }
 
-    public static Issue setPriority(Issue issue, Priority p) {
+    public static Issue setPriority(Issue issue, Priority priority) {
         return new Issue(
-                issue.getSummary(), issue.getSelf(), issue.getKey(), issue.getId(), null, issue.getIssueType(),
-                issue.getStatus(), issue.getDescription(), p, issue.getResolution(), null, null,
-                issue.getAssignee(), null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+                issue.getId(), issue.getKey(), issue.getSelf().toString(), issue.getSummary(),
+                null, issue.getDescription(), null, null, null, issue.getStatus(), issue.getIssueType(), null, null, null, null,
+                issue.getAssignee(), issue.getResolution(), null, priority,
+                null, null, null, null, null, null, null, null,
                 null, null, null, null, null);
     }
 
     public static Issue transitionIssueDone(Issue issue) {
         URI doneStatusUri = URI.create(TEST_JIRA_URL + "/rest/api/2/status/1");
         URI doneResolutionUri = URI.create(TEST_JIRA_URL + "/rest/api/2/resolution/1");
-        StatusCategory sc = new StatusCategory(doneResolutionUri, "statusCategory", 1L, "SC-1", "GREEN");
-        Status status = new Status(doneStatusUri, 1L, "Done", "Done", null, sc);
-        Resolution resolution = new Resolution(doneResolutionUri, 5L, "Resolution", "Resolution");
+        StatusCategory sc = new StatusCategory(1L, doneResolutionUri.toString(), "statusCategory", "SC-1", "GREEN");
+        Status status = new Status(1L, doneStatusUri.toString(), null, "Done", "Done", sc);
+        Resolution resolution = new Resolution(5L, "Resolution", "Resolution", doneResolutionUri.toString());
         return transitionIssueDone(issue, status, resolution);
     }
 
@@ -108,9 +114,10 @@ public final class Utils {
             BasicPriority priority, User assignee, Collection<Attachment> attachments) {
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + id);
         return new Issue(
-                summary, selfUri, KEY + "-" + id, id, null, issueType, null, description, priority, null, attachments, null,
-                assignee, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null);
+                id, KEY + "-" + id, selfUri.toString(), summary,
+                null, description, null, null, null, null, issueType, null, null, null, null,
+                assignee, null, null, priority,
+                null, null, null, null, null, new ArrayList<>(attachments), null, null, null, null, null, null, null);
     }
 
     public static Issue createIssueWithComments(long id, int numComments) {
@@ -127,48 +134,51 @@ public final class Utils {
     public static Issue createIssueWithComments(long id, Collection<Comment> comments) {
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + id);
         return new Issue(
-                "jira summary test " + id, selfUri, KEY + "-" + id, id, null, issueType, null, "Description " + id,
-                null, null, null, null, userAssignee, null, null, null, null, null, null, null, null, comments, null, null,
+                id, KEY + "-" + id, selfUri.toString(), "jira summary test " + id,
+                null, "Description " + id, null, LocalDateTime.now(), null, null, issueType,
+                null, null, null, userAssignee, null, null, null, null, null, null, null, new ArrayList<>(comments), null,
                 null, null, null, null, null, null, null, null);
     }
 
     public static Issue createIssueWithLinks(long id, Collection<IssueLink> issueLinks) {
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + id);
         return new Issue(
-                "jira summary test " + id, selfUri, KEY + "-" + id, id, null, issueType, null, "Description " + id,
-                null, null, null, null, userAssignee, null, null, null, null, null, null, null, null, null, null, issueLinks,
+                id, KEY + "-" + id, selfUri.toString(), "jira summary test " + id,
+                null, "Description " + id, null, null, null, null, issueType,
+                null, null, null, null, userAssignee, null, null, null, null, null, null, null, new ArrayList<>(issueLinks),
                 null, null, null, null, null, null, null, null);
     }
 
     public static Issue createIssueWithWorkLogs(long id, Collection<Worklog> worklogs) {
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + id);
         return new Issue(
-                "jira summary test " + id, selfUri, KEY + "-" + id, id, null, issueType, null, "Description " + id,
-                null, null, null, null, userAssignee, null, null, null, null, null, null, null, null, null, null, null,
-                null, worklogs, null, null, null, null, null, null);
+                id, KEY + "-" + id, selfUri.toString(), "jira summary test " + id,
+                null, "Description " + id, null, null, null, null, issueType, null,
+                null, null, null, userAssignee, null, null, null, null, null, null, null, null,
+                null, new ArrayList<>(worklogs), null, null, null, null, null, null);
     }
 
     public static Comment newComment(long issueId, int newCommentId, String comment) {
-        DateTime now = DateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         long id = Long.parseLong(issueId + "0" + newCommentId);
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + issueId + "/comment");
-        return new Comment(selfUri, comment, null, null, now, null, null, id);
+        return new Comment(id, selfUri.toString(), null, null, now, null, comment, null);
     }
 
     public static IssueLink newIssueLink(long issueId, int newLinkId, String comment) {
         long id = Long.parseLong(issueId + "0" + newLinkId);
         URI issueUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + id);
-        IssueLinkType relatesTo = new IssueLinkType("Relates", "relates to", IssueLinkType.Direction.OUTBOUND);
+        IssueLinkType relatesTo = new IssueLinkType(Direction.OUTBOUND, "Relates", "relates to");
 
-        return new IssueLink(KEY, issueUri, relatesTo);
+        return new IssueLink(KEY, issueUri.toString(), relatesTo);
     }
 
     public static Worklog newWorkLog(long issueId, Integer minutesSpent, String comment) {
-        DateTime now = DateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         URI issueUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + issueId);
         URI selfUri = URI.create(TEST_JIRA_URL + "/rest/api/latest/issue/" + issueId + "/comment");
 
-        return new Worklog(selfUri, issueUri, null, null, comment, now, null, null, minutesSpent, null);
+        return new Worklog(issueUri.toString(), selfUri.toString(), null, null, comment, now, null, null, minutesSpent, null);
     }
 
     private static Map<String, URI> buildUserAvatarUris(@Nullable String user, Long avatarId) throws Exception {
@@ -189,8 +199,7 @@ public final class Utils {
         // avatar Id
         sb.append("avatarId=").append(avatarId);
         String relativeAvatarUrl = sb.toString();
-        URI avatarUrl = new URL(TEST_JIRA_URL + "/" + relativeAvatarUrl).toURI();
-        return avatarUrl;
+        return new URL(TEST_JIRA_URL + "/" + relativeAvatarUrl).toURI();
     }
 
 }

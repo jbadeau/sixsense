@@ -1,6 +1,5 @@
 package io.confluent.connect.avro;
 
-import com.atlassian.jira.rest.client.api.domain.simple.SimplifiedIssue;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,13 +9,12 @@ import org.apache.avro.SchemaParseException;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.file.SeekableByteArrayInput;
-import org.apache.avro.generic.GenericContainer;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.io.*;
-import org.apache.avro.specific.SpecificDatumWriter;
-import org.apache.avro.specific.SpecificRecord;
+import org.apache.avro.io.DatumReader;
+import org.apache.avro.io.Decoder;
+import org.apache.avro.io.DecoderFactory;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaAndValue;
 import org.apache.kafka.connect.errors.DataException;
@@ -28,7 +26,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 
@@ -103,10 +100,7 @@ public class RemoteSchemaAvroConverter implements Converter {
             return null;
         }
         try {
-            String jsonRaw = mapper.writeValueAsString(value);
-            SimplifiedIssue issue = mapper.readValue(jsonRaw, SimplifiedIssue.class);
-            String json = getJsonString(issue);
-
+            String json = mapper.writeValueAsString(value);
             try (
                     InputStream inputStream = new ByteArrayInputStream(json.getBytes());
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
@@ -130,20 +124,6 @@ public class RemoteSchemaAvroConverter implements Converter {
             }
         } catch (IOException e) {
             throw new DataException("Error serializing Avro", e);
-        }
-    }
-
-    public static String getJsonString(GenericContainer record) throws IOException {
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            JsonEncoder encoder = EncoderFactory.get().jsonEncoder(record.getSchema(), byteArrayOutputStream);
-            DatumWriter<GenericContainer> writer = new GenericDatumWriter<>();
-            if (record instanceof SpecificRecord) {
-                writer = new SpecificDatumWriter<>();
-            }
-            writer.setSchema(record.getSchema());
-            writer.write(record, encoder);
-            encoder.flush();
-            return new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
         }
     }
 

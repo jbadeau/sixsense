@@ -19,8 +19,8 @@ package org.apache.camel.component.jira.consumer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.atlassian.jira.rest.client.api.domain.Comment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Comment;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraEndpoint;
@@ -73,7 +73,7 @@ public class NewCommentsConsumer extends AbstractJiraConsumer {
         List<Comment> newComments = new ArrayList<>();
         List<Issue> issues = getIssues();
         for (Issue issue : issues) {
-            Issue fullIssue = client().getIssueClient().getIssue(issue.getKey()).claim();
+            Issue fullIssue = client().getIssueClient().getIssue(issue.getKey().toString()).claim();
             for (Comment comment : fullIssue.getComments()) {
                 if (comment.getId() > lastCommentId) {
                     newComments.add(comment);

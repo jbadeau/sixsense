@@ -21,8 +21,8 @@ import java.util.List;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
-import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.ScheduledPollConsumer;
@@ -33,7 +33,7 @@ public abstract class AbstractJiraConsumer extends ScheduledPollConsumer {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(AbstractJiraConsumer.class);
 
-    private final JiraEndpoint endpoint;
+    protected final JiraEndpoint endpoint;
 
     public AbstractJiraConsumer(JiraEndpoint endpoint, Processor processor) {
         super(endpoint, processor);

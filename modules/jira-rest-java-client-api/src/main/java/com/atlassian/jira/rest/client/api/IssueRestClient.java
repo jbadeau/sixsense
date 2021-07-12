@@ -20,10 +20,10 @@ import com.atlassian.jira.rest.client.api.domain.BasicIssue;
 import com.atlassian.jira.rest.client.api.domain.BulkOperationResult;
 import com.atlassian.jira.rest.client.api.domain.CimFieldInfo;
 import com.atlassian.jira.rest.client.api.domain.CimProject;
-import com.atlassian.jira.rest.client.api.domain.Comment;
+import com.atlassian.jira.server.rest.client.api.domain.Comment;
 import com.atlassian.jira.rest.client.api.domain.Field;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.IssueType;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Page;
 import com.atlassian.jira.rest.client.api.domain.Transition;
 import com.atlassian.jira.rest.client.api.domain.Votes;
@@ -144,7 +144,6 @@ public interface IssueRestClient {
      * @param votesUri URI of voters resource for selected issue. Usually obtained by calling <code>Issue.getVotesUri()</code>
      * @return detailed information about voters of selected issue
      * @throws RestClientException in case of problems (connectivity, malformed messages, invalid argument, etc.)
-     * @see Issue#getVotesUri()
      */
     Promise<Votes> getVotes(URI votesUri);
 

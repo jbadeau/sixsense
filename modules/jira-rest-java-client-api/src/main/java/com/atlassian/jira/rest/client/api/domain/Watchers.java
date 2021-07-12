@@ -18,6 +18,7 @@ package com.atlassian.jira.rest.client.api.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.atlassian.jira.server.rest.client.api.domain.BasicWatchers;
 
 import java.util.Collection;
 
@@ -30,17 +31,12 @@ public class Watchers extends BasicWatchers {
     private final Collection<BasicUser> users;
 
     public Watchers(BasicWatchers basicWatchers, Collection<BasicUser> users) {
-        super(basicWatchers.getSelf(), basicWatchers.isWatching(), basicWatchers.getNumWatchers());
+        super(basicWatchers.getNumWatchers(), basicWatchers.getIsWatching(), basicWatchers.getSelf());
         this.users = users;
     }
 
     public Iterable<BasicUser> getUsers() {
         return users;
-    }
-
-    @Override
-    protected MoreObjects.ToStringHelper getToStringHelper() {
-        return super.getToStringHelper().add("watchers", users);
     }
 
     @Override
