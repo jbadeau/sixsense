@@ -32,7 +32,7 @@ public class SearchResult {
     private final int total;
     private final Iterable<Issue> issues;
 
-    public SearchResult(int startIndex, int maxResults, int total, Iterable<Issue> issues) {
+    public SearchResult(int startIndex, int maxResults, int total, Iterable<com.atlassian.jira.server.rest.client.api.domain.Issue> issues) {
         this.startIndex = startIndex;
         this.maxResults = maxResults;
         this.total = total;
@@ -62,7 +62,7 @@ public class SearchResult {
         return total;
     }
 
-    public Iterable<Issue> getIssues() {
+    public Iterable<com.atlassian.jira.server.rest.client.api.domain.Issue> getIssues() {
         return issues;
     }
 

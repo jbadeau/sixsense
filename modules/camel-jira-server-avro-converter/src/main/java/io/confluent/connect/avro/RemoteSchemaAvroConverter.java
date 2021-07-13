@@ -1,10 +1,10 @@
 package io.confluent.connect.avro;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.avro.AvroSchema;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.gson.GsonBuilder;
+import org.apache.avro.AvroTypeException;
 import org.apache.avro.SchemaParseException;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
@@ -26,6 +26,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 
@@ -44,7 +45,6 @@ public class RemoteSchemaAvroConverter implements Converter {
     private Schema connectSchema = null;
     private AvroData avroDataHelper = null;
     private boolean isKey;
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
@@ -78,10 +78,6 @@ public class RemoteSchemaAvroConverter implements Converter {
                     parsedSchema = parser.parse(jsonNode.get("schema").asText());
                     avroSchema = new AvroSchema(parsedSchema);
                     connectSchema = avroDataHelper.toConnectSchema(parsedSchema);
-
-                    mapper.registerModule(new JodaModule());
-                    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
                 } catch (ProtocolException e) {
                     throw new IllegalStateException("Unable to parse Avro schema when starting RegistrylessAvroConverter due to protocol exception", e);
                 } catch (SchemaParseException | IOException spe) {
@@ -100,11 +96,14 @@ public class RemoteSchemaAvroConverter implements Converter {
             return null;
         }
         try {
-            String json = mapper.writeValueAsString(value);
+            String json = new GsonBuilder()
+                    .serializeNulls()
+                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
+                    .create()
+                    .toJson(value);
             try (
                     InputStream inputStream = new ByteArrayInputStream(json.getBytes());
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
-            {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
                 DatumReader<GenericRecord> reader = new GenericDatumReader<>(parsedSchema);
                 DataInputStream dataInputStream = new DataInputStream(inputStream);
                 DataFileWriter<GenericRecord> writer = new DataFileWriter<>(new GenericDatumWriter<>());
@@ -122,6 +121,9 @@ public class RemoteSchemaAvroConverter implements Converter {
                 writer.flush();
                 return byteArrayOutputStream.toByteArray();
             }
+        } catch (AvroTypeException e) {
+            logger.error("Error writing avro record", e);
+            return null;
         } catch (IOException e) {
             throw new DataException("Error serializing Avro", e);
         }

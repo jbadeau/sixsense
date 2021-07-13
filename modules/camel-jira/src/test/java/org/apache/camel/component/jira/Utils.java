@@ -136,7 +136,7 @@ public final class Utils {
         return new Issue(
                 id, KEY + "-" + id, selfUri.toString(), "jira summary test " + id,
                 null, "Description " + id, null, LocalDateTime.now(), null, null, issueType,
-                null, null, null, userAssignee, null, null, null, null, null, null, null, new ArrayList<>(comments), null,
+                null, null, null, null, userAssignee, null, null, null, null, null, null, new ArrayList<>(comments), null,
                 null, null, null, null, null, null, null, null);
     }
 

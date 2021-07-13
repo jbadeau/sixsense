@@ -59,7 +59,7 @@ confluentinc/cp-schema-registry
   -e KAFKA_DEBUG=y \
   -e DEBUG_SUSPEND_FLAG=y \
   -v "$(pwd)"/config:/config \
-  tomassatka/camel-jira-kafka-connector:0.0.7
+  tomassatka/camel-jira-kafka-connector:0.0.9
 ```
 
 

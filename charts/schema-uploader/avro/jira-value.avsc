@@ -258,8 +258,7 @@
       "type": [
         "null",
         "com.atlassian.jira.server.rest.client.api.domain.User"
-      ],
-      "default": null
+      ]
     },
     {
       "name": "resolution",
@@ -308,7 +307,11 @@
             },
             {
               "name": "type",
-              "type": "string"
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
             },
             {
               "name": "value",
@@ -801,106 +804,114 @@
     },
     {
       "name": "operations",
-      "type": {
-        "type": "record",
-        "name": "Operations",
-        "fields": [
-          {
-            "name": "linkGroups",
-            "type": {
-              "type": "array",
-              "items": {
-                "name": "OperationGroup",
-                "type": "record",
-                "fields": [
-                  {
-                    "name": "id",
-                    "type": "string"
-                  },
-                  {
-                    "name": "header",
-                    "type": {
-                      "type": "record",
-                      "name": "OperationHeader",
-                      "fields": [
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Operations",
+          "fields": [
+            {
+              "name": "linkGroups",
+              "type": {
+                "type": "array",
+                "items": {
+                  "name": "OperationGroup",
+                  "type": "record",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "string"
+                    },
+                    {
+                      "name": "header",
+                      "type": [
+                        "null",
                         {
-                          "name": "id",
-                          "type": "string"
-                        },
-                        {
-                          "name": "label",
-                          "type": "string"
-                        },
-                        {
-                          "name": "title",
-                          "type": "string"
-                        },
-                        {
-                          "name": "iconClass",
-                          "type": "string"
+                          "type": "record",
+                          "name": "OperationHeader",
+                          "fields": [
+                            {
+                              "name": "id",
+                              "type": "string"
+                            },
+                            {
+                              "name": "label",
+                              "type": "string"
+                            },
+                            {
+                              "name": "title",
+                              "type": "string"
+                            },
+                            {
+                              "name": "iconClass",
+                              "type": "string"
+                            }
+                          ]
                         }
-                      ]
+                      ],
+                      "default": null
+                    },
+                    {
+                      "name": "links",
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "name": "OperationLink",
+                          "type": "record",
+                          "fields": [
+                            {
+                              "name": "id",
+                              "type": "string"
+                            },
+                            {
+                              "name": "styleClass",
+                              "type": "string"
+                            },
+                            {
+                              "name": "label",
+                              "type": "string"
+                            },
+                            {
+                              "name": "title",
+                              "type": "string"
+                            },
+                            {
+                              "name": "href",
+                              "type": "string"
+                            },
+                            {
+                              "name": "weight",
+                              "type": "int"
+                            },
+                            {
+                              "name": "iconClass",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "default": []
+                      }
+                    },
+                    {
+                      "name": "groups",
+                      "type": {
+                        "type": "array",
+                        "items": "com.atlassian.jira.server.rest.client.api.domain.OperationGroup"
+                      }
+                    },
+                    {
+                      "name": "weight",
+                      "type": "int"
                     }
-                  },
-                  {
-                    "name": "links",
-                    "type": {
-                      "type": "array",
-                      "items": {
-                        "name": "OperationLink",
-                        "type": "record",
-                        "fields": [
-                          {
-                            "name": "id",
-                            "type": "string"
-                          },
-                          {
-                            "name": "styleClass",
-                            "type": "string"
-                          },
-                          {
-                            "name": "label",
-                            "type": "string"
-                          },
-                          {
-                            "name": "title",
-                            "type": "string"
-                          },
-                          {
-                            "name": "href",
-                            "type": "string"
-                          },
-                          {
-                            "name": "weight",
-                            "type": "int"
-                          },
-                          {
-                            "name": "iconClass",
-                            "type": "string"
-                          }
-                        ]
-                      },
-                      "default": []
-                    }
-                  },
-                  {
-                    "name": "groups",
-                    "type": {
-                      "type": "array",
-                      "items": "com.atlassian.jira.server.rest.client.api.domain.OperationGroup"
-                    }
-                  },
-                  {
-                    "name": "weight",
-                    "type": "int"
-                  }
-                ]
-              },
-              "default": []
+                  ]
+                },
+                "default": []
+              }
             }
-          }
-        ]
-      }
+          ]
+        }
+      ],
+      "default": null
     },
     {
       "name": "labels",
