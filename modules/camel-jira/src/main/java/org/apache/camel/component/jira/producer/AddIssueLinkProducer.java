@@ -18,15 +18,12 @@ package org.apache.camel.component.jira.producer;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.Comment;
 import com.atlassian.jira.rest.client.api.domain.input.LinkIssuesInput;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
 
-import static org.apache.camel.component.jira.JiraConstants.CHILD_ISSUE_KEY;
-import static org.apache.camel.component.jira.JiraConstants.LINK_TYPE;
-import static org.apache.camel.component.jira.JiraConstants.PARENT_ISSUE_KEY;
+import static org.apache.camel.component.jira.JiraConstants.*;
 
 public class AddIssueLinkProducer extends DefaultProducer {
 
@@ -53,13 +50,7 @@ public class AddIssueLinkProducer extends DefaultProducer {
         JiraRestClient client = ((JiraEndpoint) getEndpoint()).getClient();
         IssueRestClient issueClient = client.getIssueClient();
 
-        Comment comment = null;
-
-        if (parentIssueComment != null) {
-            comment = Comment.valueOf(parentIssueComment);
-        }
-
-        LinkIssuesInput linkIssuesInput = new LinkIssuesInput(parentIssueKey, childIssueKey, linkType, comment);
+        LinkIssuesInput linkIssuesInput = new LinkIssuesInput(parentIssueKey, childIssueKey, linkType, null);
         issueClient.linkIssue(linkIssuesInput);
     }
 }

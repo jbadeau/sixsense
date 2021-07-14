@@ -28,8 +28,8 @@ import java.util.Collection;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Attachment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Attachment;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
@@ -100,11 +100,13 @@ public class AttachFileProducerTest extends CamelTestSupport {
             attachedFile.deleteOnExit();
             Collection<Attachment> attachments = new ArrayList<>();
             attachments.add(new Attachment(
-                    issue.getAttachmentsUri(), attachedFile.getName(), null, null,
+                    attachedFile.getName(),
+                    issue.getSelf(), null, null,
                     Long.valueOf(attachedFile.length()).intValue(), null, null, null));
             // re-create the issue with the attachment sent by the route
-            issue = createIssueWithAttachment(issue.getId(), issue.getSummary(), issue.getKey(), issue.getIssueType(),
-                    issue.getDescription(), issue.getPriority(), issue.getAssignee(), attachments);
+            issue = createIssueWithAttachment(issue.getId(), issue.getSummary().toString(), issue.getKey().toString(),
+                    issue.getIssueType(),
+                    issue.getDescription().toString(), issue.getPriority(), issue.getAssignee(), attachments);
             return null;
         });
     }
@@ -143,7 +145,7 @@ public class AttachFileProducerTest extends CamelTestSupport {
     @Test
     public void verifyAttachment() throws InterruptedException, IOException {
         template.sendBody(generateSampleFile());
-        Issue retrievedIssue = issueRestClient.getIssue(issue.getKey()).claim();
+        Issue retrievedIssue = issueRestClient.getIssue(issue.getKey().toString()).claim();
         assertEquals(issue, retrievedIssue);
         // there is only one attachment
         Attachment attachFile = retrievedIssue.getAttachments().iterator().next();

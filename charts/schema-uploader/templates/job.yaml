@@ -1,0 +1,33 @@
+{{- range .Values.jobs }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "schema-load.fullname" $ }}{{ printf "-%s" .name }}
+  labels:
+    {{- include "schema-load.labels" $ | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ include "schema-load.fullname" $ }}
+          image: tomassatka/shema-uploader:0.0.1
+          env:
+            - name: "FILE"
+              value: /file/{{ .file }}
+            - name: "URL"
+              value: {{ $.Values.schemaRegistry.url }}
+            - name: "SCHEMA"
+              value: {{ .name }}
+          volumeMounts:
+            - name: file
+              mountPath: /file
+      volumes:
+        - name: file
+          configMap:
+            name: {{ include "schema-load.fullname" $ }}
+            items:
+              - key: {{ .file }}
+                path: {{ .file }}
+      restartPolicy: Never
+  backoffLimit: 4
+{{- end }}

@@ -16,15 +16,17 @@
  */
 package org.apache.camel.component.jira.producer;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.IssueType;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
@@ -38,7 +40,7 @@ public class AddIssueProducer extends DefaultProducer {
     }
 
     @Override
-    public void process(Exchange exchange) {
+    public void process(Exchange exchange) throws URISyntaxException {
         JiraRestClient client = ((JiraEndpoint) getEndpoint()).getClient();
         // required fields
         String projectKey = exchange.getIn().getHeader(ISSUE_PROJECT_KEY, String.class);
@@ -101,7 +103,7 @@ public class AddIssueProducer extends DefaultProducer {
         Issue issue = issueClient.getIssue(issueCreated.getKey()).claim();
         if (watchers != null && !watchers.isEmpty()) {
             for (String watcher : watchers) {
-                issueClient.addWatcher(issue.getWatchers().getSelf(), watcher);
+                issueClient.addWatcher(new URI(issue.getWatchers().getSelf().toString()), watcher);
             }
         }
 

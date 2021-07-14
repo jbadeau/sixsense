@@ -22,10 +22,10 @@ import java.net.URI;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.Resolution;
-import com.atlassian.jira.rest.client.api.domain.Status;
 import com.atlassian.jira.rest.client.api.domain.input.TransitionInput;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Resolution;
+import com.atlassian.jira.server.rest.client.api.domain.Status;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
@@ -88,8 +88,8 @@ public class TransitionIssueProducerTest extends CamelTestSupport {
         when(issueRestClient.transition(any(Issue.class), any(TransitionInput.class))).then(inv -> {
             URI doneStatusUri = URI.create(TEST_JIRA_URL + "/rest/api/2/status/1");
             URI doneResolutionUri = URI.create(TEST_JIRA_URL + "/rest/api/2/resolution/1");
-            Status status = new Status(doneStatusUri, 1L, "Done", "Done", null, null);
-            Resolution resolution = new Resolution(doneResolutionUri, 1L, "Resolution", "Resolution");
+            Status status = new Status(1L, doneStatusUri.toString(), null, "Done", "Done", null);
+            Resolution resolution = new Resolution(1L, doneResolutionUri.toString(), "Resolution", "Resolution");
             issue = transitionIssueDone(issue, status, resolution);
             return null;
         });
@@ -127,7 +127,7 @@ public class TransitionIssueProducerTest extends CamelTestSupport {
     @Test
     public void verifyTransition() throws InterruptedException {
         template.sendBody(null);
-        Issue retrievedIssue = issueRestClient.getIssue(issue.getKey()).claim();
+        Issue retrievedIssue = issueRestClient.getIssue(issue.getKey().toString()).claim();
         assertEquals(issue, retrievedIssue);
         assertEquals(issue.getStatus(), retrievedIssue.getStatus());
         assertEquals(issue.getResolution(), retrievedIssue.getResolution());

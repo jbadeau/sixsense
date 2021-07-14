@@ -16,11 +16,13 @@
  */
 package org.apache.camel.component.jira.producer;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
@@ -36,7 +38,7 @@ public class WatcherProducer extends DefaultProducer {
     }
 
     @Override
-    public void process(Exchange exchange) {
+    public void process(Exchange exchange) throws URISyntaxException {
         String issueKey = exchange.getIn().getHeader(ISSUE_KEY, String.class);
         List<String> watchersAdd = exchange.getIn().getHeader(ISSUE_WATCHERS_ADD, List.class);
         List<String> watchersRemove = exchange.getIn().getHeader(ISSUE_WATCHERS_REMOVE, List.class);
@@ -52,12 +54,12 @@ public class WatcherProducer extends DefaultProducer {
             Issue issue = issueClient.getIssue(issueKey).claim();
             if (hasWatchersToAdd) {
                 for (String watcher : watchersAdd) {
-                    issueClient.addWatcher(issue.getWatchers().getSelf(), watcher);
+                    issueClient.addWatcher(new URI(issue.getWatchers().getSelf().toString()), watcher);
                 }
             }
             if (hasWatchersToRemove) {
                 for (String watcher : watchersRemove) {
-                    issueClient.removeWatcher(issue.getWatchers().getSelf(), watcher);
+                    issueClient.removeWatcher(new URI(issue.getWatchers().getSelf().toString()), watcher);
                 }
             }
         }

@@ -60,6 +60,16 @@ releases:
     values:
       - values/dev/cp-schema-registry/values.yaml
 
+  - name: schema-uploader
+    namespace: sixsense-dev
+    chart: ../charts/schema-uploader
+    version: 1.2.3
+    wait: true
+    needs:
+      - sixsense-dev/cp-schema-registry
+    values:
+      - values/dev/schema-uploader/values.yaml
+
   - name: kafka-ui
     namespace: sixsense-dev
     chart: kafka-ui/kafka-ui

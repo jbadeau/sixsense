@@ -19,7 +19,7 @@ package org.apache.camel.component.jira.producer;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
@@ -111,7 +111,7 @@ public class FetchCommentsProducerTest extends CamelTestSupport {
         mockResult.expectedMessageCount(1);
         mockResult.assertIsSatisfied();
 
-        verify(issueRestClient).getIssue(backendIssue.getKey());
+        verify(issueRestClient).getIssue(backendIssue.getKey().toString());
         verify(backendIssue).getComments();
     }
 
@@ -128,7 +128,7 @@ public class FetchCommentsProducerTest extends CamelTestSupport {
         mockResult.expectedMessageCount(0);
         mockResult.assertIsSatisfied();
 
-        verify(issueRestClient, never()).getIssue(backendIssue.getKey());
+        verify(issueRestClient, never()).getIssue((backendIssue.getKey() == null) ? null : backendIssue.getKey().toString());
         verify(backendIssue, never()).getComments();
     }
 }

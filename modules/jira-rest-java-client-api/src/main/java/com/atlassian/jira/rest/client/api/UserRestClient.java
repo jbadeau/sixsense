@@ -16,7 +16,7 @@
 
 package com.atlassian.jira.rest.client.api;
 
-import com.atlassian.jira.rest.client.api.domain.User;
+import com.atlassian.jira.server.rest.client.api.domain.User;
 import com.atlassian.jira.rest.client.api.domain.input.UserInput;
 import io.atlassian.util.concurrent.Promise;
 

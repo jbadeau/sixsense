@@ -1,0 +1,925 @@
+{
+  "type": "record",
+  "name": "Issue",
+  "namespace": "com.atlassian.jira.server.rest.client.api.domain",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "key",
+      "type": "string"
+    },
+    {
+      "name": "self",
+      "type": "string"
+    },
+    {
+      "name": "summary",
+      "type": "string"
+    },
+    {
+      "name": "transitionsUri",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "creationDate",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name": "updateDate",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    },
+    {
+      "name": "dueDate",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "local-timestamp-millis"
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "record",
+        "name": "Status",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "iconUrl",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "statusCategory",
+            "type": {
+              "type": "record",
+              "name": "StatusCategory",
+              "fields": [
+                {
+                  "name": "id",
+                  "type": "long"
+                },
+                {
+                  "name": "self",
+                  "type": "string"
+                },
+                {
+                  "name": "key",
+                  "type": "string"
+                },
+                {
+                  "name": "colorName",
+                  "type": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "issueType",
+      "type": {
+        "type": "record",
+        "name": "IssueType",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "iconUri",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "isSubtask",
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    {
+      "name": "project",
+      "type": {
+        "type": "record",
+        "name": "BasicProject",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "expandos",
+      "type": {
+        "type": "array",
+        "items": "string",
+        "default": []
+      }
+    },
+    {
+      "name": "components",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "BasicComponent",
+          "type": "record",
+          "fields": [
+            {
+              "name": "id",
+              "type": "long"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "reporter",
+      "type": {
+        "type": "record",
+        "name": "User",
+        "fields": [
+          {
+            "name": "emailAddress",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "name": "timezone",
+            "type": "string"
+          },
+          {
+            "name": "displayName",
+            "type": "string"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "assignee",
+      "type": [
+        "null",
+        "com.atlassian.jira.server.rest.client.api.domain.User"
+      ]
+    },
+    {
+      "name": "resolution",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Resolution",
+          "fields": [
+            {
+              "name": "id",
+              "type": "long"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "issueFields",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "IssueField",
+          "type": "record",
+          "fields": [
+            {
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "type",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "value",
+              "type": "string"
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "priority",
+      "type": {
+        "type": "record",
+        "name": "BasicPriority",
+        "fields": [
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "votes",
+      "type": {
+        "type": "record",
+        "name": "BasicVotes",
+        "fields": [
+          {
+            "name": "votes",
+            "type": "int"
+          },
+          {
+            "name": "hasVoted",
+            "type": "boolean"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "fixVersions",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Version",
+          "type": "record",
+          "fields": [
+            {
+              "name": "id",
+              "type": "long"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            },
+            {
+              "name": "isArchived",
+              "type": "boolean"
+            },
+            {
+              "name": "isReleased",
+              "type": "boolean"
+            },
+            {
+              "name": "releaseDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "affectedVersions",
+      "type": {
+        "type": "array",
+        "items": "com.atlassian.jira.server.rest.client.api.domain.Version"
+      },
+      "default": []
+    },
+    {
+      "name": "comments",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Comment",
+          "type": "record",
+          "fields": [
+            {
+              "name": "id",
+              "type": "long"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            },
+            {
+              "name": "author",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+            },
+            {
+              "name": "updateAuthor",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+            },
+            {
+              "name": "creationDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "updateDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "body",
+              "type": "string"
+            },
+            {
+              "name": "visibility",
+              "type": {
+                "type": "record",
+                "name": "Visibility",
+                "fields": [
+                  {
+                    "name": "type",
+                    "type": [
+                      "null",
+                      {
+                        "type": "enum",
+                        "name": "Type",
+                        "symbols": [
+                          "ROLE",
+                          "GROUP"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "value",
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "issueLinks",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "IssueLink",
+          "type": "record",
+          "fields": [
+            {
+              "name": "targetIssueKey",
+              "type": "string"
+            },
+            {
+              "name": "targetIssueUri",
+              "type": "string"
+            },
+            {
+              "name": "issueLinkType",
+              "type": {
+                "type": "record",
+                "name": "IssueLinkType",
+                "fields": [
+                  {
+                    "name": "direction",
+                    "type": [
+                      "null",
+                      {
+                        "type": "enum",
+                        "name": "Direction",
+                        "symbols": [
+                          "OUTBOUND",
+                          "INBOUND"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "description",
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "attachments",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Attachment",
+          "type": "record",
+          "fields": [
+            {
+              "name": "filename",
+              "type": "string"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            },
+            {
+              "name": "author",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+            },
+            {
+              "name": "creationDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "size",
+              "type": "int"
+            },
+            {
+              "name": "mimeType",
+              "type": "string"
+            },
+            {
+              "name": "contentUri",
+              "type": "string"
+            },
+            {
+              "name": "thumbnailUri",
+              "type": "string"
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "worklogs",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Worklog",
+          "type": "record",
+          "fields": [
+            {
+              "name": "issueUri",
+              "type": "string"
+            },
+            {
+              "name": "self",
+              "type": "string"
+            },
+            {
+              "name": "author",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+            },
+            {
+              "name": "updateAuthor",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+            },
+            {
+              "name": "comment",
+              "type": "string"
+            },
+            {
+              "name": "creationDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "updateDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "startDate",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "minutesSpent",
+              "type": "int"
+            },
+            {
+              "name": "visibility",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.Visibility"
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "watchers",
+      "type": {
+        "type": "record",
+        "name": "BasicWatchers",
+        "fields": [
+          {
+            "name": "numWatchers",
+            "type": "int"
+          },
+          {
+            "name": "isWatching",
+            "type": "boolean"
+          },
+          {
+            "name": "self",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "timeTracking",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "TimeTracking",
+          "fields": [
+            {
+              "name": "originalEstimateMinutes",
+              "type": "int"
+            },
+            {
+              "name": "remainingEstimateMinutes",
+              "type": "int"
+            },
+            {
+              "name": "timeSpentMinutes",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "subtasks",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "Subtask",
+          "type": "record",
+          "fields": [
+            {
+              "name": "issueKey",
+              "type": "string"
+            },
+            {
+              "name": "issueUri",
+              "type": "string"
+            },
+            {
+              "name": "summary",
+              "type": "string"
+            },
+            {
+              "name": "issueType",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.IssueType"
+            },
+            {
+              "name": "status",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.Status"
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "changelog",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "ChangelogGroup",
+          "type": "record",
+          "fields": [
+            {
+              "name": "author",
+              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+            },
+            {
+              "name": "created",
+              "type": {
+                "type": "long",
+                "logicalType": "local-timestamp-millis"
+              }
+            },
+            {
+              "name": "items",
+              "type": {
+                "type": "array",
+                "items": {
+                  "name": "ChangelogItem",
+                  "type": "record",
+                  "fields": [
+                    {
+                      "name": "fieldType",
+                      "type": [
+                        "null",
+                        {
+                          "type": "enum",
+                          "name": "FieldType",
+                          "symbols": [
+                            "JIRA",
+                            "CUSTOM"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "field",
+                      "type": "string"
+                    },
+                    {
+                      "name": "from",
+                      "type": "string"
+                    },
+                    {
+                      "name": "fromString",
+                      "type": "string"
+                    },
+                    {
+                      "name": "to",
+                      "type": "string"
+                    },
+                    {
+                      "name": "toString",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": []
+              }
+            }
+          ]
+        },
+        "default": []
+      }
+    },
+    {
+      "name": "operations",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Operations",
+          "fields": [
+            {
+              "name": "linkGroups",
+              "type": {
+                "type": "array",
+                "items": {
+                  "name": "OperationGroup",
+                  "type": "record",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "string"
+                    },
+                    {
+                      "name": "header",
+                      "type": [
+                        "null",
+                        {
+                          "type": "record",
+                          "name": "OperationHeader",
+                          "fields": [
+                            {
+                              "name": "id",
+                              "type": "string"
+                            },
+                            {
+                              "name": "label",
+                              "type": "string"
+                            },
+                            {
+                              "name": "title",
+                              "type": "string"
+                            },
+                            {
+                              "name": "iconClass",
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      ],
+                      "default": null
+                    },
+                    {
+                      "name": "links",
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "name": "OperationLink",
+                          "type": "record",
+                          "fields": [
+                            {
+                              "name": "id",
+                              "type": "string"
+                            },
+                            {
+                              "name": "styleClass",
+                              "type": "string"
+                            },
+                            {
+                              "name": "label",
+                              "type": "string"
+                            },
+                            {
+                              "name": "title",
+                              "type": "string"
+                            },
+                            {
+                              "name": "href",
+                              "type": "string"
+                            },
+                            {
+                              "name": "weight",
+                              "type": "int"
+                            },
+                            {
+                              "name": "iconClass",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "default": []
+                      }
+                    },
+                    {
+                      "name": "groups",
+                      "type": {
+                        "type": "array",
+                        "items": "com.atlassian.jira.server.rest.client.api.domain.OperationGroup"
+                      }
+                    },
+                    {
+                      "name": "weight",
+                      "type": "int"
+                    }
+                  ]
+                },
+                "default": []
+              }
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "labels",
+      "type": {
+        "type": "array",
+        "items": "string",
+        "default": []
+      }
+    }
+  ]
+}

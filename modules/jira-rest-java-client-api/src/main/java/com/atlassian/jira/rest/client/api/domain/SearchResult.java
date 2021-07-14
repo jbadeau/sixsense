@@ -18,6 +18,7 @@ package com.atlassian.jira.rest.client.api.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 
 /**
  * Represents search results - links to issues matching given filter (JQL query) with basic
@@ -31,7 +32,7 @@ public class SearchResult {
     private final int total;
     private final Iterable<Issue> issues;
 
-    public SearchResult(int startIndex, int maxResults, int total, Iterable<Issue> issues) {
+    public SearchResult(int startIndex, int maxResults, int total, Iterable<com.atlassian.jira.server.rest.client.api.domain.Issue> issues) {
         this.startIndex = startIndex;
         this.maxResults = maxResults;
         this.total = total;
@@ -61,7 +62,7 @@ public class SearchResult {
         return total;
     }
 
-    public Iterable<Issue> getIssues() {
+    public Iterable<com.atlassian.jira.server.rest.client.api.domain.Issue> getIssues() {
         return issues;
     }
 

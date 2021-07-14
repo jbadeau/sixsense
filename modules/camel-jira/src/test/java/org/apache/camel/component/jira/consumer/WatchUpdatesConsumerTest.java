@@ -17,6 +17,7 @@
 
 package org.apache.camel.component.jira.consumer;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,9 +25,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
-import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
@@ -119,7 +120,7 @@ public class WatchUpdatesConsumerTest extends CamelTestSupport {
     @Test
     public void singleChangeTest() throws Exception {
         Issue issue = setPriority(issues.get(0), new Priority(
-                null, 4L, "High", null, null, null));
+                new URI("foo"), 4L, "High", null, null, null));
         reset(searchRestClient);
         AtomicBoolean searched = new AtomicBoolean();
         when(searchRestClient.searchJql(any(), any(), any(), any())).then(invocation -> {
@@ -143,7 +144,7 @@ public class WatchUpdatesConsumerTest extends CamelTestSupport {
     public void multipleChangesWithAddedNewIssueTest() throws Exception {
         final Issue issue = transitionIssueDone(issues.get(1));
         final Issue issue2 = setPriority(issues.get(2), new Priority(
-                null, 4L, "High", null, null, null));
+                new URI("foo"), 4L, "High", null, null, null));
 
         reset(searchRestClient);
         AtomicBoolean searched = new AtomicBoolean();

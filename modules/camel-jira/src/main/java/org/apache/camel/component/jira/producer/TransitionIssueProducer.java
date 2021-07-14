@@ -17,12 +17,12 @@
 package org.apache.camel.component.jira.producer;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.Comment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.input.TransitionInput;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
@@ -37,7 +37,7 @@ public class TransitionIssueProducer extends DefaultProducer {
     }
 
     @Override
-    public void process(Exchange exchange) {
+    public void process(Exchange exchange) throws URISyntaxException {
         String issueKey = exchange.getIn().getHeader(ISSUE_KEY, String.class);
         String commentStr = exchange.getIn().getBody(String.class);
         // the list of transitions is available in /rest/api/2/issue/{issueIdOrKey}/transitions
@@ -57,10 +57,10 @@ public class TransitionIssueProducer extends DefaultProducer {
         issueClient.transition(issue, transitionInput);
         // add a comment in an additional operation as using the TransitionInput doesn't add the comment.
         if (commentStr != null) {
-            URI commentsUri = issue.getCommentsUri();
+            URI commentsUri = new URI(issue.getSelf().toString());
             // there is a bug in addComment, it doesn't use the author parameter to add the comment
             // it uses the authenticated username. https://ecosystem.atlassian.net/browse/JRJC-241
-            issueClient.addComment(commentsUri, Comment.valueOf(commentStr));
+            issueClient.addComment(commentsUri, null);
         }
     }
 }

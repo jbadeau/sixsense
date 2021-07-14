@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.jira.producer;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +27,12 @@ import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.MetadataRestClient;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
-import com.atlassian.jira.rest.client.api.domain.BasicPriority;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
+import com.atlassian.jira.server.rest.client.api.domain.BasicPriority;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.atlassian.jira.server.rest.client.api.domain.IssueType;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
 import org.apache.camel.CamelContext;
@@ -92,20 +94,20 @@ public class AddIssueProducerTest extends CamelTestSupport {
         registry.bind(JIRA_REST_CLIENT_FACTORY, jiraRestClientFactory);
     }
 
-    public void setMocks() {
+    public void setMocks() throws URISyntaxException {
         lenient().when(jiraRestClientFactory.createWithBasicHttpAuthentication(any(), any(), any())).thenReturn(jiraClient);
         lenient().when(jiraClient.getIssueClient()).thenReturn(issueRestClient);
         lenient().when(jiraClient.getMetadataClient()).thenReturn(metadataRestClient);
 
         Map<Integer, IssueType> issueTypes = new HashMap<>();
-        issueTypes.put(1, new IssueType(null, 1L, "Bug", false, null, null));
-        issueTypes.put(2, new IssueType(null, 2L, "Task", false, null, null));
+        issueTypes.put(1, new IssueType(1L, "Bug", null, null, null, false));
+        issueTypes.put(2, new IssueType(2L, "Task", null, null, null, false));
         Promise<Iterable<IssueType>> promiseIssueTypes = Promises.promise(issueTypes.values());
         lenient().when(metadataRestClient.getIssueTypes()).thenReturn(promiseIssueTypes);
 
         Map<Integer, Priority> issuePriorities = new HashMap<>();
-        issuePriorities.put(1, new Priority(null, 1L, "High", null, null, null));
-        issuePriorities.put(2, new Priority(null, 2L, "Low", null, null, null));
+        issuePriorities.put(1, new Priority(new URI("foo"), 1L, "High", null, null, null));
+        issuePriorities.put(2, new Priority(new URI("foo"), 2L, "Low", null, null, null));
         Promise<Iterable<Priority>> promisePriorities = Promises.promise(issuePriorities.values());
         lenient().when(metadataRestClient.getPriorities()).thenReturn(promisePriorities);
 
@@ -119,7 +121,8 @@ public class AddIssueProducerTest extends CamelTestSupport {
             Integer priorityId = Integer.parseInt(getValue(issueInput, "priority", "id"));
             BasicPriority priority = issuePriorities.get(priorityId);
             backendIssue = createIssue(11L, summary, project, issueType, description, priority, userAssignee, null, null);
-            BasicIssue basicIssue = new BasicIssue(backendIssue.getSelf(), backendIssue.getKey(), backendIssue.getId());
+            BasicIssue basicIssue = new BasicIssue(
+                    new URI(backendIssue.getSelf().toString()), backendIssue.getKey().toString(), backendIssue.getId());
             return Promises.promise(basicIssue);
         });
         lenient().when(issueRestClient.getIssue(any())).then(inv -> Promises.promise(backendIssue));
@@ -164,7 +167,7 @@ public class AddIssueProducerTest extends CamelTestSupport {
 
         template.sendBodyAndHeaders("Minha descrição jira " + (new Date()), headers);
 
-        Issue issue = issueRestClient.getIssue(backendIssue.getKey()).claim();
+        Issue issue = issueRestClient.getIssue(backendIssue.getKey().toString()).claim();
         assertEquals(backendIssue, issue);
         assertEquals(backendIssue.getIssueType(), issue.getIssueType());
         assertEquals(backendIssue.getPriority(), issue.getPriority());
@@ -186,7 +189,7 @@ public class AddIssueProducerTest extends CamelTestSupport {
 
         template.sendBodyAndHeaders("Minha descrição jira " + (new Date()), headers);
 
-        Issue issue = issueRestClient.getIssue(backendIssue.getKey()).claim();
+        Issue issue = issueRestClient.getIssue(backendIssue.getKey().toString()).claim();
         assertEquals(backendIssue, issue);
         assertEquals(backendIssue.getIssueType(), issue.getIssueType());
         assertEquals(backendIssue.getPriority(), issue.getPriority());

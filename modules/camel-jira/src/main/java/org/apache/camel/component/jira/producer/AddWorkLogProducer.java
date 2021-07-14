@@ -16,10 +16,13 @@
  */
 package org.apache.camel.component.jira.producer;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.input.WorklogInput;
+import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
@@ -37,7 +40,7 @@ public class AddWorkLogProducer extends DefaultProducer {
     }
 
     @Override
-    public void process(Exchange exchange) {
+    public void process(Exchange exchange) throws URISyntaxException {
         String issueKey = exchange.getIn().getHeader(ISSUE_KEY, String.class);
         if (issueKey == null) {
             throw new IllegalArgumentException("Missing exchange input header named " + ISSUE_KEY);
@@ -55,9 +58,10 @@ public class AddWorkLogProducer extends DefaultProducer {
         IssueRestClient issueClient = client.getIssueClient();
         Issue issue = issueClient.getIssue(issueKey).claim();
 
-        WorklogInput worklogInput = WorklogInput.create(issue.getSelf(), comment, new DateTime(), minutesSpent);
+        WorklogInput worklogInput
+                = WorklogInput.create(new URI(issue.getSelf().toString()), comment, new DateTime(), minutesSpent);
 
-        issueClient.addWorklog(issue.getWorklogUri(), worklogInput);
+        issueClient.addWorklog(new URI(issue.getSelf().toString()), worklogInput);
 
     }
 }
