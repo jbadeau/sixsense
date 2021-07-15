@@ -19,7 +19,7 @@ channels:
               payload:
                 issue:
                   id: 10001
-                  key: SIXSENSE-2
+                  key: SIXSENSE-1
                   self: https://six-group.atlassian.net/rest/api/2/issue/10001
                   summary: test2
                   transitionsUri: https://six-group.atlassian.net/rest/api/2/issue/10001
@@ -29,7 +29,7 @@ channels:
                   dueDate: null
                   status:
                     id: 10000
-                    self: https://six-group.atlassian.net/rest/api/2/status/10000
+                    self: https://six-group.atlassian.net/rest/api/2/status/10001
                     iconUrl: https://six-group.atlassian.net/
                     name: To Do
                     description: ''
@@ -69,7 +69,7 @@ channels:
                     id: 3
                   issueFields: []
                   votes:
-                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/votes
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/votes
                     votes: 0
                     hasVoted: false
                   fixVersions: []
@@ -79,7 +79,7 @@ channels:
                   attachments: []
                   worklogs: []
                   watchers:
-                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-2/watchers
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/watchers
                     numWatchers: 1
                     isWatching: false
                   timeTracking:

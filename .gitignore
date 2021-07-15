@@ -43,3 +43,5 @@ target
 .project
 .preferences
 .classpath
+
+venv
