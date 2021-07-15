@@ -9,7 +9,7 @@ from ..utils import set_chart_style
 logger = logging.getLogger(__name__)
 
 
-class  WasteCalculator(Calculator):
+class WasteCalculator(Calculator):
     """Calculate stories withdrawn, grouped by the time of withdrawal and
     stage prior to withdrawal.
 

@@ -22,7 +22,7 @@ from pyspark.sql.functions import from_json, schema_of_json, lit, col
 def spark(request):
     return SparkSession \
         .builder.master("local[2]") \
-        .appName("pytest-pyspark-local-testing") \
+        .appName("jira-waste") \
         .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1") \
         .config("spark.jars.ivy", "D:/ivy") \
         .enableHiveSupport() \

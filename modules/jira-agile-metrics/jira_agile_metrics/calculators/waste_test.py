@@ -13,7 +13,6 @@ from ..utils import extend_dict
 from ..querymanager import QueryManager
 from .waste import WasteCalculator
 
-from pyspark.sql import SparkSession
 
 @pytest.fixture
 def fields(minimal_fields):
@@ -320,15 +319,6 @@ def jira(fields):
         ],
     )
 
-@pytest.fixture(scope="session")
-def spark(request):
-    return SparkSession \
-        .builder.master("local[2]") \
-        .appName("pytest-pyspark-local-testing") \
-        .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1") \
-        .config("spark.jars.ivy", "D:/ivy") \
-        .enableHiveSupport() \
-        .getOrCreate()
 
 def test_no_query(jira, settings):
     query_manager = QueryManager(jira, settings)
