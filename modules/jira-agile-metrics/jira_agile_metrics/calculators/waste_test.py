@@ -366,10 +366,10 @@ def test_empty(fields, settings):
     assert len(data.index) == 0
 
 
-def test_query(jira, settings, spark):
+def test_query(jira, settings):
     query_manager = QueryManager(jira, settings)
     results = {}
-    calculator = WasteCalculator(query_manager, settings, results, spark)
+    calculator = WasteCalculator(query_manager, settings, results)
 
     data = calculator.run()
 

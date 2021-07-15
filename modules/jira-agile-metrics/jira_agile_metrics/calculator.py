@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 class Calculator(object):
     """Base class for calculators."""
 
-    def __init__(self, query_manager, settings, results, spark):
+    def __init__(self, query_manager, settings, results):
         """Initialise with a `QueryManager`, a dict of `settings`,
         and a reference to the dict of `results`, which will be
         used to store intermeidary results.
@@ -15,7 +15,6 @@ class Calculator(object):
         self.query_manager = query_manager
         self.settings = settings
         self._results = results
-        self._spark = spark
 
     def get_result(self, calculator=None, default=None):
         """Get the results calculated by a previous calculator
