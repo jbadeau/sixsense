@@ -14,9 +14,311 @@ from ..querymanager import QueryManager
 from .waste import WasteCalculator
 
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StringType, IntegerType, StructField
-from pyspark.sql.functions import from_json, schema_of_json, lit, col
 
+@pytest.fixture
+def fields(minimal_fields):
+    return minimal_fields + []
+
+
+@pytest.fixture
+def settings(minimal_settings):
+    return extend_dict(
+        minimal_settings,
+        {
+            "waste_query": (
+                "issueType = Story " "AND resolution IN (Withdrawn, Invalid)"
+            ),
+            "waste_window": 3,
+            "waste_frequency": "2W-WED",
+            "waste_chart": "waste.png",
+            "waste_chart_title": "Waste",
+        },
+    )
+
+
+@pytest.fixture
+def jira(fields):
+    return JIRA(
+        fields=fields,
+        issues=[
+            Issue(
+                "A-1",
+                summary="Withdrawn from QA",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-03 01:01:01",
+                resolution=Value("Withdrawn", "withdrawn"),
+                resolutiondate="2018-01-06 02:02:02",
+                changes=[
+                    Change(
+                        "2018-01-03 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Backlog",
+                                "Next",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-04 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Next",
+                                "Build",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-05 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Build",
+                                "QA",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-06 02:02:02",
+                        [
+                            (
+                                "status",
+                                "QA",
+                                "Done",
+                            )
+                        ],
+                    ),
+                ],
+            ),
+            Issue(
+                "A-2",
+                summary="Withdrawn from Next",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-03 01:01:01",
+                resolution=Value("Withdrawn", "withdrawn"),
+                resolutiondate="2018-01-07 02:02:02",
+                changes=[
+                    Change(
+                        "2018-01-03 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Backlog",
+                                "Next",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-07 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Next",
+                                "Done",
+                            )
+                        ],
+                    ),
+                ],
+            ),
+            Issue(
+                "A-3",
+                summary="Withdrawn from Done",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-03 01:01:01",
+                resolution=Value("Withdrawn", "withdrawn"),
+                resolutiondate="2018-01-08 02:02:02",
+                changes=[
+                    Change(
+                        "2018-01-03 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Backlog",
+                                "Next",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-04 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Next",
+                                "Build",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-05 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Build",
+                                "QA",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-06 02:02:02",
+                        [
+                            (
+                                "status",
+                                "QA",
+                                "Done",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-08 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Done",
+                                "Done",
+                            )
+                        ],
+                    ),
+                ],
+            ),
+            Issue(
+                "A-4",
+                summary="Withdrawn from Backlog",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-03 01:01:01",
+                resolution=Value("Withdrawn", "withdrawn"),
+                resolutiondate="2018-01-09 02:02:02",
+                changes=[
+                    Change(
+                        "2018-01-09 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Backlog",
+                                "Done",
+                            )
+                        ],
+                    ),
+                ],
+            ),
+            Issue(
+                "A-5",
+                summary="Unresolved",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-03 01:01:01",
+                resolution=None,
+                resolutiondate=None,
+                changes=[
+                    Change(
+                        "2018-01-03 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Backlog",
+                                "Next",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-04 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Next",
+                                "Build",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-05 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Build",
+                                "QA",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-06 02:02:02",
+                        [
+                            (
+                                "status",
+                                "QA",
+                                "Done",
+                            )
+                        ],
+                    ),
+                ],
+            ),
+            Issue(
+                "A-6",
+                summary="Unmapped state",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-03 01:01:01",
+                resolution=Value("Withdrawn", "withdrawn"),
+                resolutiondate="2018-01-06 02:02:02",
+                changes=[
+                    Change(
+                        "2018-01-03 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Backlog",
+                                "Next",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-04 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Next",
+                                "Build",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-05 02:02:02",
+                        [
+                            (
+                                "status",
+                                "Build",
+                                "foobar",
+                            )
+                        ],
+                    ),
+                    Change(
+                        "2018-01-06 02:02:02",
+                        [
+                            (
+                                "status",
+                                "foobar",
+                                "Done",
+                            )
+                        ],
+                    ),
+                ],
+            ),
+            Issue(
+                "A-7",
+                summary="No changes",
+                issuetype=Value("Story", "story"),
+                status=Value("Done", "done"),
+                created="2018-01-06 02:02:02",
+                resolution=Value("Withdrawn", "withdrawn"),
+                resolutiondate="2018-01-06 02:02:02",
+                changes=[],
+            ),
+        ],
+    )
 
 @pytest.fixture(scope="session")
 def spark(request):
@@ -28,22 +330,104 @@ def spark(request):
         .enableHiveSupport() \
         .getOrCreate()
 
-def test_query(spark):
-    df = spark \
-        .readStream \
-        .format("kafka") \
-        .option("kafka.bootstrap.servers", "host.docker.internal:9092") \
-        .option("subscribe", "jira-issues") \
-        .option("startingOffsets", "earliest") \
-        .load()
+def test_no_query(jira, settings):
+    query_manager = QueryManager(jira, settings)
+    results = {}
+    settings = extend_dict(settings, {"waste_query": None})
+    calculator = WasteCalculator(query_manager, settings, results)
 
-    df = df \
-        .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") \
-        .writeStream \
-        .format("kafka") \
-        .option("kafka.bootstrap.servers", "host.docker.internal:9092") \
-        .option("topic", "jira-issues-waste")\
-        .option("checkpointLocation", "D:/tmp/checkpoint")\
-        .start()
+    data = calculator.run()
+    assert data is None
 
-    spark.streams.awaitAnyTermination()
+
+def test_columns(jira, settings):
+    query_manager = QueryManager(jira, settings)
+    results = {}
+    calculator = WasteCalculator(query_manager, settings, results)
+
+    data = calculator.run()
+
+    assert list(data.columns) == [
+        "key",
+        "last_status",
+        "resolution",
+        "withdrawn_date",
+    ]
+
+
+def test_empty(fields, settings):
+    jira = JIRA(fields=fields, issues=[])
+    query_manager = QueryManager(jira, settings)
+    results = {}
+    calculator = WasteCalculator(query_manager, settings, results)
+
+    data = calculator.run()
+
+    assert len(data.index) == 0
+
+
+def test_query(jira, settings, spark):
+    query_manager = QueryManager(jira, settings)
+    results = {}
+    calculator = WasteCalculator(query_manager, settings, results, spark)
+
+    data = calculator.run()
+
+    assert data.to_dict("records") == [
+        {
+            "key": "A-1",
+            "last_status": "Test",
+            "resolution": "Withdrawn",
+            "withdrawn_date": Timestamp("2018-01-06 02:02:02"),
+        },
+        {
+            "key": "A-2",
+            "last_status": "Committed",
+            "resolution": "Withdrawn",
+            "withdrawn_date": Timestamp("2018-01-07 02:02:02"),
+        },
+    ]
+
+
+def test_different_backlog_column(jira, settings):
+    settings = extend_dict(
+        settings,
+        {
+            "backlog_column": "Committed",
+            "committed_column": "Build",
+        },
+    )
+
+    query_manager = QueryManager(jira, settings)
+    results = {}
+    calculator = WasteCalculator(query_manager, settings, results)
+
+    data = calculator.run()
+
+    assert data.to_dict("records") == [
+        {
+            "key": "A-1",
+            "last_status": "Test",
+            "resolution": "Withdrawn",
+            "withdrawn_date": Timestamp("2018-01-06 02:02:02"),
+        },
+    ]
+
+
+def test_different_done_column(jira, settings):
+    settings = extend_dict(settings, {"done_column": "Test"})
+
+    query_manager = QueryManager(jira, settings)
+    results = {}
+    calculator = WasteCalculator(query_manager, settings, results)
+
+    data = calculator.run()
+
+    assert data.to_dict("records") == [
+        {
+            "key": "A-2",
+            "last_status": "Committed",
+            "resolution": "Withdrawn",
+            "withdrawn_date": Timestamp("2018-01-07 02:02:02"),
+        },
+    ]

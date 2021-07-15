@@ -1,14 +1,15 @@
 import logging
 import dateutil
-import databricks.koalas as pd
+import pandas as pd
 from matplotlib import pyplot as plt
+
 from ..calculator import Calculator
 from ..utils import set_chart_style
 
 logger = logging.getLogger(__name__)
 
 
-class WasteCalculator(Calculator):
+class  WasteCalculator(Calculator):
     """Calculate stories withdrawn, grouped by the time of withdrawal and
     stage prior to withdrawal.
 
@@ -86,7 +87,7 @@ class WasteCalculator(Calculator):
 
         data = {}
         for k, v in series.items():
-            data[k] = pd.Series(v["data"], dtype=v["dtype"]).to_numpy()
+            data[k] = pd.Series(v["data"], dtype=v["dtype"])
 
         return pd.DataFrame(data, columns=columns)
 
