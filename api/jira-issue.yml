@@ -14,14 +14,14 @@ channels:
         payload:
           $ref: '../charts/schema-uploader/avro/jira-value.avsc#/Issue'
         examples:
-          - issue:
-              summary: Issue
+          - SIXSENSE-1:
+              summary: Issue SIXSENSE-1
               payload:
                 issue:
                   id: 10001
                   key: SIXSENSE-1
                   self: https://six-group.atlassian.net/rest/api/2/issue/10001
-                  summary: test2
+                  summary: Withdrawn from QA
                   transitionsUri: https://six-group.atlassian.net/rest/api/2/issue/10001
                   description: null
                   creationDate: 2021-05-27T12:13:49.570+0000
