@@ -1,24 +1,18 @@
 app:
   title: Sixsense
-  baseUrl: http://backstage-frontend:8080
+  baseUrl: http://backstage-frontend-sixsense-dev.apps-crc.testing
 
 organization:
   name: SIX
 
 backend:
-  baseUrl: http://backstage-backend:8080
+  baseUrl: http://backstage-backend-sixsense-dev.apps-crc.testing
   listen:
     port: 8080
   csp:
     connect-src: ["'self'", 'http:', 'https:']
-    img-src:
-      # "'self'" and 'data' are from the backstage default but must be set since img-src is overriden
-      - "'self'"
-      - 'data:'
-      # Allow your Jira instance for @roadiehq/backstage-plugin-jira
-      - 'https://six-group.atlassian.net'
   cors:
-    origin: http://localhost:3000
+    origin: http://backstage-frontend-sixsense-dev.apps-crc.testing
     methods: [GET, POST, PUT, DELETE]
     credentials: true
   # config options: https://node-postgres.com/api/client
@@ -56,14 +50,16 @@ proxy:
       Content-Type: 'application/json'
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
+
   '/influxdb/api':
-    target: http://influxdb
+    target: http://influxdb:8086
     headers:
-      Authorization: Token ${INFLUXDB_TOKEN}
+      Authorization: "Token mpQGp9yklFXSuRa5HMoV"
       Accept: 'application/csv'
       Content-Type: 'application/vnd.flux'
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
+
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
@@ -86,7 +82,7 @@ scaffolder:
 
 catalog:
   rules:
-    - allow: [Component, System, API, Group, User, Resource, Location, Domain]
+    - allow: [Component, System, API, Group, User, Resource, Location]
   locations:
     # Backstage example components
     - type: url

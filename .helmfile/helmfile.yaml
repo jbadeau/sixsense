@@ -89,14 +89,6 @@ releases:
     values:
       - values/dev/kafka-connector/values.yaml
 
-  # influx
-  - name: influxdb
-    namespace: sixsense-dev
-    chart: bitnami/influxdb
-    version: 2.2.9
-    values:
-      - values/dev/influxdb/values.yaml
-
   - name: telegraf
     namespace: sixsense-dev
     chart: influxdata/telegraf
@@ -117,21 +109,3 @@ releases:
       - sixsense-dev/minio
     values:
       - values/dev/spark-job-jira/values.yaml
-
-  # microcks
-  - name: microcks
-    namespace: sixsense-dev
-    chart: microcks/microcks
-    version: 1.2.1
-    needs:
-      - sixsense-dev/cp-schema-registry
-    values:
-      - values/dev/microcks/values.yaml
-
-  # backstage
-  - name: backstage
-    namespace: sixsense-dev
-    chart: ../charts/backstage
-    version: 0.0.0
-    values:
-      - values/dev/backstage/values.yaml

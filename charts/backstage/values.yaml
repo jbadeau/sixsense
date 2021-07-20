@@ -20,7 +20,7 @@ frontend:
 backend:
   enabled: true
   nodeEnv: development
-  demoData: true
+  demoData: false
   replicaCount: 1
   image:
     repository: jbadeau/backstage-backend
@@ -169,8 +169,8 @@ auth:
     clientId: a
     clientSecret: a
   github:
-    clientId: c
-    clientSecret: c
+    clientId: ${AUTH_GITHUB_CLIENT_ID}
+    clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
   gitlab:
     clientId: b
     clientSecret: b
