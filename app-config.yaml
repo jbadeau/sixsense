@@ -92,4 +92,4 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/jbadeau/sixsense/blob/master/catalog-info.yaml
+      target: https://github.com/jbadeau/sixsense/blob/strimzi/catalog-info.yaml

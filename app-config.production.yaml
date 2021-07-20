@@ -57,7 +57,7 @@ proxy:
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
   '/influxdb/api':
-    target: http://iinfluxdb
+    target: http://influxdb
     headers:
       Authorization: Token ${INFLUXDB_TOKEN}
       Accept: 'application/csv'
@@ -90,4 +90,4 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/jbadeau/sixsense/blob/master/catalog-info.yaml
+      target: https://raw.githubusercontent.com/jbadeau/sixsense/strimzi/app-config.yaml
