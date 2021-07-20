@@ -57,6 +57,15 @@ proxy:
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
 
+  '/influxdb/api':
+    target: http://influxdb-sixsense-dev.apps-crc.testing
+    headers:
+      Authorization: "Token GYWPclEO1aa6mvV2BT9K"
+      Accept: 'application/csv'
+      Content-Type: 'application/vnd.flux'
+      X-Atlassian-Token: 'nocheck'
+      User-Agent: "MY-UA-STRING"
+
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
@@ -72,6 +81,7 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers: {}
 
+jose.badeau@gmail.com:
 scaffolder:
   github:
     token: ${GITHUB_TOKEN}
