@@ -31,7 +31,7 @@ backend:
       password: ${POSTGRES_PASSWORD}
         # https://node-postgres.com/features/ssl
         #ssl: require # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
-        #ca: # if you have a CA file and want to verify it you can uncomment this section
+      #ca: # if you have a CA file and want to verify it you can uncomment this section
       #  $file: <file-path>/ca/server.crt
   cache:
     store: memory
@@ -56,16 +56,14 @@ proxy:
       Content-Type: 'application/json'
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
-
   '/influxdb/api':
     target: http://influxdb-sixsense-dev.apps-crc.testing
     headers:
-      Authorization: "Token GYWPclEO1aa6mvV2BT9K"
+      Authorization: Token ${INFLUXDB_TOKEN}
       Accept: 'application/csv'
       Content-Type: 'application/vnd.flux'
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
-
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
@@ -81,7 +79,6 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers: {}
 
-jose.badeau@gmail.com:
 scaffolder:
   github:
     token: ${GITHUB_TOKEN}

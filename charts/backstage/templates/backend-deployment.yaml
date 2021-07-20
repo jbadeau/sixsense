@@ -55,6 +55,11 @@ spec:
                 secretKeyRef:
                   name: {{ include "backend.postgresql.passwordSecret" .}}
                   key: postgresql-password
+            - name: INFLUXDB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb
+                  key: admin-user-token
           volumeMounts:
             {{- if .Values.backend.postgresCertMountEnabled }}
             - name: postgres-ca
