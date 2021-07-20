@@ -1,14 +1,14 @@
 app:
   title: Sixsense
-  baseUrl: http://localhost:3000
+  baseUrl: http://backstage-frontend:8080
 
 organization:
   name: SIX
 
 backend:
-  baseUrl: http://localhost:7000
+  baseUrl: http://backstage-backend:8080
   listen:
-    port: 7000
+    port: 8080
   csp:
     connect-src: ["'self'", 'http:', 'https:']
     img-src:
@@ -57,7 +57,7 @@ proxy:
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
   '/influxdb/api':
-    target: http://influxdb-sixsense-dev.apps-crc.testing
+    target: http://iinfluxdb
     headers:
       Authorization: Token ${INFLUXDB_TOKEN}
       Accept: 'application/csv'

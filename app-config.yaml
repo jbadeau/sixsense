@@ -81,7 +81,6 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers: {}
 
-jose.badeau@gmail.com:
 scaffolder:
   github:
     token: ${GITHUB_TOKEN}
