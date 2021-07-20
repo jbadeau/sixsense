@@ -1,11 +1,5 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router';
-import {
-  AlertDisplay,
-  createApp,
-  FlatRoutes,
-  OAuthRequestDialog,
-} from '@backstage/core';
 import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
   CatalogEntityPage,
@@ -24,7 +18,9 @@ import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { Root } from './components/Root';
-import { SixsenseJiraPage } from '@internal/plugin-sixsense-jira';
+
+import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { createApp, FlatRoutes } from '@backstage/core-app-api';
 
 const app = createApp({
   apis,
@@ -64,7 +60,6 @@ const routes = (
     <Route path="/catalog-import" element={<CatalogImportPage />} />
     <Route path="/search" element={<SearchPage />} />
     <Route path="/settings" element={<UserSettingsPage />} />
-    <Route path="/sixsense-jira" element={<SixsenseJiraPage />}/>
   </FlatRoutes>
 );
 

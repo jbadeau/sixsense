@@ -22,6 +22,7 @@ RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 RUN yarn install --frozen-lockfile --production --network-timeout 300000 && rm -rf "$(yarn cache dir)"
 
 # Then copy the rest of the backend bundle, along with any other files we might want.
+COPY packages/backend/dist/bundle.tar.gz app-config.yaml ./
 COPY packages/backend/dist/bundle.tar.gz ./
 COPY app-config.production.yaml ./app-config.yaml
 RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
@@ -31,3 +32,4 @@ RUN chmod -R a+w /app
 EXPOSE 7000
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml"]
+

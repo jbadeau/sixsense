@@ -1,3 +1,6 @@
+# macOS
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -10,7 +13,7 @@ lerna-debug.log*
 coverage
 
 # Dependencies
-node_modules/
+node_modules
 
 # Node version directives
 .nvmrc
@@ -34,14 +37,3 @@ site
 
 # Sensitive credentials
 *-credentials.yaml
-
-.idea
-*.iml
-target
-*.tgz
-
-.project
-.preferences
-.classpath
-
-venv
