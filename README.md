@@ -31,10 +31,10 @@ confluentinc/cp-schema-registry
 `cd ../sixsense/kafka-connect-jira/local`
 
 * logs:
-    * CONNECT_LOG4J_ROOT_LOGLEVEL
-* debug: 
-    * KAFKA_DEBUG
-    * DEBUG_SUSPEND_FLAG
+  * CONNECT_LOG4J_ROOT_LOGLEVEL
+* debug:
+  * KAFKA_DEBUG
+  * DEBUG_SUSPEND_FLAG
 
 
 ```shell
@@ -47,8 +47,8 @@ confluentinc/cp-schema-registry
   -e CONNECT_CONFIG_STORAGE_TOPIC="jira-config" \
   -e CONNECT_OFFSET_STORAGE_TOPIC="jira-offsets" \
   -e CONNECT_STATUS_STORAGE_TOPIC="jira-status" \
-  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.AvroConverter" \
-  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.AvroConverter" \
+  -e CONNECT_KEY_CONVERTER="io.confluent.connect.avro.RemoteSchemaAvroConverter" \
+  -e CONNECT_VALUE_CONVERTER="io.confluent.connect.avro.RemoteSchemaAvroConverter" \
   -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
   -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL="http://localhost:8081" \
   -e CONNECT_REST_ADVERTISED_HOST_NAME="localhost" \
@@ -82,3 +82,4 @@ localhost:8080
 user: jbadeau
 password: jC9UAF4gC4$*An2
 access token: OTg4NTAwMTQ0MzM1Oq5gathNFpuVjdbCMmMiDUnqbK3T
+{"mode":"full","isActive":false}
