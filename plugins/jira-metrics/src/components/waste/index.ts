@@ -1,0 +1,1 @@
+export { WasteComponent } from './WasteComponent';
