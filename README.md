@@ -32,7 +32,7 @@ confluentinc/cp-schema-registry
 
 * logs:
     * CONNECT_LOG4J_ROOT_LOGLEVEL
-* debug:
+* debug: 
     * KAFKA_DEBUG
     * DEBUG_SUSPEND_FLAG
 
