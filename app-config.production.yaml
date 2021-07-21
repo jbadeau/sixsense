@@ -54,7 +54,7 @@ proxy:
   '/influxdb/api':
     target: http://influxdb:8086
     headers:
-      Authorization: "Token mpQGp9yklFXSuRa5HMoV"
+      $env: INFLUXDB_TOKEN
       Accept: 'application/csv'
       Content-Type: 'application/vnd.flux'
       X-Atlassian-Token: 'nocheck'

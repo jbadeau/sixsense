@@ -1,7 +1,6 @@
 image:
-  repository: ghcr.io/jbadeau/spark-job-jira
+  repository: jbadeau/spark-job-jira
   pullPolicy: Always
-  pullSecret: ghcr.io
   tag: latest
 driver:
   env:
@@ -14,7 +13,7 @@ driver:
 
     SPARK_CHECKPOINT_LOCATION: '/tmp/checkpoint'
 
-    MINIO_ENDPOINT: 'http://10.217.5.127:9000'
+    MINIO_ENDPOINT: 'http://10.217.5.120:9000'
     MINIO_BUCKET: 's3a://sixsense-jira'
 
     DELTA_TABLE_JIRA_ISSUE: 'JIRA_ISSUES'

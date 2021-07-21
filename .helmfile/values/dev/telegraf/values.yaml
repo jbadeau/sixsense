@@ -18,18 +18,22 @@ env:
         key: admin-user-token
 
 config:
+  inputs:
+    - kafka_consumer:
+        brokers: ["sixsense-kafka-bootstrap:9092"]
+        topics: ["JiraIssues-0.1.0-master-jira-issues-waste"]
+        max_message_len: 1000000
+        data_format: "json"
+        json_name_key: "waste"
+        tag_keys: ["key"]
+        json_string_fields: ["status"]
+        json_time_key: "timestamp"
   outputs:
     - influxdb_v2:
         urls:
           - "http://influxdb:8086"
         token: "${INFLUX_TOKEN}"
-        organization: primary
-        bucket: primary
-  inputs:
-    - kafka_consumer:
-        brokers: ["sixsense-kafka-bootstrap:9092"]
-        topics: ["JiraIssues-0.1.0-master-jira-issues"]
-        max_message_len: 1000000
-        data_format: "json"
+        organization: sixsense
+        bucket: jira-issues-waste
 pdb:
   create: false
