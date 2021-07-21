@@ -2,11 +2,11 @@ cluster: sixsense-connect-cluster
 class: org.apache.camel.kafkaconnector.jira.CamelJiraSourceConnector
 tasksMax: 1
 config:
-  topics: sixsense-source-jira-issues
+  topics: JiraIssues-0.1.0-source-jira-issues
   key:
-    converter: org.apache.kafka.connect.json.JsonConverter
+    converter: org.apache.kafka.connect.storage.StringConverter
   value:
-    converter: org.apache.kafka.connect.json.JsonConverter
+    converter: org.apache.kafka.connect.storage.StringConverter
   camel:
     source:
       path:
