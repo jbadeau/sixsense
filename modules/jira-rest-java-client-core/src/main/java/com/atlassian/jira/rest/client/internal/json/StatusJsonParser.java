@@ -16,8 +16,8 @@
 
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.StatusCategory;
-import com.atlassian.jira.server.rest.client.api.domain.Status;
+import io.confluent.connect.avro.data.StatusCategory;
+import io.confluent.connect.avro.data.Status;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 

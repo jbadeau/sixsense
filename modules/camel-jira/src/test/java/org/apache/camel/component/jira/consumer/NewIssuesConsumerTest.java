@@ -24,9 +24,9 @@ import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.builder.RouteBuilder;
@@ -73,9 +73,9 @@ public class NewIssuesConsumerTest extends CamelTestSupport {
 
     @BeforeAll
     public static void beforeAll() {
-        issues.add(createIssue(1L));
-        issues.add(createIssue(2L));
-        issues.add(createIssue(3L));
+        issues.add(createIssue(1));
+        issues.add(createIssue(2));
+        issues.add(createIssue(3));
     }
 
     public void setMocks() {

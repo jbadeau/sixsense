@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;

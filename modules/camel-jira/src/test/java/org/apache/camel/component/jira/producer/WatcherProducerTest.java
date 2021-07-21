@@ -29,9 +29,9 @@ import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.domain.BasicUser;
 import com.atlassian.jira.rest.client.api.domain.Watchers;
-import com.atlassian.jira.server.rest.client.api.domain.BasicWatchers;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.BasicWatchers;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -99,7 +99,7 @@ public class WatcherProducerTest extends CamelTestSupport {
         URI watchersUri = URI.create(TEST_JIRA_URL + "/rest/api/2/backendIssue/" + KEY + "-11/backendwatchers");
         BasicWatchers initialBasicWatchers = new BasicWatchers(backendwatchers.size(), true, watchersUri.toString());
         backendIssue
-                = createIssue(11L, "Test backendIssue", KEY + "-" + 11, null, null, null, null, null, initialBasicWatchers);
+                = createIssue(11, "Test backendIssue", KEY + "-" + 11, null, null, null, null, null, initialBasicWatchers);
         lenient().when(issueRestClient.addWatcher(any(URI.class), anyString())).then(inv -> {
             String username = inv.getArgument(1);
             backendwatchers.add(username);

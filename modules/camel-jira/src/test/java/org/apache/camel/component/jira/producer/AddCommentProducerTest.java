@@ -23,9 +23,9 @@ import java.util.Date;
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.server.rest.client.api.domain.Comment;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.Comment;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -83,7 +83,7 @@ public class AddCommentProducerTest extends CamelTestSupport {
 
         when(issueRestClient.addComment(any(), any())).then((Answer<Void>) inv -> {
             Collection<Comment> comments = new ArrayList<>();
-            for (Comment c : backendIssue.getComments()) {
+            for (Comment c : (Collection<Comment>) backendIssue.getComments()) {
                 comments.add(c);
             }
             comments.add(newComment(backendIssue.getId(), comments.size() + 1, comment));

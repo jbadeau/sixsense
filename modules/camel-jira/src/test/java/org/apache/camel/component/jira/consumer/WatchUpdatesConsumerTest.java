@@ -27,9 +27,9 @@ import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.builder.RouteBuilder;
@@ -75,9 +75,9 @@ public class WatchUpdatesConsumerTest extends CamelTestSupport {
     @BeforeAll
     public static void beforeAll() {
         issues.clear();
-        issues.add(createIssue(1L));
-        issues.add(createIssue(2L));
-        issues.add(createIssue(3L));
+        issues.add(createIssue(1));
+        issues.add(createIssue(2));
+        issues.add(createIssue(3));
     }
 
     public void setMocks() {
@@ -150,7 +150,7 @@ public class WatchUpdatesConsumerTest extends CamelTestSupport {
         AtomicBoolean searched = new AtomicBoolean();
         when(searchRestClient.searchJql(any(), any(), any(), any())).then(invocation -> {
             if (!searched.get()) {
-                issues.add(createIssue(4L));
+                issues.add(createIssue(4));
                 issues.remove(1);
                 issues.add(1, issue);
                 issues.remove(2);

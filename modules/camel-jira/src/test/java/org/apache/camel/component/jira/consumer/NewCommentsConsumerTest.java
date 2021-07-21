@@ -26,10 +26,10 @@ import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
-import com.atlassian.jira.server.rest.client.api.domain.Comment;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.Comment;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.builder.RouteBuilder;
@@ -81,15 +81,15 @@ public class NewCommentsConsumerTest extends CamelTestSupport {
 
     @BeforeAll
     public static void beforeAll() {
-        issues.add(createIssueWithComments(1L, 1));
-        issues.add(createIssueWithComments(2L, 1));
-        issues.add(createIssueWithComments(3L, 1));
+        issues.add(createIssueWithComments(1, 1));
+        issues.add(createIssueWithComments(2, 1));
+        issues.add(createIssueWithComments(3, 1));
     }
 
     public void setMocks() {
         SearchResult result = new SearchResult(0, 50, 100, issues);
         Promise<SearchResult> promiseSearchResult = Promises.promise(result);
-        Issue issue = createIssueWithComments(4L, 1);
+        Issue issue = createIssueWithComments(4, 1);
         Promise<Issue> promiseIssue = Promises.promise(issue);
 
         when(jiraClient.getSearchClient()).thenReturn(searchRestClient);
@@ -147,14 +147,14 @@ public class NewCommentsConsumerTest extends CamelTestSupport {
 
     @Test
     public void multipleIssuesTest() throws Exception {
-        Issue issue1 = createIssueWithComments(20L, 2);
-        Issue issue2 = createIssueWithComments(21L, 3);
-        Issue issue3 = createIssueWithComments(22L, 1);
+        Issue issue1 = createIssueWithComments(20, 2);
+        Issue issue2 = createIssueWithComments(21, 3);
+        Issue issue3 = createIssueWithComments(22, 1);
         List<Issue> newIssues = new ArrayList<>();
         newIssues.add(issue1);
         newIssues.add(issue2);
         newIssues.add(issue3);
-        Issue issueWithNoComments = createIssue(31L);
+        Issue issueWithNoComments = createIssue(31);
 
         reset(searchRestClient);
         reset(issueRestClient);

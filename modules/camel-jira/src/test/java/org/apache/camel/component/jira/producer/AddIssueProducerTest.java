@@ -30,11 +30,11 @@ import com.atlassian.jira.rest.client.api.domain.BasicIssue;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
-import com.atlassian.jira.server.rest.client.api.domain.BasicPriority;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
-import com.atlassian.jira.server.rest.client.api.domain.IssueType;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.BasicPriority;
+import io.confluent.connect.avro.data.Issue;
+import io.confluent.connect.avro.data.IssueType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -120,9 +120,9 @@ public class AddIssueProducerTest extends CamelTestSupport {
             String description = (String) issueInput.getField("description").getValue();
             Integer priorityId = Integer.parseInt(getValue(issueInput, "priority", "id"));
             BasicPriority priority = issuePriorities.get(priorityId);
-            backendIssue = createIssue(11L, summary, project, issueType, description, priority, userAssignee, null, null);
+            backendIssue = createIssue(11, summary, project, issueType, description, priority, userAssignee, null, null);
             BasicIssue basicIssue = new BasicIssue(
-                    new URI(backendIssue.getSelf().toString()), backendIssue.getKey().toString(), backendIssue.getId());
+                    new URI(backendIssue.getSelf().toString()), backendIssue.getKey().toString(), (long) backendIssue.getId());
             return Promises.promise(basicIssue);
         });
         lenient().when(issueRestClient.getIssue(any())).then(inv -> Promises.promise(backendIssue));

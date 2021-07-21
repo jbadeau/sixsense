@@ -17,7 +17,7 @@
 package com.atlassian.jira.rest.client.internal.json;
 
 import com.atlassian.jira.rest.client.api.domain.AssigneeType;
-import com.atlassian.jira.server.rest.client.api.domain.BasicComponent;
+import io.confluent.connect.avro.data.BasicComponent;
 import com.atlassian.jira.rest.client.api.domain.BasicUser;
 import com.atlassian.jira.rest.client.api.domain.Component;
 import com.atlassian.jira.rest.client.internal.domain.AssigneeTypeConstants;

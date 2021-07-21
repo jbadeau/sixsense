@@ -16,10 +16,10 @@
 
 package com.atlassian.jira.rest.client.internal.json.gen;
 
-import com.atlassian.jira.server.rest.client.api.domain.Comment;
+import io.confluent.connect.avro.data.Comment;
 import com.atlassian.jira.rest.client.api.domain.ServerInfo;
-import com.atlassian.jira.server.rest.client.api.domain.Type;
-import com.atlassian.jira.server.rest.client.api.domain.Visibility;
+import io.confluent.connect.avro.data.Type;
+import io.confluent.connect.avro.data.Visibility;
 import com.atlassian.jira.rest.client.internal.ServerVersionConstants;
 import com.atlassian.jira.rest.client.internal.json.CommentJsonParser;
 import org.codehaus.jettison.json.JSONException;

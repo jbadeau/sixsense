@@ -18,7 +18,7 @@ package com.atlassian.jira.rest.client.api.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.atlassian.jira.server.rest.client.api.domain.BasicWatchers;
+import io.confluent.connect.avro.data.BasicWatchers;
 
 import java.util.Collection;
 

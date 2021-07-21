@@ -17,7 +17,7 @@ package com.atlassian.jira.rest.client.internal.async;
 
 import com.atlassian.httpclient.api.HttpClient;
 import com.atlassian.jira.rest.client.api.UserRestClient;
-import com.atlassian.jira.server.rest.client.api.domain.User;
+import io.confluent.connect.avro.data.User;
 import com.atlassian.jira.rest.client.api.domain.input.UserInput;
 import com.atlassian.jira.rest.client.internal.json.UserJsonParser;
 import com.atlassian.jira.rest.client.internal.json.UsersJsonParser;

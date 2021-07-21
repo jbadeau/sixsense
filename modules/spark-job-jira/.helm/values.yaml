@@ -10,7 +10,7 @@ driver:
     KAFKA_BOOTSTRAP_SERVER: 'sixsense-kafka-bootstrap:9092'
     KAFKA_GROUP_ID: 'sixsense-jira'
     KAFKA_TOPIC_SOURCE_JIRA_ISSUES: 'JiraIssues-0.1.0-source-jira-issues'
-    KAFKA_TOPIC_JIRA_ISSUES: 'JiraIssues-0.1.0-master-jira-issues'
+    KAFKA_TOPIC_JIRA_ISSUES: 'JiraIssues-0.1.0-master-jira-issues-waste'
 
     SPARK_CHECKPOINT_LOCATION: '/tmp/checkpoint'
 

@@ -16,7 +16,7 @@
 
 package com.atlassian.jira.rest.client.api.domain.input;
 
-import com.atlassian.jira.server.rest.client.api.domain.Comment;
+import io.confluent.connect.avro.data.Comment;
 
 import javax.annotation.Nullable;
 
