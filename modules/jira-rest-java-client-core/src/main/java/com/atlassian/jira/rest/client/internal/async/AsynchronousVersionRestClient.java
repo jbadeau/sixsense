@@ -17,7 +17,7 @@ package com.atlassian.jira.rest.client.internal.async;
 
 import com.atlassian.httpclient.api.HttpClient;
 import com.atlassian.jira.rest.client.api.VersionRestClient;
-import com.atlassian.jira.server.rest.client.api.domain.Version;
+import io.confluent.connect.avro.data.Version;
 import com.atlassian.jira.rest.client.api.domain.VersionRelatedIssuesCount;
 import com.atlassian.jira.rest.client.api.domain.input.VersionInput;
 import com.atlassian.jira.rest.client.api.domain.input.VersionPosition;

@@ -16,7 +16,7 @@
 
 package com.atlassian.jira.rest.client.api.domain;
 
-import com.atlassian.jira.server.rest.client.api.domain.BasicPriority;
+import io.confluent.connect.avro.data.BasicPriority;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 

@@ -30,11 +30,11 @@ import com.atlassian.jira.rest.client.api.domain.BasicIssue;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
-import com.atlassian.jira.server.rest.client.api.domain.BasicPriority;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
-import com.atlassian.jira.server.rest.client.api.domain.IssueType;
 import io.atlassian.util.concurrent.Promise;
 import io.atlassian.util.concurrent.Promises;
+import io.confluent.connect.avro.data.BasicPriority;
+import io.confluent.connect.avro.data.Issue;
+import io.confluent.connect.avro.data.IssueType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -109,7 +109,7 @@ public class UpdateIssueProducerTest extends CamelTestSupport {
         Promise<Iterable<Priority>> promisePriorities = Promises.promise(issuePriorities.values());
         when(metadataRestClient.getPriorities()).thenReturn(promisePriorities);
 
-        backendIssue = createIssue(11L);
+        backendIssue = createIssue(11);
         when(issueRestClient.updateIssue(anyString(), any(IssueInput.class))).then(inv -> {
             String issueKey = inv.getArgument(0);
             IssueInput issueInput = inv.getArgument(1);
@@ -119,9 +119,9 @@ public class UpdateIssueProducerTest extends CamelTestSupport {
             String description = (String) issueInput.getField("description").getValue();
             Integer priorityId = Integer.parseInt(getValue(issueInput, "priority", "id"));
             BasicPriority priority = issuePriorities.get(priorityId);
-            backendIssue = createIssue(11L, summary, issueKey, issueType, description, priority, userAssignee, null, null);
+            backendIssue = createIssue(11, summary, issueKey, issueType, description, priority, userAssignee, null, null);
             BasicIssue basicIssue = new BasicIssue(
-                    new URI(backendIssue.getSelf().toString()), backendIssue.getKey().toString(), backendIssue.getId());
+                    new URI(backendIssue.getSelf().toString()), backendIssue.getKey().toString(), (long) backendIssue.getId());
             return Promises.promise(basicIssue);
         });
         when(issueRestClient.getIssue(any())).then(inv -> Promises.promise(backendIssue));

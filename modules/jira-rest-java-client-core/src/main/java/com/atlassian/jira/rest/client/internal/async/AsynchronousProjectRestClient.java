@@ -17,7 +17,7 @@ package com.atlassian.jira.rest.client.internal.async;
 
 import com.atlassian.httpclient.api.HttpClient;
 import com.atlassian.jira.rest.client.api.ProjectRestClient;
-import com.atlassian.jira.server.rest.client.api.domain.BasicProject;
+import io.confluent.connect.avro.data.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Project;
 import com.atlassian.jira.rest.client.internal.json.BasicProjectsJsonParser;
 import com.atlassian.jira.rest.client.internal.json.ProjectJsonParser;

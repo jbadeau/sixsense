@@ -17,7 +17,7 @@
 package com.atlassian.jira.rest.client.internal.json;
 
 import com.atlassian.jira.rest.client.api.domain.BasicUser;
-import com.atlassian.jira.server.rest.client.api.domain.BasicVotes;
+import io.confluent.connect.avro.data.BasicVotes;
 import com.atlassian.jira.rest.client.api.domain.Votes;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;

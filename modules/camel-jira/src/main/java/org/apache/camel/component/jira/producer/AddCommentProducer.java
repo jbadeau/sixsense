@@ -22,8 +22,8 @@ import java.time.LocalDateTime;
 
 import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.server.rest.client.api.domain.Comment;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import io.confluent.connect.avro.data.Comment;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.DefaultProducer;
@@ -54,7 +54,7 @@ public class AddCommentProducer extends DefaultProducer {
         LocalDateTime now = LocalDateTime.now();
         // there is a bug in addComment, it doesn't use the author parameter to add the comment
         // it uses the authenticated username. https://ecosystem.atlassian.net/browse/JRJC-241
-        Comment comment = new Comment(issue.getId(), issue.getSelf(), null, null, now, null, commentStr, null);
+        Comment comment = new Comment((long) issue.getId(), issue.getSelf(), null, null, now, null, commentStr, null);
         issueClient.addComment(commentsUri, comment);
     }
 }

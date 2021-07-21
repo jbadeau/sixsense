@@ -16,9 +16,9 @@
 
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.IssueLink;
-import com.atlassian.jira.server.rest.client.api.domain.IssueLinkType;
-import com.atlassian.jira.server.rest.client.api.domain.Direction;
+import io.confluent.connect.avro.data.IssueLink;
+import io.confluent.connect.avro.data.IssueLinkType;
+import io.confluent.connect.avro.data.Direction;
 import com.atlassian.jira.rest.client.api.domain.IssuelinksType;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;

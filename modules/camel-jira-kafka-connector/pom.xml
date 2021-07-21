@@ -45,11 +45,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jira</artifactId>
         </dependency>
-        <dependency>
-            <artifactId>camel-jira-avro-converter</artifactId>
-            <groupId>com.sixgroup.sixsense</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--START OF GENERATED CODE-->
         <dependency>
             <groupId>org.apache.camel.kafkaconnector</groupId>

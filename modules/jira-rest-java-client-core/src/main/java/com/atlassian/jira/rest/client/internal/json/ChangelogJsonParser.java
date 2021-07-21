@@ -17,9 +17,9 @@
 package com.atlassian.jira.rest.client.internal.json;
 
 import com.atlassian.jira.rest.client.api.domain.BasicUser;
-import com.atlassian.jira.server.rest.client.api.domain.ChangelogGroup;
-import com.atlassian.jira.server.rest.client.api.domain.ChangelogItem;
-import com.atlassian.jira.server.rest.client.api.domain.User;
+import io.confluent.connect.avro.data.ChangelogGroup;
+import io.confluent.connect.avro.data.ChangelogItem;
+import io.confluent.connect.avro.data.User;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.joda.time.DateTime;

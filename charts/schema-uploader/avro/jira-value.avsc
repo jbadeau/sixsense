@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Issue",
-  "namespace": "com.atlassian.jira.server.rest.client.api.domain",
+  "namespace": "io.confluent.connect.avro.data",
   "fields": [
     {
       "name": "id",
@@ -257,7 +257,7 @@
       "name": "assignee",
       "type": [
         "null",
-        "com.atlassian.jira.server.rest.client.api.domain.User"
+        "io.confluent.connect.avro.data.User"
       ]
     },
     {
@@ -412,7 +412,7 @@
       "name": "affectedVersions",
       "type": {
         "type": "array",
-        "items": "com.atlassian.jira.server.rest.client.api.domain.Version"
+        "items": "io.confluent.connect.avro.data.Version"
       },
       "default": []
     },
@@ -434,11 +434,11 @@
             },
             {
               "name": "author",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+              "type": "io.confluent.connect.avro.data.User"
             },
             {
               "name": "updateAuthor",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+              "type": "io.confluent.connect.avro.data.User"
             },
             {
               "name": "creationDate",
@@ -560,7 +560,7 @@
             },
             {
               "name": "author",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+              "type": "io.confluent.connect.avro.data.User"
             },
             {
               "name": "creationDate",
@@ -608,11 +608,11 @@
             },
             {
               "name": "author",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+              "type": "io.confluent.connect.avro.data.User"
             },
             {
               "name": "updateAuthor",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+              "type": "io.confluent.connect.avro.data.User"
             },
             {
               "name": "comment",
@@ -645,7 +645,7 @@
             },
             {
               "name": "visibility",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.Visibility"
+              "type": "io.confluent.connect.avro.data.Visibility"
             }
           ]
         },
@@ -720,11 +720,11 @@
             },
             {
               "name": "issueType",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.IssueType"
+              "type": "io.confluent.connect.avro.data.IssueType"
             },
             {
               "name": "status",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.Status"
+              "type": "io.confluent.connect.avro.data.Status"
             }
           ]
         },
@@ -741,7 +741,7 @@
           "fields": [
             {
               "name": "author",
-              "type": "com.atlassian.jira.server.rest.client.api.domain.User"
+              "type": "io.confluent.connect.avro.data.User"
             },
             {
               "name": "created",
@@ -890,13 +890,6 @@
                           ]
                         },
                         "default": []
-                      }
-                    },
-                    {
-                      "name": "groups",
-                      "type": {
-                        "type": "array",
-                        "items": "com.atlassian.jira.server.rest.client.api.domain.OperationGroup"
                       }
                     },
                     {

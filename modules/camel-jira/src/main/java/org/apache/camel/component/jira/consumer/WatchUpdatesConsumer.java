@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraConstants;
@@ -57,7 +57,7 @@ public class WatchUpdatesConsumer extends AbstractJiraConsumer {
         watchedIssues = new HashMap<>();
         List<Issue> issues = getIssues(((JiraEndpoint) getEndpoint()).getJql(), 0, 50,
                 ((JiraEndpoint) getEndpoint()).getMaxResults());
-        issues.forEach(i -> watchedIssues.put(i.getId(), i));
+        issues.forEach(i -> watchedIssues.put((long) i.getId(), i));
         watchedIssuesKeys = issues.stream()
                 .map(Issue::getKey)
                 .collect(Collectors.joining(","));
@@ -86,7 +86,7 @@ public class WatchUpdatesConsumer extends AbstractJiraConsumer {
                 }
             }
             if (issueChanged.get()) {
-                watchedIssues.put(issue.getId(), issue);
+                watchedIssues.put((long) issue.getId(), issue);
             }
         }
     }

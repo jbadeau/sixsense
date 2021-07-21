@@ -17,12 +17,12 @@
 package com.atlassian.jira.rest.client.api;
 
 import com.atlassian.jira.rest.client.api.domain.Field;
-import com.atlassian.jira.server.rest.client.api.domain.IssueType;
+import io.confluent.connect.avro.data.IssueType;
 import com.atlassian.jira.rest.client.api.domain.IssuelinksType;
 import com.atlassian.jira.rest.client.api.domain.Priority;
-import com.atlassian.jira.server.rest.client.api.domain.Resolution;
+import io.confluent.connect.avro.data.Resolution;
 import com.atlassian.jira.rest.client.api.domain.ServerInfo;
-import com.atlassian.jira.server.rest.client.api.domain.Status;
+import io.confluent.connect.avro.data.Status;
 import io.atlassian.util.concurrent.Promise;
 
 import java.net.URI;

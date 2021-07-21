@@ -16,8 +16,8 @@
 
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.OperationGroup;
-import com.atlassian.jira.server.rest.client.api.domain.Operations;
+import io.confluent.connect.avro.data.OperationGroup;
+import io.confluent.connect.avro.data.Operations;
 import org.apache.commons.collections4.IterableUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;

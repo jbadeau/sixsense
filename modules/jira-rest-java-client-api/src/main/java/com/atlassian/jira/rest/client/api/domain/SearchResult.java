@@ -18,7 +18,7 @@ package com.atlassian.jira.rest.client.api.domain;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import io.confluent.connect.avro.data.Issue;
 
 /**
  * Represents search results - links to issues matching given filter (JQL query) with basic
@@ -32,7 +32,7 @@ public class SearchResult {
     private final int total;
     private final Iterable<Issue> issues;
 
-    public SearchResult(int startIndex, int maxResults, int total, Iterable<com.atlassian.jira.server.rest.client.api.domain.Issue> issues) {
+    public SearchResult(int startIndex, int maxResults, int total, Iterable<io.confluent.connect.avro.data.Issue> issues) {
         this.startIndex = startIndex;
         this.maxResults = maxResults;
         this.total = total;
@@ -62,7 +62,7 @@ public class SearchResult {
         return total;
     }
 
-    public Iterable<com.atlassian.jira.server.rest.client.api.domain.Issue> getIssues() {
+    public Iterable<io.confluent.connect.avro.data.Issue> getIssues() {
         return issues;
     }
 

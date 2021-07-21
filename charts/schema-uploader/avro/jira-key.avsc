@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "IssueKey",
-  "namespace": "com.atlassian.jira.server.rest.client.api.domain",
+  "namespace": "io.confluent.connect.avro.data",
   "fields": [
     {
       "name": "id",

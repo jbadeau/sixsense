@@ -1,6 +1,6 @@
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.IssueType;
+import io.confluent.connect.avro.data.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Page;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;

@@ -16,17 +16,20 @@
  */
 package org.apache.camel.component.jira.consumer;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import com.google.gson.GsonBuilder;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraEndpoint;
+import org.apache.camel.component.jira.LocalDateTimeSerializer;
 
 /**
  * Consumes new JIRA issues.
- *
+ * <p>
  * NOTE: We manually add "ORDER BY key desc" to the JQL in order to optimize startup (the latest issues one at a time),
  * rather than having to index everything.
  */
@@ -62,6 +65,7 @@ public class NewIssuesConsumer extends AbstractJiraConsumer {
         if (latestIssueId > -1) {
             List<Issue> newIssues = getNewIssues();
             // In the end, we want only *new* issues oldest to newest.
+
             process(newIssues);
             nMessages = newIssues.size();
         }
@@ -71,8 +75,13 @@ public class NewIssuesConsumer extends AbstractJiraConsumer {
     private void process(List<Issue> issues) {
         issues.forEach(issue -> {
             try {
+                String json = new GsonBuilder()
+                        .serializeNulls()
+                        .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
+                        .create()
+                        .toJson(issue);
                 Exchange exchange = this.createExchange(true);
-                exchange.getIn().setBody(issue);
+                exchange.getIn().setBody(json);
                 this.getProcessor().process(exchange);
             } catch (Exception e) {
                 e.printStackTrace();

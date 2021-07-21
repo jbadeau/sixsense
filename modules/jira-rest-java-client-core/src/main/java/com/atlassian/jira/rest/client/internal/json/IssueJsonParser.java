@@ -16,7 +16,7 @@
 
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.*;
+import io.confluent.connect.avro.data.*;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
 import com.atlassian.jira.rest.client.api.domain.IssueFieldId;
 import com.google.common.base.Splitter;
@@ -263,6 +263,9 @@ public class IssueJsonParser implements JsonObjectParser<Issue> {
                 issueJson, new JsonWeakParserForJsonObject<ChangelogGroup>(changelogJsonParser), "changelog", "histories");
         final Operations operations = parseOptionalJsonObject(issueJson, "operations", operationsJsonParser);
 
+        //TODO: deactivated issueLinks due to parsing issue
+        fields.clear();
+
         return new Issue(basicIssue.getId(), basicIssue.getKey(), selfUri.toString(), summary,
                 transitionsUri.toString(), description,
                 (creationDate == null) ? null : (Instant.ofEpochMilli(creationDate.getMillis()).atZone(ZoneId.systemDefault()).toLocalDateTime()),
@@ -310,7 +313,7 @@ public class IssueJsonParser implements JsonObjectParser<Issue> {
                 // we should use fieldParser here (some new version as the old one probably won't work)
                 // enable IssueJsonParserTest#testParseIssueWithUserPickerCustomFieldFilledOut after fixing this
                 final Object value = json.opt(key);
-                res.add(new IssueField(key, namesMap.get(key), typesMap.get("key"), value != JSONObject.EXPLICIT_NULL ? value.toString() : ""));
+                res.add(new IssueField(key, namesMap.get(key), typesMap.get("key"), value != JSONObject.EXPLICIT_NULL ? value.toString() : null));
             } catch (final Exception e) {
                 throw new JSONException("Error while parsing [" + key + "] field: " + e.getMessage()) {
                     @Override

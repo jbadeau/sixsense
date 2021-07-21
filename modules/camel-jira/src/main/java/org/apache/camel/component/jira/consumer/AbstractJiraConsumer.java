@@ -22,7 +22,7 @@ import java.util.List;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.SearchRestClient;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
-import com.atlassian.jira.server.rest.client.api.domain.Issue;
+import io.confluent.connect.avro.data.Issue;
 import org.apache.camel.Processor;
 import org.apache.camel.component.jira.JiraEndpoint;
 import org.apache.camel.support.ScheduledPollConsumer;

@@ -16,9 +16,9 @@
 
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.OperationGroup;
-import com.atlassian.jira.server.rest.client.api.domain.OperationHeader;
-import com.atlassian.jira.server.rest.client.api.domain.OperationLink;
+import io.confluent.connect.avro.data.OperationGroup;
+import io.confluent.connect.avro.data.OperationHeader;
+import io.confluent.connect.avro.data.OperationLink;
 import org.apache.commons.collections4.IterableUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -31,9 +31,12 @@ public class OperationGroupJsonParser implements JsonObjectParser<OperationGroup
     public OperationGroup parse(final JSONObject json) throws JSONException {
         final String id = JsonParseUtil.getOptionalString(json, "id");
         final Iterable<OperationLink> links = JsonParseUtil.parseJsonArray(json.getJSONArray("links"), linkJsonParser);
-        final Iterable<OperationGroup> groups = JsonParseUtil.parseJsonArray(json.getJSONArray("groups"), this);
+        //disabled due to recursion not supported in spark
+//        final Iterable<OperationGroup> groups = JsonParseUtil.parseJsonArray(json.getJSONArray("groups"), this);
         final OperationHeader header = JsonParseUtil.parseOptionalJsonObject(json, "header", headerJsonParser);
         final Integer weight = JsonParseUtil.parseOptionInteger(json, "weight");
-        return new OperationGroup(id, header, IterableUtils.toList(links), IterableUtils.toList(groups), weight);
+        //disabled due to recursion not supported in spark
+//        return new OperationGroup(id, header, IterableUtils.toList(links), IterableUtils.toList(groups), weight);
+        return new OperationGroup(id, header, IterableUtils.toList(links), weight);
     }
 }

@@ -16,7 +16,7 @@
 
 package com.atlassian.jira.rest.client.internal.json;
 
-import com.atlassian.jira.server.rest.client.api.domain.BasicProject;
+import io.confluent.connect.avro.data.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.CimIssueType;
 import com.atlassian.jira.rest.client.api.domain.CimProject;
 import org.codehaus.jettison.json.JSONArray;

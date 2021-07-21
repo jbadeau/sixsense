@@ -17,9 +17,9 @@
 package com.atlassian.jira.rest.client.internal.json;
 
 import com.atlassian.jira.rest.client.api.domain.BasicUser;
-import com.atlassian.jira.server.rest.client.api.domain.User;
-import com.atlassian.jira.server.rest.client.api.domain.Visibility;
-import com.atlassian.jira.server.rest.client.api.domain.Worklog;
+import io.confluent.connect.avro.data.User;
+import io.confluent.connect.avro.data.Visibility;
+import io.confluent.connect.avro.data.Worklog;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.joda.time.DateTime;
