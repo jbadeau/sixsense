@@ -1,0 +1,11 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  labels:
+    strimzi.io/cluster: "{{ .Values.sixsense.appName}}"
+  name: "{{ .Values.microcks.appName }}-kafka-services-updates"
+spec:
+  partitions: 1
+  replicas: 1
+  topicName: microcks-services-updates

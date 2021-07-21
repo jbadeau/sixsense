@@ -82,6 +82,7 @@ metadata:
   name: cuba
   annotations:
     jira/project-key: SIXSENSE
+    jira-metrics-waste/project-key: SIXSENSE
 spec:
   owner: cuba-team
   domain: dm-flex

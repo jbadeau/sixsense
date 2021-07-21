@@ -1,5 +1,5 @@
 kafkaStore:
-  overrideBootstrapServers: PLAINTEXT://kafka:9092
+  overrideBootstrapServers: PLAINTEXT://sixsense-kafka-bootstrap:9092
   overrideGroupId: jira
 
 kafka:

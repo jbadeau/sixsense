@@ -25,7 +25,7 @@ backend:
       password: ${POSTGRES_PASSWORD}
         # https://node-postgres.com/features/ssl
         #ssl: require # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
-        #ca: # if you have a CA file and want to verify it you can uncomment this section
+      #ca: # if you have a CA file and want to verify it you can uncomment this section
       #  $file: <file-path>/ca/server.crt
   cache:
     store: memory
@@ -41,9 +41,24 @@ integrations:
     #   token: ${GHE_TOKEN}
 
 proxy:
-  '/test':
-    target: 'https://example.com'
-    changeOrigin: true
+  '/jira/api':
+    target: https://six-group.atlassian.net
+    headers:
+      Authorization:
+        $env: JIRA_TOKEN
+      Accept: 'application/json'
+      Content-Type: 'application/json'
+      X-Atlassian-Token: 'nocheck'
+      User-Agent: "MY-UA-STRING"
+
+  '/influxdb/api':
+    target: http://influxdb:8086
+    headers:
+      Authorization: "Token mpQGp9yklFXSuRa5HMoV"
+      Accept: 'application/csv'
+      Content-Type: 'application/vnd.flux'
+      X-Atlassian-Token: 'nocheck'
+      User-Agent: "MY-UA-STRING"
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -71,42 +86,4 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
-
-    # Backstage example systems
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
-
-    # Backstage example APIs
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
-
-    # Backstage example resources
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
-
-    # Backstage example organization groups
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme/org.yaml
-
-    # Backstage example templates
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/react-ssr-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/springboot-grpc-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/create-react-app/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/spotify/cookiecutter-golang/blob/master/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/docs-template/template.yaml
-      rules:
-        - allow: [Template]
+      target: https://github.com/jbadeau/sixsense/blob/strimzi/catalog-info.yaml

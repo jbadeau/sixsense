@@ -1,0 +1,25 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: camel-jira-kafka-connector
+  labels:
+    # The strimzi.io/cluster label identifies the KafkaConnect instance
+    # in which to create this connector. That KafkaConnect instance
+    # must have the strimzi.io/use-connector-resources annotation
+    # set to true.
+    strimzi.io/cluster: {{ .Values.cluster}}
+spec:
+  class: {{ .Values.class}}
+  tasksMax: {{ .Values.tasksMax }}
+  config:
+    camel.source.path.type: {{ .Values.config.camel.source.path.type }}
+    camel.source.endpoint.jiraUrl: {{ .Values.config.camel.source.endpoint.jiraUrl }}
+    camel.source.endpoint.jql: {{ .Values.config.camel.source.endpoint.jql }}
+    camel.source.endpoint.privateKey: {{ .Values.config.camel.source.endpoint.privateKey }}
+    camel.source.endpoint.consumerKey: {{ .Values.config.camel.source.endpoint.consumerKey }}
+    camel.source.endpoint.accessToken: {{ .Values.config.camel.source.endpoint.accessToken }}
+    camel.source.endpoint.verificationCode: {{ .Values.config.camel.source.endpoint.verificationCode }}
+    camel.component.jira.jiraUrl: {{ .Values.config.camel.source.endpoint.jiraUrl }}
+    topics: {{ .Values.config.topics }}
+    key.converter: {{ .Values.config.key.converter}}
+    value.converter: {{ .Values.config.value.converter }}

@@ -1,6 +1,0 @@
-podSecurityContext:
-  enabled: false
-
-zookeeper:
-  securityContext:
-    enabled: false

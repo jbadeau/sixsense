@@ -1,0 +1,106 @@
+asyncapi: '2.0.0'
+id: 'com.atlassian.jira.server.rest.client.api.domain.issue'
+info:
+  title: Jira Issues
+  version: 0.1.0
+defaultContentType: application/json
+channels:
+  source-jira-issue-values:
+    subscribe:
+      operationId: jiraIssues
+      message:
+        contentType: avro/binary
+        schemaFormat: application/vnd.apache.avro+json;version=1.9.0
+        payload:
+          $ref: '../charts/schema-uploader/avro/jira-value.avsc#/Issue'
+        examples:
+          - SIXSENSE-1:
+              summary: Issue SIXSENSE-1
+              payload:
+                issue:
+                  id: 10001
+                  key: SIXSENSE-1
+                  self: https://six-group.atlassian.net/rest/api/2/issue/10001
+                  summary: Withdrawn from QA
+                  transitionsUri: https://six-group.atlassian.net/rest/api/2/issue/10001
+                  description: null
+                  creationDate: 2021-05-27T12:13:49.570+0000
+                  updateDate: 2021-05-27T12:13:49.570+0000
+                  dueDate: null
+                  status:
+                    id: 10000
+                    self: https://six-group.atlassian.net/rest/api/2/status/10001
+                    iconUrl: https://six-group.atlassian.net/
+                    name: To Do
+                    description: ''
+                    statusCategory:
+                      id: 2
+                      self: https://six-group.atlassian.net/rest/api/2/statuscategory/2
+                      key: new
+                      colorName: blue-gray
+                      name: To Do
+                  issueType:
+                    id: 10001
+                    name: Story
+                    self: https://six-group.atlassian.net/rest/api/2/issuetype/10001
+                    iconUri: https://six-group.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype
+                    description: Functionality or a feature expressed as a user goal.
+                    isSubtask: false
+                  project:
+                    id: 10000
+                    name: sixsense
+                    key: SIXSENSE
+                    self: https://six-group.atlassian.net/rest/api/2/project/10000
+                  expandos: operations,versionedRepresentations,editmeta,changelog,renderedFields
+                  components: []
+                  reporter:
+                    emailAddress: foo@bar.com
+                    active: true
+                    timezone: Etc/GMT
+                    displayName: Tomas Satka
+                    self: https://six-group.atlassian.net/rest/api/2/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    name: null
+                  assignee: null
+                  resolution: null
+                  priority:
+                    self: https://six-group.atlassian.net/rest/api/2/priority/3
+                    name: Medium
+                    id: 3
+                  issueFields: []
+                  votes:
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/votes
+                    votes: 0
+                    hasVoted: false
+                  fixVersions: []
+                  affectedVersions: []
+                  comments: []
+                  issuelinks: []
+                  attachments: []
+                  worklogs: []
+                  watchers:
+                    self: https://six-group.atlassian.net/rest/api/2/issue/SIXSENSE-1/watchers
+                    numWatchers: 1
+                    isWatching: false
+                  timeTracking:
+                    originalEstimateMinutes: 20
+                    remainingEstimateMinutes: 10
+                    timeSpentMinutes: 10
+                  subtasks: []
+                  changelog: []
+                  operations:
+                    linkGroups: []
+                  labels: []
+  source-jira-issue-keys:
+    subscribe:
+      operationId: jiraIssueKey
+      message:
+        contentType: avro/binary
+        schemaFormat: application/vnd.apache.avro+json;version=1.9.0
+        payload:
+          $ref: '../charts/schema-uploader/avro/jira-key.avsc#/IssueKey'
+        examples:
+          - issue:
+              summary: IssueKey
+              payload:
+                id: 10000

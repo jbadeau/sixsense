@@ -29,10 +29,10 @@ backend:
       port: ${POSTGRES_PORT}
       user: ${POSTGRES_USER}
       password: ${POSTGRES_PASSWORD}
-      # https://node-postgres.com/features/ssl
-      #ssl: require # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
+        # https://node-postgres.com/features/ssl
+        #ssl: require # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
         #ca: # if you have a CA file and want to verify it you can uncomment this section
-        #  $file: <file-path>/ca/server.crt
+      #  $file: <file-path>/ca/server.crt
   cache:
     store: memory
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
@@ -54,6 +54,15 @@ proxy:
         $env: JIRA_TOKEN
       Accept: 'application/json'
       Content-Type: 'application/json'
+      X-Atlassian-Token: 'nocheck'
+      User-Agent: "MY-UA-STRING"
+
+  '/influxdb/api':
+    target: http://influxdb-sixsense-dev.apps-crc.testing
+    headers:
+      Authorization: "Token GYWPclEO1aa6mvV2BT9K"
+      Accept: 'application/csv'
+      Content-Type: 'application/vnd.flux'
       X-Atlassian-Token: 'nocheck'
       User-Agent: "MY-UA-STRING"
 
@@ -83,4 +92,4 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/jbadeau/sixsense/blob/master/catalog-info.yaml
+      target: https://github.com/jbadeau/sixsense/blob/strimzi/catalog-info.yaml

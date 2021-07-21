@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "IssueKey",
+  "namespace": "com.atlassian.jira.server.rest.client.api.domain",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    }
+  ]
+}

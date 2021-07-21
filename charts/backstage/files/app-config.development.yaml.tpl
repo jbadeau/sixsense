@@ -29,7 +29,10 @@ catalog:
     - type: github
       target: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/sample-templates/all-templates.yaml
 {{- else }}
-  locations: []
+  locations:
+    # Backstage example components
+    - type: url
+      target: https://github.com/jbadeau/sixsense/blob/strimzi/catalog-info.yaml
 {{- end }}
 
 auth:
