@@ -1,7 +1,10 @@
 package com.sixgroup.sixsense.pipeline.jira.issue;
 
+import com.sixgroup.sixsense.pipeline.jira.issue.domain.JiraIssueSchema;
+import io.delta.tables.DeltaTable;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.OutputMode;
 import org.apache.spark.sql.streaming.StreamingQueryException;
@@ -26,22 +29,26 @@ public class JiraIssuesWasteKafkaSink {
         spark.sparkContext().hadoopConfiguration().set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem");
         spark.sparkContext().setLogLevel("ERROR");
 
-        Dataset ds = spark
+        String source = System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE");
+
+        if (!DeltaTable.isDeltaTable(source)) {
+            spark.createDataFrame(spark.emptyDataFrame().rdd(), JiraIssueSchema.SCHEMA)
+                    .write()
+                    .format("delta")
+                    .mode(SaveMode.Overwrite)
+                    .save(source);
+        }
+
+        Dataset dataset = spark
                 .readStream()
                 .format("delta")
-                .load(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE"));
+                .load(source)
 
-        //local
-//        Dataset ds = spark
-//                .readStream()
-//                .format("delta")
-//                .load("/tmp/test");
-
-        Dataset select = ds.select(
-                col("key").as("key"),
-                col("status.name").as("status"),
-                col("resolution.name").as("resolution"),
-                col("updateDate").as("updateDate"))
+                .select(
+                        col("key").as("key"),
+                        col("status.name").as("status"),
+                        col("resolution.name").as("resolution"),
+                        col("updateDate").as("updateDate"))
 
                 .withColumn("measurement", lit("waste"))
                 .withColumn("reformat", col("updateDate").divide(1000).cast("timestamp"))
@@ -51,13 +58,13 @@ public class JiraIssuesWasteKafkaSink {
                 //TODO: filter where resolution.name in list[Cancelled, Withdrawn]
                 .select("measurement", "key", "status", "timestamp");
 
-        select.registerTempTable("WASTE");
-        Dataset<Row> sql = select.sqlContext()
+        dataset.registerTempTable("WASTE");
+        Dataset<Row> sql = dataset.sqlContext()
                 .sql("SELECT measurement, key, status, UNIX_MILLIS(timestamp) AS timestamp FROM WASTE");
 
         sql.select(
-                    (col("key")).alias("key"),
-                    to_json(struct(col("measurement"), col("key"), col("status"), col("timestamp"))).alias("value"))
+                (col("key")).alias("key"),
+                to_json(struct(col("measurement"), col("key"), col("status"), col("timestamp"))).alias("value"))
                 .writeStream()
                 .format("kafka")
                 .outputMode(OutputMode.Append())
@@ -67,5 +74,14 @@ public class JiraIssuesWasteKafkaSink {
                 .option("checkpointLocation", System.getenv("SPARK_CHECKPOINT_LOCATION"))
                 .start()
                 .awaitTermination();
+
+                //local
+//                .writeStream()
+//                .format("console")
+//                .option("truncate", "false")
+//                .option("mergeSchema", "true")
+//                .outputMode(OutputMode.Append())
+//                .start()
+//                .awaitTermination();
     }
 }
