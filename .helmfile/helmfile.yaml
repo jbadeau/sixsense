@@ -14,6 +14,109 @@ repositories:
 
 releases:
 
+  # operators
+  - name: spark-operator
+    namespace: sixsense-dev
+    chart: spark-operator/spark-operator
+    version: 1.1.3
+    wait: true
+    values:
+      - values/dev/spark-operator/values.yaml
+
+  - name: strimzi-kafka-operator
+    namespace: sixsense-dev
+    chart: strimzi/strimzi-kafka-operator
+    version: 0.24.0
+    wait: true
+    values:
+      - values/dev/strimzi-kafka-operator/values.yaml
+
+  # minio
+  - name: minio
+    namespace: sixsense-dev
+    chart: bitnami/minio
+    version: 7.1.0
+    values:
+      - values/dev/minio/values.yaml
+
+  # kafka
+  - name: kafka-cluster
+    namespace: sixsense-dev
+    chart: ../charts/kafka-cluster
+    version: 0.1.0
+    needs:
+      - sixsense-dev/strimzi-kafka-operator
+    wait: true
+    values:
+      - values/dev/kafka-cluster/values.yaml
+
+  - name: cp-schema-registry
+    namespace: sixsense-dev
+    chart: ../charts/cp-schema-registry
+    version: 1.2.3
+    wait: true
+    needs:
+      - sixsense-dev/kafka-cluster
+    values:
+      - values/dev/cp-schema-registry/values.yaml
+
+  - name: kafka-ui
+    namespace: sixsense-dev
+    chart: kafka-ui/kafka-ui
+    version: 0.0.1
+    values:
+      - values/dev/kafka-ui/values.yaml
+
+  # kafka connectors
+  - name: kafka-connector
+    namespace: sixsense-dev
+    chart: ../charts/kafka-connector
+    version: 0.1.0
+    wait: true
+    needs:
+      - sixsense-dev/cp-schema-registry
+    values:
+      - values/dev/kafka-connector/values.yaml
+
+  # influx
+  - name: influxdb
+    namespace: sixsense-dev
+    chart: bitnami/influxdb
+    version: 2.2.9
+    values:
+      - values/dev/influxdb/values.yaml
+
+  - name: telegraf
+    namespace: sixsense-dev
+    chart: influxdata/telegraf
+    version: 1.8.2
+    needs:
+      - sixsense-dev/influxdb
+    values:
+      - values/dev/telegraf/values.yaml
+
+  # jobs
+  - name: spark-job-jira
+    namespace: sixsense-dev
+    chart: ../modules/spark-job-jira/.helm
+    version: 0.1.0
+    needs:
+      - sixsense-dev/kafka-connector
+      - sixsense-dev/influxdb
+      - sixsense-dev/minio
+    values:
+      - values/dev/spark-job-jira/values.yaml
+
+  # microcks
+  - name: microcks
+    namespace: sixsense-dev
+    chart: microcks/microcks
+    version: 1.2.1
+    needs:
+      - sixsense-dev/cp-schema-registry
+    values:
+      - values/dev/microcks/values.yaml
+
   # backstage
   - name: backstage
     namespace: sixsense-dev
