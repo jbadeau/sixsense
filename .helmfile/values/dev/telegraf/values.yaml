@@ -17,6 +17,10 @@ env:
         name: influxdb
         key: admin-user-token
 
+metrics:
+  health:
+    enabled: false
+
 config:
   agent:
     debug: true
@@ -33,8 +37,7 @@ config:
         json_string_fields: ["status"]
   outputs:
     - influxdb_v2:
-        urls:
-          - "http://influxdb:8086"
+        urls: ["http://influxdb:8086"]
         token: "${INFLUX_TOKEN}"
         organization: sixsense
         bucket: jira-issues-waste
