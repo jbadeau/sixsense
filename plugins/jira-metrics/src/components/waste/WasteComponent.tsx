@@ -16,5 +16,5 @@ export const WasteComponent = () => {
         layers: [{type: 'histogram', x: "_time",   fill: ['_value'], colors: RAINBOW_EIGHT}]
     };
     // result,table,_start,_stop,_time,_value,_field,_measurement,key
-    return !wasteLoading && !wasteError ? <Plot config={config}/> : <div>Not ready</div>
+    return !wasteLoading && !wasteError ? <Plot config={config}/> : <div>Loading...</div>
 };

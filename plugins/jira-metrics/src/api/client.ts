@@ -19,17 +19,23 @@ export class ApiClient implements Api {
             `${baseUrl}/influxdb/api/api/v2/query?org=${projectKey.toLowerCase()}`,
             {
                 method: 'POST',
-                body: `from(bucket: "jira-issues-waste")
-                    |> range(start: -6mo)
-                    |> group(columns: ["_value", "_time"])`
+                body: JSON.stringify(
+                    {
+                        "query": "from(bucket:\"jira-issues-waste\") |> range(start: -6mo) |> group(columns: [\"_value\", \"_time\"])",
+                        "dialect": {
+                            "header": true,
+                            "delimiter": ",",
+                            "quoteChar": "'",
+                            "commentPrefix": "#",
+                            "annotations": ["datatype", "group", "default"]
+                        },
+                        "type": "flux"
+                    }
+                )
             }
         );
         return await response.text().then(txt => {
-            let csv = `#group,false,false,false,false,true,true,false,false,false
-#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,string,string
-#default,_result,,,,,,,,
-${txt}`
-            return csvToTable(csv, newTable);
+            return csvToTable(txt, newTable);
         })
     }
 

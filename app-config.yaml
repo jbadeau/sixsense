@@ -50,8 +50,7 @@ proxy:
   '/jira/api':
     target: https://six-group.atlassian.net
     headers:
-      Authorization:
-        $env: JIRA_TOKEN
+      Authorization: Basic ${JIRA_TOKEN}
       Accept: 'application/json'
       Content-Type: 'application/json'
       X-Atlassian-Token: 'nocheck'
@@ -60,11 +59,7 @@ proxy:
   '/influxdb/api':
     target: http://influxdb-sixsense-dev.apps-crc.testing
     headers:
-      Authorization: "Token GYWPclEO1aa6mvV2BT9K"
-      Accept: 'application/csv'
-      Content-Type: 'application/vnd.flux'
-      X-Atlassian-Token: 'nocheck'
-      User-Agent: "MY-UA-STRING"
+      Authorization: Token ${INFLUXDB_TOKEN}
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs

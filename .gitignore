@@ -42,3 +42,6 @@ site
 *.iml
 
 target
+
+camel-kafka-connector-catalog
+*.tgz
