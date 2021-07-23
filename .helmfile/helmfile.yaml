@@ -50,15 +50,16 @@ releases:
     values:
       - values/dev/kafka-cluster/values.yaml
 
-  - name: cp-schema-registry
+  # apicurio-registry
+  - name: apicurio-registry
     namespace: sixsense-dev
-    chart: ../charts/cp-schema-registry
+    chart: ../charts/apicurio-registry
     version: 1.2.3
-    wait: true
     needs:
       - sixsense-dev/kafka-cluster
+    wait: true
     values:
-      - values/dev/cp-schema-registry/values.yaml
+      - values/dev/apicurio-registry/values.yaml
 
   - name: kafka-ui
     namespace: sixsense-dev
@@ -111,9 +112,9 @@ releases:
   - name: microcks
     namespace: sixsense-dev
     chart: microcks/microcks
-    version: 1.2.1
+    version: 1.3.0
     needs:
-      - sixsense-dev/cp-schema-registry
+      - sixsense-dev/apicurio-registry
     values:
       - values/dev/microcks/values.yaml
 
