@@ -50,7 +50,6 @@ releases:
     values:
       - values/dev/kafka-cluster/values.yaml
 
-  # apicurio-registry
   - name: apicurio-registry
     namespace: sixsense-dev
     chart: ../charts/apicurio-registry
