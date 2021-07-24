@@ -4,7 +4,7 @@ image:
   tag: latest
 driver:
   env:
-    SCHEMA_REGISTRY_URL: 'http://cp-schema-registry:8081'
+    SCHEMA_REGISTRY_URL: 'http://apicurio-registry-apicurio-registry:8080/apis/ccompat/v6'
 
     KAFKA_BOOTSTRAP_SERVER: 'sixsense-kafka-bootstrap:9092'
     KAFKA_GROUP_ID: 'sixsense-jira'
