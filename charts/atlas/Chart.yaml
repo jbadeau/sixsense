@@ -1,0 +1,13 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: atlas
+version: 0.1.0
+appVersion: 0.1.0
+
+dependencies:
+  - name: cassandra 
+    version: 7.6.5 
+    repository: https://charts.bitnami.com/bitnami
+  - name: solr
+    version: 1.0.5
+    repository: https://charts.bitnami.com/bitnami

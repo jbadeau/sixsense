@@ -1,0 +1,17 @@
+cassandra:
+  containerSecurityContext:
+    enabled: false
+  podSecurityContext:
+    enabled: false
+
+solr:
+  zookeeper:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
+  podSecurityContext:
+    enabled: false
+
+#registry:
+#  kafka:
+#    bootstrapServers: sixsense-kafka-bootstrap:9092
