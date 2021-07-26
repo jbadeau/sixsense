@@ -7,11 +7,9 @@ cassandra:
 solr:
   zookeeper:
     enabled: false
+  externalZookeeper:
+    servers: sixsense-zookeeper-client:2181
   containerSecurityContext:
     enabled: false
   podSecurityContext:
     enabled: false
-
-#registry:
-#  kafka:
-#    bootstrapServers: sixsense-kafka-bootstrap:9092

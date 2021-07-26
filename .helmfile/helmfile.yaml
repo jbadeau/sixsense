@@ -39,7 +39,7 @@ releases:
     version: 0.1.0
     needs:
       - sixsense-dev/kafka-cluster
-    wait: true
+#    wait: true
     values:
       - values/dev/atlas/values.yaml
 
