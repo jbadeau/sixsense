@@ -5,11 +5,10 @@ cassandra:
     enabled: false
 
 solr:
-  zookeeper:
-    enabled: false
-  externalZookeeper:
-    servers: sixsense-zookeeper-client:2181
   containerSecurityContext:
     enabled: false
   podSecurityContext:
     enabled: false
+  zookeeper:
+    securityContext:
+      enabled: false
