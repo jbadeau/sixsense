@@ -14,25 +14,6 @@ repositories:
 
 releases:
 
-  - name: strimzi-kafka-operator
-    namespace: sixsense-dev
-    chart: strimzi/strimzi-kafka-operator
-    version: 0.24.0
-    wait: true
-    values:
-      - values/dev/strimzi-kafka-operator/values.yaml
-
-  # kafka
-  - name: kafka-cluster
-    namespace: sixsense-dev
-    chart: ../charts/kafka-cluster
-    version: 0.1.0
-    needs:
-      - sixsense-dev/strimzi-kafka-operator
-    wait: true
-    values:
-      - values/dev/kafka-cluster/values.yaml
-
   - name: atlas
     namespace: sixsense-dev
     chart: ../charts/atlas
