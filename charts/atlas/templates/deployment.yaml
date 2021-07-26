@@ -26,9 +26,7 @@ spec:
           command: [
                     "/bin/bash",
                     "-c",
-                    "apk update;
-                     apk add curl zip;
-                     zip config.zip /apache-atlas-2.1.0-SNAPSHOT/conf/solr/*;
+                    "zip config.zip /apache-atlas-2.1.0-SNAPSHOT/conf/solr/*;
                      curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=vertex_index';
                      curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=edge_index';
                      curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=fulltext_index';"
