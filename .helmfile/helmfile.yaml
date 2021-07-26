@@ -18,8 +18,6 @@ releases:
     namespace: sixsense-dev
     chart: ../charts/atlas
     version: 0.1.0
-    needs:
-      - sixsense-dev/kafka-cluster
 #    wait: true
     values:
       - values/dev/atlas/values.yaml
