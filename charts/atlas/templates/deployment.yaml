@@ -34,11 +34,6 @@ spec:
           env:
             - name: ZK_CLIENT_TIMEOUT
               value: "{{ .Values.zkClientTimeout }}"
-            - name: CASSANDRA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: atlas-cassandra
-                  key: cassandra-password
       containers:
         - name: {{ .Chart.Name }}
           command: [
@@ -48,6 +43,12 @@ spec:
                       tail -f /apache-atlas-2.1.0-SNAPSHOT/logs/*.log;"
                     ]
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: CASSANDRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: atlas-cassandra
+                  key: cassandra-password
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
