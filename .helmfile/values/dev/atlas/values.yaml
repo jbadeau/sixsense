@@ -1,6 +1,6 @@
 image:
   repository: tomassatka/k8s-atlas
-  tag: 0.1.3
+  tag: 0.2.0
 
 cassandra:
   dbUser:
