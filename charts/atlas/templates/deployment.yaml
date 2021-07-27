@@ -35,10 +35,10 @@ spec:
             - name: ZK_CLIENT_TIMEOUT
               value: "{{ .Values.zkClientTimeout }}"
             - name: CASSANDRA_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: atlas-cassandra
-                    key: cassandra-password
+              valueFrom:
+                secretKeyRef:
+                  name: atlas-cassandra
+                  key: cassandra-password
       containers:
         - name: {{ .Chart.Name }}
           command: [
