@@ -3,6 +3,9 @@ image:
   tag: 0.1.2
 
 cassandra:
+  dbUser:
+    user: cassandra
+    password: cassandra
   containerSecurityContext:
     enabled: false
   podSecurityContext:
