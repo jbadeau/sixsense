@@ -89,3 +89,6 @@ data:
     atlas.jaas.KafkaClient.option.password=Endpoint={{ .Values.kafka.connectionString  }}
     atlas.jaas.KafkaClient.option.mechanism=PLAIN
     atlas.jaas.KafkaClient.option.protocol=SASL_SSL
+
+    atlas.cassandra.auth.username=cassandra
+    atlas.cassandra.auth.password=$CASSANDRA_PASSWORD
