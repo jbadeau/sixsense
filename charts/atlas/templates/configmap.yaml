@@ -7,6 +7,8 @@ data:
     atlas.graph.storage.backend=cql
     atlas.graph.storage.hostname={{ .Release.Name }}-cassandra
     atlas.graph.storage.cassandra.keyspace=JanusGraph
+    atlas.graph.storage.cassandra.auth.username=cassandra
+    atlas.graph.storage.cassandra.auth.password=$CASSANDRA_PASSWORD
     atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername  }}
     atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port  }}
 
@@ -89,6 +91,3 @@ data:
     atlas.jaas.KafkaClient.option.password=Endpoint={{ .Values.kafka.connectionString  }}
     atlas.jaas.KafkaClient.option.mechanism=PLAIN
     atlas.jaas.KafkaClient.option.protocol=SASL_SSL
-
-    atlas.cassandra.auth.username=cassandra
-    atlas.cassandra.auth.password=$CASSANDRA_PASSWORD
