@@ -16,7 +16,7 @@ data:
     atlas.EntityAuditRepository.keyspace=atlas_audit
     atlas.EntityAuditRepository.replicationFactor=1
 
-    atlas.graph.index.search.backend=solr5
+    atlas.graph.index.search.backend=solr
     atlas.graph.index.search.solr.mode=cloud
     atlas.graph.index.search.solr.zookeeper-url={{ .Release.Name }}-zookeeper:{{ .Values.solr.zookeeper.service.port }}
     atlas.graph.index.search.solr.zookeeper-connect-timeout=60000
