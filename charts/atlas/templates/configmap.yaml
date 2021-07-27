@@ -8,7 +8,7 @@ data:
     atlas.graph.storage.hostname={{ .Release.Name }}-cassandra
     atlas.graph.storage.cassandra.keyspace=JanusGraph
     atlas.graph.storage.username=cassandra
-    atlas.graph.storage.password=$CASSANDRA_PASSWORD
+    atlas.graph.storage.password=${CASSANDRA_PASSWORD}
     atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername  }}
     atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port  }}
 
