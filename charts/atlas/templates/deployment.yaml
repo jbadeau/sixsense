@@ -48,7 +48,7 @@ spec:
     {{- end }}
           volumeMounts:
           - name: atlas-config
-            mountPath: /apache-atlas-2.1.0-SNAPSHOT/conf/atlas-application.properties
+            mountPath: /apache-atlas-2.1.0/conf/atlas-application.properties
             subPath: atlas-application.properties            
       volumes:
       - name: atlas-config
