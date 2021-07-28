@@ -34,6 +34,9 @@ spec:
           env:
             - name: ZK_CLIENT_TIMEOUT
               value: "{{ .Values.zkClientTimeout }}"
+        - name: init-mydb
+          image: busybox:1.28
+          command: [ 'sh', '-c', "until nslookup atlas-cassandra; do echo waiting for cassandra; sleep 2; done" ]
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -50,13 +53,12 @@ spec:
           - name: atlas-config
             mountPath: /apache-atlas-2.1.0/conf/atlas-application.properties
             subPath: atlas-application.properties
-          livenessProbe:
+          readinessProbe:
             httpGet:
               path: /
               port: 21000
-            initialDelaySeconds: 30
-            periodSeconds: 60
-            failureThreshold: 1
+            initialDelaySeconds: 60
+            periodSeconds: 10
       volumes:
       - name: atlas-config
         configMap:
