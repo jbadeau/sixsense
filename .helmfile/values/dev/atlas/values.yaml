@@ -10,14 +10,3 @@ cassandra:
     enabled: false
   podSecurityContext:
     enabled: false
-
-solr:
-  containerSecurityContext:
-    enabled: false
-  podSecurityContext:
-    enabled: false
-  authentication:
-    enabled: false
-  zookeeper:
-    securityContext:
-      enabled: false
