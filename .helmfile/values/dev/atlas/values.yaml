@@ -17,8 +17,7 @@ solr:
   podSecurityContext:
     enabled: false
   authentication:
-    adminUsername: admin
-    adminPassword: admin
+    enabled: false
   zookeeper:
     securityContext:
       enabled: false

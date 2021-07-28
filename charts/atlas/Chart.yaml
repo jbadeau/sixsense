@@ -9,5 +9,5 @@ dependencies:
     version: 7.6.5 
     repository: https://charts.bitnami.com/bitnami
   - name: solr
-    version: 1.0.5
-    repository: https://charts.bitnami.com/bitnami
+    version: 1.5.5
+    repository: https://charts.helm.sh/incubator
