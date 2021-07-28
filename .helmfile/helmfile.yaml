@@ -22,15 +22,15 @@ releases:
 #    wait: true
 #    values:
 #      - values/dev/spark-operator/values.yaml
-
-  - name: strimzi-kafka-operator
-    namespace: sixsense-dev
-    chart: strimzi/strimzi-kafka-operator
-    version: 0.24.0
-    wait: true
-    values:
-      - values/dev/strimzi-kafka-operator/values.yaml
-
+#
+#  - name: strimzi-kafka-operator
+#    namespace: sixsense-dev
+#    chart: strimzi/strimzi-kafka-operator
+#    version: 0.24.0
+#    wait: true
+#    values:
+#      - values/dev/strimzi-kafka-operator/values.yaml
+#
 #  # minio
 #  - name: minio
 #    namespace: sixsense-dev
@@ -38,17 +38,17 @@ releases:
 #    version: 7.1.0
 #    values:
 #      - values/dev/minio/values.yaml
-
-  # kafka
-  - name: kafka-cluster
-    namespace: sixsense-dev
-    chart: ../charts/kafka-cluster
-    version: 0.1.0
-    needs:
-      - sixsense-dev/strimzi-kafka-operator
-    wait: true
-    values:
-      - values/dev/kafka-cluster/values.yaml
+#
+#  # kafka
+#  - name: kafka-cluster
+#    namespace: sixsense-dev
+#    chart: ../charts/kafka-cluster
+#    version: 0.1.0
+#    needs:
+#      - sixsense-dev/strimzi-kafka-operator
+#    wait: true
+#    values:
+#      - values/dev/kafka-cluster/values.yaml
 
   - name: atlas
     namespace: sixsense-dev

@@ -33,17 +33,14 @@ data:
     atlas.notification.consumer.retry.interval=500
     atlas.notification.hook.retry.interval=1000
 
-    atlas.kafka.data=${sys:atlas.home}/data/kafka
     atlas.kafka.zookeeper.connect={{ .Release.Name }}-zookeeper:2181
     atlas.kafka.bootstrap.servers={{ .Values.kafka.url  }}
-    atlas.kafka.sasl.mechanism=PLAIN
-    atlas.kafka.security.protocol=SASL_SSL
     atlas.kafka.zookeeper.session.timeout.ms=400
     atlas.kafka.zookeeper.connection.timeout.ms=200
     atlas.kafka.zookeeper.sync.time.ms=20
     atlas.kafka.auto.commit.interval.ms=1000
     atlas.kafka.hook.group.id=atlas
-    atlas.kafka.enable.auto.commit=false
+    atlas.kafka.enable.auto.commit=true
     atlas.kafka.auto.offset.reset=earliest
     atlas.kafka.session.timeout.ms=30000
     atlas.kafka.offsets.topic.replication.factor=1
