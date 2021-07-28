@@ -27,9 +27,9 @@ spec:
                     "/bin/bash",
                     "-c",
                     "zip config.zip /apache-atlas-2.1.0/conf/solr/*;
-                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=vertex_index';
-                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=edge_index';
-                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=fulltext_index';"
+                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip -u admin:admin 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=vertex_index';
+                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip -u admin:admin 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=edge_index';
+                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip -u admin:admin 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=fulltext_index';"
                     ]
           env:
             - name: ZK_CLIENT_TIMEOUT
@@ -55,7 +55,8 @@ spec:
               path: /
               port: 21000
             initialDelaySeconds: 70
-            periodSeconds: 120
+            periodSeconds: 60
+            failureThreshold: 1
       volumes:
       - name: atlas-config
         configMap:
