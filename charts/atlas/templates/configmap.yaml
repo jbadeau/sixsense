@@ -18,7 +18,7 @@ data:
 
     atlas.graph.index.search.backend=solr
     atlas.graph.index.search.solr.mode=cloud
-    atlas.graph.index.search.solr.zookeeper-url={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}/solr
+    atlas.graph.index.search.solr.zookeeper-url={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
     atlas.graph.index.search.solr.zookeeper-connect-timeout=60000
     atlas.graph.index.search.solr.zookeeper-session-timeout=60000
     atlas.graph.index.search.solr.wait-searcher=true
