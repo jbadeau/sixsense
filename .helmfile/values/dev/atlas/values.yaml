@@ -6,14 +6,24 @@ kafka:
   url: sixsense-kafka-bootstrap:9092
 
 
-cassandra:
-  dbUser:
-    user: cassandra
-    password: cassandra
-  containerSecurityContext:
+#cassandra:
+#  dbUser:
+#    user: cassandra
+#    password: cassandra
+#  containerSecurityContext:
+#    enabled: false
+#  podSecurityContext:
+#    enabled: false
+
+hbase:
+  zookeeper:
     enabled: false
-  podSecurityContext:
+  hdfs:
     enabled: false
+  conf:
+    hbaseSite:
+      hbase.rootdir:  hdfs://atlas-hdfs-namenode:8020/hbase
+      hbase.zookeeper.quorum:  atlas-zookeeper:2181
 
 zookeeper:
   securityContext:

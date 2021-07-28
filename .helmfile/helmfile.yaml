@@ -11,6 +11,8 @@ repositories:
     url: https://provectus.github.io/kafka-ui
   - name: spark-operator
     url: https://googlecloudplatform.github.io/spark-on-k8s-operator
+  - name: gradiant
+    url: https://gradiant.github.io/charts
 
 releases:
 

@@ -5,9 +5,12 @@ version: 0.1.0
 appVersion: 0.1.0
 
 dependencies:
-  - name: cassandra 
-    version: 7.6.5 
-    repository: https://charts.bitnami.com/bitnami
+#  - name: cassandra
+#    version: 7.6.5
+#    repository: https://charts.bitnami.com/bitnami
+  - name: hbase
+    version: 0.1.6
+    repository: https://gradiant.github.io/charts
   - name: zookeeper
     version: 5.0.3
     repository: https://charts.bitnami.com/bitnami
