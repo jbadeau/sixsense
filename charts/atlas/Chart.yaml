@@ -8,3 +8,6 @@ dependencies:
   - name: cassandra 
     version: 7.6.5 
     repository: https://charts.bitnami.com/bitnami
+  - name: zookeeper
+    version: 5.0.3
+    repository: https://charts.bitnami.com/bitnami
