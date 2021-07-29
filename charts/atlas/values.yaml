@@ -11,7 +11,6 @@ config_parameter:
   cassandra_storage_port: 9042
 service:
   name: atlas
-  type: LoadBalancer
   externalPort: 21000
   internalPort: 21000
 ingress:
