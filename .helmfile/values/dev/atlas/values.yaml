@@ -8,6 +8,7 @@ kafka:
 embedded:
   hbase: true
   solr: false
+  zookeeper: false
 
 #cassandra:
 #  dbUser:

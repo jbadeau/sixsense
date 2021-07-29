@@ -48,6 +48,8 @@ spec:
               value: {{ .Values.embedded.hbase | quote }}
             - name: MANAGE_LOCAL_SOLR
               value: {{ .Values.embedded.solr | quote }}
+            - name: HBASE_MANAGES_ZK
+              value: {{ .Values.embedded.zookeeper | quote }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
