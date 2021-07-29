@@ -5,6 +5,9 @@ image:
 kafka:
   url: sixsense-kafka-bootstrap:9092
 
+embedded:
+  hbase: true
+  solr: false
 
 #cassandra:
 #  dbUser:

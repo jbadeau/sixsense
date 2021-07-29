@@ -43,6 +43,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
+          env:
+            - name: MANAGE_LOCAL_HBASE
+              value: {{ .Values.embedded.hbase | quote }}
+            - name: MANAGE_LOCAL_SOLR
+              value: {{ .Values.embedded.solr | quote }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

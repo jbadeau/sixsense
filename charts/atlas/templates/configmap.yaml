@@ -4,10 +4,6 @@ metadata:
   name: atlas-config
 data:
   atlas-application.properties: |
-    atlas.graph.storage.backend=hbase
-    atlas.graph.storage.hostname=localhost:{{ .Values.zookeeper.service.port }}
-    atlas.graph.storage.hbase.table=atlas
-
     atlas.graph.index.search.backend=solr
     atlas.graph.index.search.solr.mode=cloud
     atlas.graph.index.search.solr.zookeeper-url={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}

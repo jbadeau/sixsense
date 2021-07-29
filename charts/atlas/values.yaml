@@ -42,3 +42,7 @@ resources: {}
 kafka:
   url: azure_event_hub_url
   connectionString: eventhubconnectionstring
+
+embedded:
+  hbase: false
+  solr: false
