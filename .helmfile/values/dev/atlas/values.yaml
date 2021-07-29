@@ -1,6 +1,6 @@
 image:
   repository: tomassatka/k8s-atlas
-  tag: 0.2.0
+  tag: 0.2.1
 
 kafka:
   url: sixsense-kafka-bootstrap:9092
@@ -15,15 +15,15 @@ kafka:
 #  podSecurityContext:
 #    enabled: false
 
-hbase:
-  zookeeper:
-    enabled: false
-  hdfs:
-    enabled: false
-  conf:
-    hbaseSite:
-      hbase.rootdir:  hdfs://atlas-hdfs-namenode:8020/hbase
-      hbase.zookeeper.quorum:  atlas-zookeeper:2181
+#hbase:
+#  zookeeper:
+#    enabled: false
+#  hdfs:
+#    enabled: false
+#  conf:
+#    hbaseSite:
+#      hbase.rootdir:  hdfs://atlas-hdfs-namenode:8020/hbase
+#      hbase.zookeeper.quorum:  atlas-zookeeper:2181
 
 zookeeper:
   securityContext:

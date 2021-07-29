@@ -5,7 +5,7 @@ metadata:
 data:
   atlas-application.properties: |
     atlas.graph.storage.backend=hbase
-    atlas.graph.storage.hostname={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
+    atlas.graph.storage.hostname=localhost:{{ .Values.zookeeper.service.port }}
     atlas.graph.storage.hbase.table=atlas
 
     atlas.graph.index.search.backend=solr
