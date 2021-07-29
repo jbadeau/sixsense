@@ -25,7 +25,7 @@ data:
     atlas.notification.consumer.retry.interval=500
     atlas.notification.hook.retry.interval=1000
 
-    atlas.kafka.zookeeper.connect={{ .Release.Name }}-zookeeper:2181
+    atlas.kafka.zookeeper.connect={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
     atlas.kafka.bootstrap.servers={{ .Values.kafka.url  }}
     atlas.kafka.zookeeper.session.timeout.ms=400
     atlas.kafka.zookeeper.connection.timeout.ms=200
@@ -53,7 +53,7 @@ data:
 
     atlas.audit.hbase.tablename=apache_atlas_entity_audit
     atlas.audit.zookeeper.session.timeout.ms=1000
-    atlas.audit.hbase.zookeeper.quorum=atlas-zookeeper:2181
+    atlas.audit.hbase.zookeeper.quorum={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
 
     atlas.server.ha.enabled=false
     atlas.authorizer.impl=simple
@@ -69,3 +69,14 @@ data:
 
     #Set to false to disable gremlin search.
     atlas.search.gremlin.enable=false
+
+  hbase-site.xml:
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+      <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>{{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}</value>
+      </property>
+    </configuration>
+

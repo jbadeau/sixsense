@@ -34,11 +34,15 @@ spec:
           env:
             - name: ZK_CLIENT_TIMEOUT
               value: "{{ .Values.zkClientTimeout }}"
-#        - name: init-cassandra
-#          image: busybox:1.28
-#          command: [ 'sh', '-c', "until nslookup atlas-cassandra; do echo waiting for cassandra; sleep 2; done" ]
       containers:
         - name: {{ .Chart.Name }}
+          command: [
+              "/bin/bash",
+              "-c",
+              "/apache-atlas-2.1.0/hbase/bin/start-hbase.sh;
+              /apache-atlas-2.1.0/bin/atlas_start.py;
+              tail -f /apache-atlas-2.1.0/logs/*.log;"
+          ]
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -60,14 +64,29 @@ spec:
           - name: atlas-config
             mountPath: /apache-atlas-2.1.0/conf/atlas-application.properties
             subPath: atlas-application.properties
+          - name: hbase-config
+            mountPath: /apache-atlas-2.1.0/hbase/conf/hbase-site.xml
+            subPath: hbase-site.xml
           readinessProbe:
             httpGet:
               path: /
               port: 21000
+              httpHeaders:
+                - name: Authorization
+                  value:  {{ include "basic.auth" .Values.auth }}
             initialDelaySeconds: 60
             periodSeconds: 10
       volumes:
       - name: atlas-config
         configMap:
-          name: atlas-config               
+          name: atlas-config
+          items:
+            - key: atlas-application.properties
+              path: atlas-application.properties
+      - name: hbase-config
+        configMap:
+          name: atlas-config
+          items:
+            - key: hbase-site.xml
+              path: hbase-site.xml
 

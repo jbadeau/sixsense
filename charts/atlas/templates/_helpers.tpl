@@ -14,3 +14,12 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Create basic auth for probe
+*/}}
+{{- define "basic.auth" -}}
+{{- printf "%s %s" "Basic" (printf "%s:%s" .username .password | b64enc) -}}
+{{- end -}}
+
+

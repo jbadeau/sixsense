@@ -47,3 +47,7 @@ embedded:
   hbase: false
   solr: false
   zookeeper: false
+
+auth:
+  username: admin
+  password: admin
