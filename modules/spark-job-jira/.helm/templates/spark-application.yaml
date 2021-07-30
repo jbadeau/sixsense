@@ -47,6 +47,7 @@ spec:
     volumeMounts:
       - name: minio
         mountPath: /checkpoint
+#TODO to enable custom configmap mutating admission webhook is needed to use this feature https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md#about-the-mutating-admission-webhook
     configMaps:
       - name: spark-atlas-config
         path: /atlas/conf/atlas-application.properties
@@ -107,6 +108,7 @@ spec:
     volumeMounts:
       - name: minio
         mountPath: /checkpoint
+#TODO to enable custom configmap mutating admission webhook is needed to use this feature https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md#about-the-mutating-admission-webhook
     configMaps:
       - name: spark-atlas-config
         path: /atlas/conf/atlas-application.properties
