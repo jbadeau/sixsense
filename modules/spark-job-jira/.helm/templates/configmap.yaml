@@ -26,7 +26,7 @@ data:
     atlas.notification.hook.retry.interval=1000
 
     atlas.kafka.zookeeper.connect=atlas-zookeeper:2128
-    atlas.kafka.bootstrap.servers={{ .Values.kafka.url  }}
+    atlas.kafka.bootstrap.servers=sixsense-kafka-bootstrap:9091
     atlas.kafka.zookeeper.session.timeout.ms=400
     atlas.kafka.zookeeper.connection.timeout.ms=200
     atlas.kafka.zookeeper.sync.time.ms=20
