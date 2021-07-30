@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: atlas-config
+  name: spark-atlas-config
 data:
   atlas-application.properties: |
     atlas.graph.storage.backend=hbase

@@ -47,7 +47,7 @@ spec:
       - name: minio
         mountPath: /checkpoint
     configMaps:
-      - name: configmap
+      - name: spark-atlas-config
         path: /opt/spark/conf/atlas-application.properties
   executor:
     cores: 1
@@ -106,7 +106,7 @@ spec:
       - name: minio
         mountPath: /checkpoint
     configMaps:
-      - name: configmap
+      - name: spark-atlas-config
         path: /opt/spark/conf/atlas-application.properties
   executor:
     cores: 1
