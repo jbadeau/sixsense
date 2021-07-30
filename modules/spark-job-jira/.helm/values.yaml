@@ -1,5 +1,5 @@
 image:
-  repository: jbadeau/spark-job-jira
+  repository: tomassatka/spark-job-jira
   pullPolicy: Always
   tag: latest
 driver:
