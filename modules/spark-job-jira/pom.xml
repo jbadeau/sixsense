@@ -157,6 +157,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.apache.atlas</groupId>
+            <artifactId>atlas-client-v2</artifactId>
+            <version>2.1.0</version>
+        </dependency>
 
         <!-- provided -->
         <dependency>

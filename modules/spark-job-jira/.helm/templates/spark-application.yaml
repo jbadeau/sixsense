@@ -46,6 +46,9 @@ spec:
     volumeMounts:
       - name: minio
         mountPath: /checkpoint
+    configMaps:
+      - name: configmap
+        path: /opt/spark/conf/atlas-application.properties
   executor:
     cores: 1
     instances: 1
@@ -102,6 +105,9 @@ spec:
     volumeMounts:
       - name: minio
         mountPath: /checkpoint
+    configMaps:
+      - name: configmap
+        path: /opt/spark/conf/atlas-application.properties
   executor:
     cores: 1
     instances: 1
