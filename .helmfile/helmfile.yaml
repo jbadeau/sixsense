@@ -17,50 +17,50 @@ repositories:
 releases:
 
   # operators
-  - name: spark-operator
-    namespace: sixsense-dev
-    chart: spark-operator/spark-operator
-    version: 1.1.3
-    wait: true
-    values:
-      - values/dev/spark-operator/values.yaml
-
-  - name: strimzi-kafka-operator
-    namespace: sixsense-dev
-    chart: strimzi/strimzi-kafka-operator
-    version: 0.24.0
-    wait: true
-    values:
-      - values/dev/strimzi-kafka-operator/values.yaml
+#  - name: spark-operator
+#    namespace: sixsense-dev
+#    chart: spark-operator/spark-operator
+#    version: 1.1.3
+#    wait: true
+#    values:
+#      - values/dev/spark-operator/values.yaml
+#
+#  - name: strimzi-kafka-operator
+#    namespace: sixsense-dev
+#    chart: strimzi/strimzi-kafka-operator
+#    version: 0.24.0
+#    wait: true
+#    values:
+#      - values/dev/strimzi-kafka-operator/values.yaml
 
   # minio
-  - name: minio
-    namespace: sixsense-dev
-    chart: bitnami/minio
-    version: 7.1.0
-    values:
-      - values/dev/minio/values.yaml
+#  - name: minio
+#    namespace: sixsense-dev
+#    chart: bitnami/minio
+#    version: 7.1.0
+#    values:
+#      - values/dev/minio/values.yaml
 
   # kafka
-  - name: kafka-cluster
-    namespace: sixsense-dev
-    chart: ../charts/kafka-cluster
-    version: 0.1.0
-    needs:
-      - sixsense-dev/strimzi-kafka-operator
-    wait: true
-    values:
-      - values/dev/kafka-cluster/values.yaml
+#  - name: kafka-cluster
+#    namespace: sixsense-dev
+#    chart: ../charts/kafka-cluster
+#    version: 0.1.0
+#    needs:
+#      - sixsense-dev/strimzi-kafka-operator
+#    wait: true
+#    values:
+#      - values/dev/kafka-cluster/values.yaml
 
-  - name: atlas
-    namespace: sixsense-dev
-    chart: ../charts/atlas
-    version: 0.1.0
-    needs:
-      - sixsense-dev/kafka-cluster
-    wait: true
-    values:
-      - values/dev/atlas/values.yaml
+#  - name: atlas
+#    namespace: sixsense-dev
+#    chart: ../charts/atlas
+#    version: 0.1.0
+#    needs:
+#      - sixsense-dev/kafka-cluster
+#    wait: true
+#    values:
+#      - values/dev/atlas/values.yaml
 
 #  - name: apicurio-registry
 #    namespace: sixsense-dev
@@ -80,15 +80,15 @@ releases:
 #      - values/dev/kafka-ui/values.yaml
 
   # kafka connectors
-  - name: kafka-connector
-    namespace: sixsense-dev
-    chart: ../charts/kafka-connector
-    version: 0.1.0
-    wait: true
-    needs:
-      - sixsense-dev/cp-schema-registry
-    values:
-      - values/dev/kafka-connector/values.yaml
+#  - name: kafka-connector
+#    namespace: sixsense-dev
+#    chart: ../charts/kafka-connector
+#    version: 0.1.0
+#    wait: true
+#    needs:
+#      - sixsense-dev/cp-schema-registry
+#    values:
+#      - values/dev/kafka-connector/values.yaml
 #
 #  # influx
 #  - name: influxdb

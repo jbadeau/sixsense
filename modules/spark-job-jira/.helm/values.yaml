@@ -13,7 +13,7 @@ driver:
 
     SPARK_CHECKPOINT_LOCATION: '/tmp/checkpoint'
 
-    MINIO_ENDPOINT: 'http://10.217.5.120:9000'
+    MINIO_ENDPOINT: 'http://10.217.4.93:9000'
     MINIO_BUCKET: 's3a://sixsense-jira'
 
     DELTA_TABLE_JIRA_ISSUE: 'JIRA_ISSUES'
