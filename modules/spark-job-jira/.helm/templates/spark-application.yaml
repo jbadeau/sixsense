@@ -20,7 +20,7 @@ spec:
     "spark.extraListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
     "spark.sql.queryExecutionListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
     "spark.sql.streaming.streamingQueryListeners": "com.hortonworks.spark.atlas.SparkAtlasStreamingQueryEventTracker"
-    "spark.driver.extraJavaOptions":"-Datlas.conf=/atlas/conf/"
+    "spark.driver.extraJavaOptions": "-Datlas.conf=/atlas/conf/"
   driver:
     cores: 1
     coreLimit: "1200m"
@@ -80,7 +80,7 @@ spec:
     "spark.extraListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
     "spark.sql.queryExecutionListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
     "spark.sql.streaming.streamingQueryListeners": "com.hortonworks.spark.atlas.SparkAtlasStreamingQueryEventTracker"
-    "spark.driver.extraJavaOptions":"-Datlas.conf=/atlas/conf/"
+    "spark.driver.extraJavaOptions": "-Datlas.conf=/atlas/conf/"
   driver:
     cores: 1
     coreLimit: "1200m"
