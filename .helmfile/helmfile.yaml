@@ -13,6 +13,8 @@ repositories:
     url: https://googlecloudplatform.github.io/spark-on-k8s-operator
   - name: gradiant
     url: https://gradiant.github.io/charts
+  - name: strimzi
+    url: https://strimzi.io/charts
 
 releases:
 
