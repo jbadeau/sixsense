@@ -41,7 +41,7 @@ releases:
 #    values:
 #      - values/dev/minio/values.yaml
 
-   kafka
+#   kafka
   - name: kafka-cluster
     namespace: sixsense-dev
     chart: ../charts/kafka-cluster
