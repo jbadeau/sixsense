@@ -25,13 +25,13 @@ releases:
 #    values:
 #      - values/dev/spark-operator/values.yaml
 #
-#  - name: strimzi-kafka-operator
-#    namespace: sixsense-dev
-#    chart: strimzi/strimzi-kafka-operator
-#    version: 0.24.0
-#    wait: true
-#    values:
-#      - values/dev/strimzi-kafka-operator/values.yaml
+  - name: strimzi-kafka-operator
+    namespace: sixsense-dev
+    chart: strimzi/strimzi-kafka-operator
+    version: 0.24.0
+    wait: true
+    values:
+      - values/dev/strimzi-kafka-operator/values.yaml
 
   # minio
 #  - name: minio
@@ -41,26 +41,26 @@ releases:
 #    values:
 #      - values/dev/minio/values.yaml
 
-  # kafka
-#  - name: kafka-cluster
-#    namespace: sixsense-dev
-#    chart: ../charts/kafka-cluster
-#    version: 0.1.0
-#    needs:
-#      - sixsense-dev/strimzi-kafka-operator
-#    wait: true
-#    values:
-#      - values/dev/kafka-cluster/values.yaml
+   kafka
+  - name: kafka-cluster
+    namespace: sixsense-dev
+    chart: ../charts/kafka-cluster
+    version: 0.1.0
+    needs:
+      - sixsense-dev/strimzi-kafka-operator
+    wait: true
+    values:
+      - values/dev/kafka-cluster/values.yaml
 
-#  - name: atlas
-#    namespace: sixsense-dev
-#    chart: ../charts/atlas
-#    version: 0.1.0
-#    needs:
-#      - sixsense-dev/kafka-cluster
-#    wait: true
-#    values:
-#      - values/dev/atlas/values.yaml
+  - name: atlas
+    namespace: sixsense-dev
+    chart: ../charts/atlas
+    version: 0.1.0
+    needs:
+      - sixsense-dev/kafka-cluster
+    wait: true
+    values:
+      - values/dev/atlas/values.yaml
 
 #  - name: apicurio-registry
 #    namespace: sixsense-dev
@@ -108,16 +108,16 @@ releases:
 #      - values/dev/telegraf/values.yaml
 
   # jobs
-  - name: spark-job-jira
-    namespace: sixsense-dev
-    chart: ../modules/spark-job-jira/.helm
-    version: 0.1.0
-    needs:
-      - sixsense-dev/kafka-connector
-      - sixsense-dev/influxdb
-      - sixsense-dev/minio
-    values:
-      - values/dev/spark-job-jira/values.yaml
+#  - name: spark-job-jira
+#    namespace: sixsense-dev
+#    chart: ../modules/spark-job-jira/.helm
+#    version: 0.1.0
+#    needs:
+#      - sixsense-dev/kafka-connector
+#      - sixsense-dev/influxdb
+#      - sixsense-dev/minio
+#    values:
+#      - values/dev/spark-job-jira/values.yaml
 #
 #  # microcks
 #  - name: microcks

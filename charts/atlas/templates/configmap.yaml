@@ -8,12 +8,9 @@ data:
     atlas.graph.storage.hostname={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
     atlas.graph.storage.hbase.table=atlas
 
-    atlas.graph.index.search.backend=solr
-    atlas.graph.index.search.solr.mode=cloud
-    atlas.graph.index.search.solr.zookeeper-url={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
-    atlas.graph.index.search.solr.zookeeper-connect-timeout=60000
-    atlas.graph.index.search.solr.zookeeper-session-timeout=60000
-    atlas.graph.index.search.solr.wait-searcher=true
+    atlas.graph.index.search.backend=elasticsearch
+    atlas.graph.index.search.hostname={{ .Release.Name }}-master:9200
+    atlas.graph.index.search.elasticsearch.client-only=true
 
     atlas.graph.index.search.max-result-set-size=150
 
