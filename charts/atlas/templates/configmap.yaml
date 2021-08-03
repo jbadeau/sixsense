@@ -9,7 +9,7 @@ data:
     atlas.graph.storage.hbase.table=atlas
 
     atlas.graph.index.search.backend=elasticsearch
-    atlas.graph.index.search.hostname={{ .Release.Name }}-master:9200
+    atlas.graph.index.search.hostname={{ .Release.Name }}-elasticsearch-master:9200
     atlas.graph.index.search.elasticsearch.client-only=true
 
     atlas.graph.index.search.max-result-set-size=150
