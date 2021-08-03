@@ -19,21 +19,6 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
-      initContainers:
-        - name: {{ .Chart.Name }}-init
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: [
-                    "/bin/bash",
-                    "-c",
-                    "zip config.zip /apache-atlas-2.1.0/conf/solr/*;
-                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=vertex_index';
-                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=edge_index';
-                     curl -X POST --header 'Content-Type:text/xml' -d @config.zip 'http://{{ .Release.Name }}-solr-headless:8983/solr/admin/configs?action=CREATE&name=fulltext_index';"
-                    ]
-          env:
-            - name: ZK_CLIENT_TIMEOUT
-              value: "{{ .Values.zkClientTimeout }}"
       containers:
         - name: {{ .Chart.Name }}
           command: [
