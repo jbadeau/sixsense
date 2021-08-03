@@ -22,7 +22,7 @@ spec:
       initContainers:
         - name: init-elasticsearch
           image: busybox:1.28
-          command: ['sh', '-c', 'until nc -vz atlas-elasticsearch-master 9200; do echo "Waiting for atlas-elasticsearch-master service"; sleep 2; done; echo "waiting 30s"; sleep 30; echo "up"']
+          command: ['sh', '-c', 'until nc -vz atlas-elasticsearch-master 9200; do echo "Waiting for atlas-elasticsearch-master service"; sleep 2; done; echo "waiting 60s"; sleep 60; echo "up"']
       containers:
         - name: {{ .Chart.Name }}
           command: [
