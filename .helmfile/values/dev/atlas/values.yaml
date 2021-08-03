@@ -10,6 +10,10 @@ embedded:
   solr: false
   zookeeper: false
 
+zookeeper:
+  securityContext:
+    enabled: false
+
 elasticsearch:
   master:
     securityContext:
