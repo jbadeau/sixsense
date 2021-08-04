@@ -2,3 +2,26 @@ oidc:
   enabled: false
 neo4j:
   enabled: false
+
+metadata:
+  proxy:
+    host: atlas-atlas
+    port: 21000
+    user: admin
+    password: admin
+
+elasticsearch:
+  sysctlImage:
+    enabled: false
+  master:
+    securityContext:
+      enabled: false
+  coordinating:
+    securityContext:
+      enabled: false
+  data:
+    securityContext:
+      enabled: false
+  ingest:
+    securityContext:
+      enabled: false

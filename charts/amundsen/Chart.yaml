@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: Amundsen is a metadata driven application for improving the productivity of data analysts, data scientists and engineers when interacting with data.
 name: amundsen
 version: 2.1.0
@@ -12,3 +12,7 @@ sources:
 keywords:
   - metadata
   - data
+dependencies:
+  - name: elasticsearch
+    version: 15.10.0
+    repository: https://charts.bitnami.com/bitnami
