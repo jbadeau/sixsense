@@ -64,6 +64,16 @@ releases:
     values:
       - values/dev/atlas/values.yaml
 
+  - name: amundsen
+    namespace: sixsense-dev
+    chart: ../charts/amundsen
+    version: 2.1.0
+    needs:
+      - sixsense-dev/atlas
+    wait: true
+    values:
+      - values/dev/amundsen/values.yaml
+
 #  - name: apicurio-registry
 #    namespace: sixsense-dev
 #    chart: ../charts/apicurio-registry
