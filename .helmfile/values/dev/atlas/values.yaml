@@ -1,6 +1,6 @@
 image:
   repository: tomassatka/k8s-atlas
-  tag: 0.2.3
+  tag: 0.2.4
 
 kafka:
   url: sixsense-kafka-bootstrap:9092
