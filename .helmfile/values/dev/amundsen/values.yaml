@@ -1,4 +1,4 @@
-elasticsearch:
-  enabled: false
 oidc:
+  enabled: false
+neo4j:
   enabled: false
