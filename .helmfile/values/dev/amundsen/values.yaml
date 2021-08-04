@@ -10,7 +10,12 @@ metadata:
     user: admin
     password: admin
 
+search:
+  proxy:
+    endpoint: amundsen-elasticsearch-master:9200
+
 elasticsearch:
+  enabled: false
   sysctlImage:
     enabled: false
   master:
