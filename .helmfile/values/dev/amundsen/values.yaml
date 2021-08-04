@@ -6,7 +6,7 @@ neo4j:
 metadata:
   proxy:
     host: atlas-atlas
-    port: "21000"
+    port: 21000
     user: admin
     password: admin
 

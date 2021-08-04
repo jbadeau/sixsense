@@ -49,7 +49,7 @@ metadata:
 data:
   PROXY_HOST: {{ if .Values.metadata.proxy.host }}{{ .Values.metadata.proxy.host }}{{ else }}bolt://{{ .Release.Name }}-neo4j.{{ .Release.Namespace }}.svc.cluster.local{{ end }}
   {{ if .Values.metadata.proxy.port }}
-  PROXY_PORT: {{ .Values.metadata.proxy.port }}
+  PROXY_PORT: {{ .Values.metadata.proxy.port | quote }}
   {{ end }}
   {{ if .Values.metadata.proxy.user }}
   CREDENTIALS_PROXY_USER: {{ .Values.metadata.proxy.user }}
