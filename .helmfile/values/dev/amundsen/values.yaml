@@ -1,2 +1,4 @@
 elasticsearch:
   enabled: false
+oidc:
+  enabled: false
