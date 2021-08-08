@@ -16,8 +16,8 @@ spec:
             - name: {{ .Chart.Name }}
               image: {{ .Values.cron.image.name }}:{{ .Values.cron.image.tag }}
               imagePullPolicy: IfNotPresent
-              {{ - if .Values.cron.env }}
+              {{- if .Values.cron.env }}
               env:
-                {{ - toYaml .Values.cron.env | indent 12 }}
-              {{ - end }}
+                {{- toYaml .Values.cron.env | indent 12 }}
+              {{- end }}
           restartPolicy: OnFailure
