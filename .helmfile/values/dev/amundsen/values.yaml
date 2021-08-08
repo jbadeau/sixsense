@@ -30,3 +30,20 @@ elasticsearch:
   ingest:
     securityContext:
       enabled: false
+
+cron:
+  image:
+    name: tomassatka/amundsen-atlas-extractor
+    tag: 0.0.2
+  schedule: "* * * * *"
+  env:
+    - name: ATLAS_URL
+      value: atlas-atlas
+    - name: ATLAS_PORT
+      value: 21000
+    - name: ATLAS_USERNAME
+      value: admin
+    - name: ATLAS_PASSWORD
+      value: admin
+    - name: ELASTICSEARCH_HOST
+      value: amundsen-elasticsearch-master

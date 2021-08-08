@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ template "amundsen.fullname" . }}
+spec:
+  schedule: {{ .Values.cron.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+            - name: init-elasticsearch
+              image: busybox:1.28
+              command: [ 'sh', '-c', 'until nc -vz amundsen-elasticsearch-master 9200; do echo "Waiting for amundsen-elasticsearch-master service"; sleep 2; done;' ]
+          containers:
+            - name: {{ .Chart.Name }}
+              image: {{ .Values.cron.image.name }}:{{ .Values.cron.image.tag }}
+              imagePullPolicy: IfNotPresent
+              env:
+                {{ - if .Values.cron.env }}
+                {{ - toYaml .Values.cronenv | indent 12 }}
+                {{ - end }}
+          restartPolicy: OnFailure
