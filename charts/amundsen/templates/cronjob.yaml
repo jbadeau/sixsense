@@ -20,7 +20,7 @@ spec:
                 - name: ATLAS_URL
                   value: {{ .Values.cron.env.atlas.url }}
                 - name: ATLAS_PORT
-                  value: {{ .Values.cron.env.atlas.port }}
+                  value: {{ .Values.cron.env.atlas.port | quote }}
                 - name: ATLAS_USERNAME
                   value: {{ .Values.cron.env.atlas.username }}
                 - name: ATLAS_PASSWORD
