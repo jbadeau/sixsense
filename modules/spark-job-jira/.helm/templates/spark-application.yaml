@@ -24,7 +24,6 @@ spec:
       version: 3.1.1
     serviceAccount: spark
     envVars:
-      MINIO_ENDPOINT: {{ .Values.driver.env.MINIO_ENDPOINT }}
       MINIO_BUCKET: {{ .Values.driver.env.MINIO_BUCKET }}
       SCHEMA_REGISTRY_URL: {{ .Values.driver.env.SCHEMA_REGISTRY_URL }}
       KAFKA_BOOTSTRAP_SERVER: {{ .Values.driver.env.KAFKA_BOOTSTRAP_SERVER }}
@@ -76,7 +75,6 @@ spec:
       version: 3.1.1
     serviceAccount: spark
     envVars:
-      MINIO_ENDPOINT: {{ .Values.driver.env.MINIO_ENDPOINT }}
       MINIO_BUCKET: {{ .Values.driver.env.MINIO_BUCKET }}
       SCHEMA_REGISTRY_URL: {{ .Values.driver.env.SCHEMA_REGISTRY_URL }}
       KAFKA_BOOTSTRAP_SERVER: {{ .Values.driver.env.KAFKA_BOOTSTRAP_SERVER }}

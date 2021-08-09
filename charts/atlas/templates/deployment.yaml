@@ -25,24 +25,10 @@ spec:
           command: ['sh', '-c', 'until nc -vz atlas-elasticsearch-master 9200; do echo "Waiting for atlas-elasticsearch-master service"; sleep 2; done; echo "waiting 80s"; sleep 80; echo "up"']
       containers:
         - name: {{ .Chart.Name }}
-          command: [
-              "/bin/bash",
-              "-c",
-              "/apache-atlas-2.1.0/hbase/bin/start-hbase.sh;
-              /apache-atlas-2.1.0/bin/atlas_start.py;
-              tail -f /apache-atlas-2.1.0/logs/*.log;"
-          ]
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
-          env:
-            - name: MANAGE_LOCAL_HBASE
-              value: {{ .Values.embedded.hbase | quote }}
-            - name: MANAGE_LOCAL_SOLR
-              value: {{ .Values.embedded.solr | quote }}
-            - name: HBASE_MANAGES_ZK
-              value: {{ .Values.embedded.zookeeper | quote }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
@@ -53,9 +39,6 @@ spec:
           - name: atlas-config
             mountPath: /apache-atlas-2.1.0/conf/atlas-application.properties
             subPath: atlas-application.properties
-          - name: hbase-config
-            mountPath: /apache-atlas-2.1.0/hbase/conf/hbase-site.xml
-            subPath: hbase-site.xml
           readinessProbe:
             httpGet:
               path: /
@@ -72,10 +55,4 @@ spec:
           items:
             - key: atlas-application.properties
               path: atlas-application.properties
-      - name: hbase-config
-        configMap:
-          name: atlas-config
-          items:
-            - key: hbase-site.xml
-              path: hbase-site.xml
 

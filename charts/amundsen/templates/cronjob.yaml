@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ template "amundsen.fullname" . }}
+  name: {{ template "amundsen.fullname" . }}-sync
 spec:
   schedule: {{ .Values.cron.schedule }}
   jobTemplate:
