@@ -5,13 +5,16 @@ image:
 kafka:
   url: sixsense-kafka-bootstrap:9092
 
-embedded:
-  hbase: true
-  solr: false
-  zookeeper: false
-
 zookeeper:
-  securityContext:
+  url: sixsense-zookeeper-client:2181
+
+cassandra:
+  dbUser:
+    user: cassandra
+    password: cassandra
+  containerSecurityContext:
+    enabled: false
+  podSecurityContext:
     enabled: false
 
 elasticsearch:
