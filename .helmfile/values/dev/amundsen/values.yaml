@@ -34,7 +34,7 @@ elasticsearch:
 cron:
   image:
     name: tomassatka/amundsen-atlas-extractor
-    tag: 0.0.2
+    tag: 0.0.3
   schedule: '"* * * * *"'
   env:
     atlas:
