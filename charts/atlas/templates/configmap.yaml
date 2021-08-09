@@ -50,9 +50,7 @@ data:
 
     atlas.rest.address=http://localhost:21000
 
-    atlas.EntityAuditRepository.impl=org.apache.atlas.repository.audit.CassandraBasedAuditRepository
-    atlas.EntityAuditRepository.keyspace=atlas_audit
-    atlas.EntityAuditRepository.replicationFactor=1
+    atlas.EntityAuditRepository.impl=org.apache.atlas.repository.audit.NoopEntityAuditRepository
 
     atlas.server.ha.enabled=false
     atlas.authorizer.impl=simple
