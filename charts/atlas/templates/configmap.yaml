@@ -4,13 +4,9 @@ metadata:
   name: atlas-config
 data:
   atlas-application.properties: |
-    atlas.graph.storage.backend=cql
-    atlas.graph.storage.hostname={{ .Release.Name }}-cassandra
-    atlas.graph.storage.cassandra.keyspace=JanusGraph
-    atlas.graph.storage.username=cassandra
-    atlas.graph.storage.password=cassandra
-    atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername  }}
-    atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port  }}
+    atlas.graph.storage.backend=hbase
+    atlas.graph.storage.hostname={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
+    atlas.graph.storage.hbase.table=atlas
 
     atlas.graph.index.search.backend=elasticsearch
     atlas.graph.index.search.hostname={{ .Release.Name }}-elasticsearch-master:9200
@@ -26,7 +22,7 @@ data:
     atlas.notification.consumer.retry.interval=500
     atlas.notification.hook.retry.interval=1000
 
-    atlas.kafka.zookeeper.connect={{ .Values.zookeeper.url }}
+    atlas.kafka.zookeeper.connect={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
     atlas.kafka.bootstrap.servers={{ .Values.kafka.url  }}
     atlas.kafka.zookeeper.session.timeout.ms=400
     atlas.kafka.zookeeper.connection.timeout.ms=200
@@ -44,15 +40,17 @@ data:
 
     atlas.authentication.method.kerberos=false
     atlas.authentication.method.file=true
+
     atlas.authentication.method.ldap.type=none
+
     atlas.authentication.method.file.filename=${sys:atlas.home}/conf/users-credentials.properties
 
 
     atlas.rest.address=http://localhost:21000
 
-    atlas.EntityAuditRepository.impl=org.apache.atlas.repository.audit.CassandraBasedAuditRepository
-    atlas.EntityAuditRepository.keyspace=atlas_audit
-    atlas.EntityAuditRepository.replicationFactor=1
+    atlas.audit.hbase.tablename=apache_atlas_entity_audit
+    atlas.audit.zookeeper.session.timeout.ms=1000
+    atlas.audit.hbase.zookeeper.quorum={{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}
 
     atlas.server.ha.enabled=false
     atlas.authorizer.impl=simple
@@ -68,4 +66,14 @@ data:
 
     #Set to false to disable gremlin search.
     atlas.search.gremlin.enable=false
+
+  hbase-site.xml:
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+      <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>{{ .Release.Name }}-zookeeper:{{ .Values.zookeeper.service.port }}</value>
+      </property>
+    </configuration>
 
