@@ -16,11 +16,6 @@ spec:
   volumes:
     - name: checkpoint
       emptyDir: {}
-  sparkConf:
-    "spark.extraListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
-    "spark.sql.queryExecutionListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
-    "spark.sql.streaming.streamingQueryListeners": "com.hortonworks.spark.atlas.SparkAtlasStreamingQueryEventTracker"
-    "spark.driver.extraJavaOptions": "-Datlas.conf=/atlas/conf/"
   driver:
     cores: 1
     coreLimit: "1200m"
@@ -47,10 +42,6 @@ spec:
     volumeMounts:
       - name: minio
         mountPath: /checkpoint
-#TODO to enable custom configmap mutating admission webhook is needed to use this feature https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md#about-the-mutating-admission-webhook
-    configMaps:
-      - name: spark-atlas-config
-        path: /atlas/conf/atlas-application.properties
   executor:
     cores: 1
     instances: 1
@@ -77,11 +68,6 @@ spec:
   volumes:
     - name: checkpoint
       emptyDir: {}
-  sparkConf:
-    "spark.extraListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
-    "spark.sql.queryExecutionListeners": "com.hortonworks.spark.atlas.SparkAtlasEventTracker"
-    "spark.sql.streaming.streamingQueryListeners": "com.hortonworks.spark.atlas.SparkAtlasStreamingQueryEventTracker"
-    "spark.driver.extraJavaOptions": "-Datlas.conf=/atlas/conf/"
   driver:
     cores: 1
     coreLimit: "1200m"
@@ -108,10 +94,6 @@ spec:
     volumeMounts:
       - name: minio
         mountPath: /checkpoint
-#TODO to enable custom configmap mutating admission webhook is needed to use this feature https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md#about-the-mutating-admission-webhook
-    configMaps:
-      - name: spark-atlas-config
-        path: /atlas/conf/atlas-application.properties
   executor:
     cores: 1
     instances: 1
