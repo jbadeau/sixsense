@@ -14,6 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spark2.version>3.1.1</spark2.version>
         <jackson.version>2.10.0</jackson.version>
+        <version.beam>2.31.0</version.beam>
     </properties>
 
     <build>
@@ -82,7 +83,6 @@
             <version>${spark2.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- streaming dependency for as long as DStream is used-->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_2.12</artifactId>
@@ -100,6 +100,31 @@
             <version>${spark2.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-core</artifactId>
+            <version>${version.beam}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-runners-spark</artifactId>
+            <version>${version.beam}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-runners-direct-java</artifactId>
+            <version>${version.beam}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-io-kafka</artifactId>
+            <version>${version.beam}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-io-parquet</artifactId>
+            <version>${version.beam}</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
@@ -111,7 +136,6 @@
             <version>${jackson.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- delta -->
         <dependency>
             <groupId>io.delta</groupId>
             <artifactId>delta-core_2.12</artifactId>
@@ -132,8 +156,6 @@
             <artifactId>abris_2.12</artifactId>
             <version>4.2.0</version>
         </dependency>
-
-        <!-- provided -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>

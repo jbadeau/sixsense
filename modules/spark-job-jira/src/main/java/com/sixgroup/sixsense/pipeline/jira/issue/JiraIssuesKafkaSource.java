@@ -45,7 +45,7 @@ public class JiraIssuesKafkaSource {
                 .select("issue.*")
 
                 .writeStream()
-                .format("delta")
+                .format("pa")
                 .option("mergeSchema", "true")
                 .option("checkpointLocation", System.getenv("SPARK_CHECKPOINT_LOCATION"))
                 .outputMode(OutputMode.Append())
