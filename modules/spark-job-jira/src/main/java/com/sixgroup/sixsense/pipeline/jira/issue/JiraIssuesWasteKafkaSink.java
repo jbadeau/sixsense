@@ -21,7 +21,7 @@ public class JiraIssuesWasteKafkaSink {
                 .appName("JiraIssuesWasteKafkaSink")
                 .getOrCreate();
 
-        spark.sparkContext().hadoopConfiguration().set("fs.s3a.endpoint", System.getenv("MINIO_ENDPOINT"));
+        spark.sparkContext().hadoopConfiguration().set("fs.s3a.endpoint", "http://" + System.getenv("MINIO_SERVICE_HOST") + ":" + System.getenv("MINIO_SERVICE_PORT"));
         spark.sparkContext().hadoopConfiguration().set("fs.s3a.access.key", System.getenv("MINIO_ACCESS_KEY"));
         spark.sparkContext().hadoopConfiguration().set("fs.s3a.secret.key", System.getenv("MINIO_SECRET_KEY"));
         spark.sparkContext().hadoopConfiguration().set("fs.s3a.path.style.access", "true");

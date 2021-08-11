@@ -11,10 +11,16 @@ repositories:
     url: https://provectus.github.io/kafka-ui
   - name: spark-operator
     url: https://googlecloudplatform.github.io/spark-on-k8s-operator
+  - name: gradiant
+    url: https://gradiant.github.io/charts
+  - name: strimzi
+    url: https://strimzi.io/charts
+  - name: microcks
+    url: https://microcks.io/helm
 
 releases:
 
-  # operators
+#   operators
   - name: spark-operator
     namespace: sixsense-dev
     chart: spark-operator/spark-operator
@@ -31,15 +37,9 @@ releases:
     values:
       - values/dev/strimzi-kafka-operator/values.yaml
 
-  # minio
-  - name: minio
-    namespace: sixsense-dev
-    chart: bitnami/minio
-    version: 7.1.0
-    values:
-      - values/dev/minio/values.yaml
 
-  # kafka
+#   base infrastructure
+##  kafka
   - name: kafka-cluster
     namespace: sixsense-dev
     chart: ../charts/kafka-cluster
@@ -50,15 +50,69 @@ releases:
     values:
       - values/dev/kafka-cluster/values.yaml
 
+  - name: base-infra-check
+    namespace: sixsense-dev
+    chart: ../charts/base-infra-check
+    version: 0.0.1
+    needs:
+      - sixsense-dev/kafka-cluster
+    wait: true
+    values:
+      - values/dev/base-infra-check/values.yaml
+
+
+#   infrastructure
+##  minio
+  - name: minio
+    namespace: sixsense-dev
+    chart: bitnami/minio
+    version: 7.1.0
+    values:
+      - values/dev/minio/values.yaml
+
+  - name: atlas
+    namespace: sixsense-dev
+    chart: ../charts/atlas
+    version: 0.1.0
+    needs:
+      - sixsense-dev/kafka-cluster
+      - sixsense-dev/base-infra-check
+    wait: true
+    timeout: 600
+    values:
+      - values/dev/atlas/values.yaml
+
+  - name: amundsen
+    namespace: sixsense-dev
+    chart: ../charts/amundsen
+    version: 2.1.0
+    needs:
+      - sixsense-dev/atlas
+    wait: true
+    values:
+      - values/dev/amundsen/values.yaml
+
   - name: apicurio-registry
     namespace: sixsense-dev
     chart: ../charts/apicurio-registry
     version: 1.2.3
     needs:
       - sixsense-dev/kafka-cluster
+      - sixsense-dev/base-infra-check
     wait: true
+    timeout: 600
     values:
       - values/dev/apicurio-registry/values.yaml
+
+##  microcks
+  - name: microcks
+    namespace: sixsense-dev
+    chart: microcks/microcks
+    version: 1.3.0
+    needs:
+      - sixsense-dev/apicurio-registry
+    values:
+      - values/dev/microcks/values.yaml
 
   - name: kafka-ui
     namespace: sixsense-dev
@@ -67,7 +121,17 @@ releases:
     values:
       - values/dev/kafka-ui/values.yaml
 
-  # kafka connectors
+##  influx
+  - name: influxdb
+    namespace: sixsense-dev
+    chart: bitnami/influxdb
+    version: 2.2.9
+    values:
+      - values/dev/influxdb/values.yaml
+
+
+#   connectors
+##  kafka connectors
   - name: kafka-connector
     namespace: sixsense-dev
     chart: ../charts/kafka-connector
@@ -78,14 +142,6 @@ releases:
     values:
       - values/dev/kafka-connector/values.yaml
 
-  # influx
-  - name: influxdb
-    namespace: sixsense-dev
-    chart: bitnami/influxdb
-    version: 2.2.9
-    values:
-      - values/dev/influxdb/values.yaml
-
   - name: telegraf
     namespace: sixsense-dev
     chart: influxdata/telegraf
@@ -95,7 +151,9 @@ releases:
     values:
       - values/dev/telegraf/values.yaml
 
-  # jobs
+
+#   applications
+##  jobs
   - name: spark-job-jira
     namespace: sixsense-dev
     chart: ../modules/spark-job-jira/.helm
@@ -104,23 +162,16 @@ releases:
       - sixsense-dev/kafka-connector
       - sixsense-dev/influxdb
       - sixsense-dev/minio
+      - sixsense-dev/base-infra-check
     values:
       - values/dev/spark-job-jira/values.yaml
 
-  # microcks
-  - name: microcks
-    namespace: sixsense-dev
-    chart: microcks/microcks
-    version: 1.3.0
-    needs:
-      - sixsense-dev/apicurio-registry
-    values:
-      - values/dev/microcks/values.yaml
 
-  # backstage
+##  backstage
   - name: backstage
     namespace: sixsense-dev
     chart: ../charts/backstage
     version: 0.0.0
     values:
       - values/dev/backstage/values.yaml
+

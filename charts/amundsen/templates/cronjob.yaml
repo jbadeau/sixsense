@@ -1,0 +1,30 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "amundsen.fullname" . }}-sync
+spec:
+  schedule: {{ .Values.cron.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+            - name: init-elasticsearch
+              image: busybox:1.28
+              command: [ 'sh', '-c', 'until nc -vz amundsen-elasticsearch-master 9200; do echo "Waiting for amundsen-elasticsearch-master service"; sleep 2; done;' ]
+          containers:
+            - name: {{ .Chart.Name }}
+              image: {{ .Values.cron.image.name }}:{{ .Values.cron.image.tag }}
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: ATLAS_URL
+                  value: {{ .Values.cron.env.atlas.url }}
+                - name: ATLAS_PORT
+                  value: {{ .Values.cron.env.atlas.port | quote }}
+                - name: ATLAS_USERNAME
+                  value: {{ .Values.cron.env.atlas.username }}
+                - name: ATLAS_PASSWORD
+                  value: {{ .Values.cron.env.atlas.password }}
+                - name: ELASTICSEARCH_HOST
+                  value: {{ .Values.cron.env.elasticsearch.host }}
+          restartPolicy: OnFailure

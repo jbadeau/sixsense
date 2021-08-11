@@ -1,0 +1,34 @@
+image:
+  repository: tomassatka/k8s-atlas
+  tag: 0.2.4
+
+kafka:
+  url: sixsense-kafka-bootstrap:9092
+
+zookeeper:
+  url: sixsense-zookeeper-client:2181
+
+cassandra:
+  dbUser:
+    user: cassandra
+    password: cassandra
+  containerSecurityContext:
+    enabled: false
+  podSecurityContext:
+    enabled: false
+
+elasticsearch:
+  sysctlImage:
+    enabled: false
+  master:
+    securityContext:
+      enabled: false
+  coordinating:
+    securityContext:
+      enabled: false
+  data:
+    securityContext:
+      enabled: false
+  ingest:
+    securityContext:
+      enabled: false

@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: {{ .Release.Name }}-init
+          image: {{ .Values.image }}
+          args: [{{ printf "%s:%d" .Values.host (.Values.port | int) | quote }}]
+      containers:
+        - name: {{ .Release.Name }}
+          image: busybox:1.28
+          command: [ 'sh', '-c', 'echo "{{ printf "%s:%d" .Values.host (.Values.port | int) }} infrastructure is running"' ]
+      restartPolicy: OnFailure

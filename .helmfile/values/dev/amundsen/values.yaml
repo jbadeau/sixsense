@@ -1,0 +1,46 @@
+oidc:
+  enabled: false
+neo4j:
+  enabled: false
+
+metadata:
+  proxy:
+    host: atlas-atlas
+    port: 21000
+    user: admin
+    password: admin
+
+search:
+  proxy:
+    endpoint: amundsen-elasticsearch-master:9200
+
+elasticsearch:
+  enabled: false
+  sysctlImage:
+    enabled: false
+  master:
+    securityContext:
+      enabled: false
+  coordinating:
+    securityContext:
+      enabled: false
+  data:
+    securityContext:
+      enabled: false
+  ingest:
+    securityContext:
+      enabled: false
+
+cron:
+  image:
+    name: tomassatka/amundsen-atlas-extractor
+    tag: 0.0.3
+  schedule: '"* * * * *"'
+  env:
+    atlas:
+      url: atlas-atlas
+      port: 21000
+      username: admin
+      password: admin
+    elasticsearch:
+      host: amundsen-elasticsearch-master

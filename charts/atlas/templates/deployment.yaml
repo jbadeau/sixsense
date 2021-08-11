@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+      matchLabels:
+          app: {{ template "name" . }}
+          release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: init-elasticsearch
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nc -vz atlas-elasticsearch-master 9200; do echo "Waiting for atlas-elasticsearch-master service"; sleep 2; done; echo "waiting 80s"; sleep 80; echo "up"']
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
+          volumeMounts:
+          - name: atlas-config
+            mountPath: /apache-atlas-2.1.0/conf/atlas-application.properties
+            subPath: atlas-application.properties
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 21000
+              httpHeaders:
+                - name: Authorization
+                  value:  {{ include "basic.auth" .Values.auth }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+      volumes:
+      - name: atlas-config
+        configMap:
+          name: atlas-config
+          items:
+            - key: atlas-application.properties
+              path: atlas-application.properties
+
