@@ -9,10 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>modules/jira-rest-java-client-core</module>
-        <module>modules/jira-rest-java-client-api</module>
-        <module>modules/camel-jira</module>
-        <module>modules/camel-jira-kafka-connector</module>
         <module>modules/spark-job-jira</module>
     </modules>
 
