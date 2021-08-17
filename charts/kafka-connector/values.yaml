@@ -6,7 +6,7 @@ jira:
   offset:
     initial: "timestamp=2021-05-27T12:13:49Z"
   url: https://six-group.atlassian.net/rest/api/2/search
-  jql: "jql=updated>=\"2021-05-27 12:13\" ORDER BY updated ASC&maxResults=100"
-  #jql: "jql=updated>=\"${offset.timestamp?datetime.iso?string['yyyy/MM/dd HH:mm']}\" ORDER BY updated ASC&maxResults=100"
+  #jql: "jql=updated>=\"2021-05-27 12:13\" ORDER BY updated ASC&maxResults=100"
+  jql: "jql=updated>=\"${offset.timestamp?datetime.iso?string['yyyy/MM/dd HH:mm']}\" ORDER BY updated ASC&maxResults=100"
   user: jose.badeau@gmail.com
   apiToken: 3AUdyeRm9xGQ8kdfrJf3B33D

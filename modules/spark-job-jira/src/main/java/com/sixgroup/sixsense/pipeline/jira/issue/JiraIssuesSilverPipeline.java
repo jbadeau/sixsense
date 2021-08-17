@@ -1,6 +1,5 @@
 package com.sixgroup.sixsense.pipeline.jira.issue;
 
-import com.sixgroup.sixsense.pipeline.jira.issue.schema.JiraIssueSilverSchema;
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -29,7 +28,7 @@ public class JiraIssuesSilverPipeline {
     private static SparkSession session() {
         SparkSession spark = SparkSession.builder()
                 .master("local")
-                .appName("JiraIssuesKafkaSilver")
+                .appName("JiraIssuesSilverPipeline")
                 .getOrCreate();
         return spark;
     }
@@ -47,8 +46,8 @@ public class JiraIssuesSilverPipeline {
     private static StructType schema(String topic) {
         CachedSchemaRegistryClient client = new CachedSchemaRegistryClient(System.getenv("SCHEMA_REGISTRY_URL"), 128);
         try {
-            String schema = client.getLatestSchemaMetadata(topic + "-value").getSchema();
-            return SchemaConverter.convert(schema);
+            String schema = client.getLatestSchemaMetadata(topic).getSchema();
+            return SchemaConverter.convertContent(schema);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -63,7 +62,7 @@ public class JiraIssuesSilverPipeline {
     }
 
     private static Dataset<Row> transform(Dataset<Row> ds) {
-        return ds.select(from_json(col("value"), JiraIssueSilverSchema.SCHEMA).as("issue"))
+        return ds.select(from_json(col("value"), schema(System.getenv("DELTA_TABLE_JIRA_ISSUE_SILVER"))).as("issue"))
                 .select("issue.*");
     }
 
@@ -75,5 +74,5 @@ public class JiraIssuesSilverPipeline {
                 .outputMode(OutputMode.Append())
                 .start(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE_SILVER"));
     }
-    
+
 }

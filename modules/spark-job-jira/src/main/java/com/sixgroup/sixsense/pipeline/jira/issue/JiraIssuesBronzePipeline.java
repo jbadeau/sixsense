@@ -1,6 +1,5 @@
 package com.sixgroup.sixsense.pipeline.jira.issue;
 
-import com.sixgroup.sixsense.pipeline.jira.issue.schema.JiraIssueBronzeSchema;
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -46,8 +45,8 @@ public class JiraIssuesBronzePipeline {
     private static StructType schema(String topic) {
         CachedSchemaRegistryClient client = new CachedSchemaRegistryClient(System.getenv("SCHEMA_REGISTRY_URL"), 128);
         try {
-            String schema = client.getLatestSchemaMetadata(topic + "-value").getSchema();
-            return SchemaConverter.convert(schema);
+            String schema = client.getLatestSchemaMetadata(topic).getSchema();
+            return SchemaConverter.convertContent(schema);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -68,7 +67,7 @@ public class JiraIssuesBronzePipeline {
 
     private static Dataset<Row> transform(Dataset<Row> ds) {
         return ds.selectExpr("CAST(value AS STRING)")
-                .select(from_json(col("value"), JiraIssueBronzeSchema.SCHEMA).as("issue"))
+                .select(from_json(col("value"), schema( System.getenv("KAFKA_TOPIC_SOURCE_JIRA_ISSUES") + "-value")).as("issue"))
                 .select("issue.*");
     }
 

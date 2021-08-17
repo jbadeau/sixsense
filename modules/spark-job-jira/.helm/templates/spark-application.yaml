@@ -1,7 +1,7 @@
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: spark-job-jira-bronze
+  name: spark-pipeline-jira-issues-bronze
   namespace: sixsense-dev
 spec:
   type: Java
@@ -31,6 +31,7 @@ spec:
       KAFKA_GROUP_ID: {{ .Values.driver.env.KAFKA_GROUP_ID}}
       SPARK_CHECKPOINT_LOCATION: {{ .Values.driver.env.SPARK_CHECKPOINT_LOCATION }}
       DELTA_TABLE_JIRA_ISSUE_BRONZE: {{ .Values.driver.env.DELTA_TABLE_JIRA_ISSUE_BRONZE }}
+      DELTA_TABLE_JIRA_ISSUE_SILVER: {{ .Values.driver.env.DELTA_TABLE_JIRA_ISSUE_SILVER }}
     envSecretKeyRefs:
       MINIO_ACCESS_KEY:
         name: minio
@@ -52,7 +53,7 @@ spec:
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: spark-job-jira-silver
+  name: spark-pipeline-jira-issues-silver
   namespace: sixsense-dev
 spec:
   type: Java
@@ -103,14 +104,14 @@ spec:
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: spark-job-jira-waste
+  name: spark-pipeline-jira-issues-waste-gold
   namespace: sixsense-dev
 spec:
   type: Java
   mode: cluster
   image: {{.Values.image.repository}}
   imagePullPolicy: {{.Values.image.pullPolicy}}
-  mainClass: com.sixgroup.sixsense.pipeline.jira.issue.JiraIssuesWastePipeline
+  mainClass: com.sixgroup.sixsense.pipeline.jira.issue.JiraIssuesWasteGoldPipeline
   mainApplicationFile: "local:///jobs/spark-job-jira.jar"
   sparkVersion: "3.1.1"
   restartPolicy:
@@ -132,7 +133,7 @@ spec:
       KAFKA_TOPIC_JIRA_ISSUES: {{ .Values.driver.env.KAFKA_TOPIC_JIRA_ISSUES }}
       KAFKA_GROUP_ID: {{ .Values.driver.env.KAFKA_GROUP_ID}}
       SPARK_CHECKPOINT_LOCATION: {{ .Values.driver.env.SPARK_CHECKPOINT_LOCATION }}
-      DELTA_TABLE_JIRA_ISSUE: {{ .Values.driver.env.DELTA_TABLE_JIRA_ISSUE }}
+      DELTA_TABLE_JIRA_ISSUE_SILVER: {{ .Values.driver.env.DELTA_TABLE_JIRA_ISSUE_SILVER }}
     envSecretKeyRefs:
       MINIO_ACCESS_KEY:
         name: minio

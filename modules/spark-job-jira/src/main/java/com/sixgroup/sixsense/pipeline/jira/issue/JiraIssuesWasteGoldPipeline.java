@@ -1,14 +1,14 @@
 package com.sixgroup.sixsense.pipeline.jira.issue;
 
-import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.OutputMode;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
-import org.apache.spark.sql.types.StructType;
-import org.zalando.spark.jsonschema.SchemaConverter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 import static org.apache.spark.sql.functions.*;
@@ -28,19 +28,9 @@ public class JiraIssuesWasteGoldPipeline {
     private static SparkSession session() {
         SparkSession spark = SparkSession.builder()
                 .master("local")
-                .appName("JiraIssuesWasteKafkaSink")
+                .appName("JiraIssuesWasteGoldPipeline")
                 .getOrCreate();
         return spark;
-    }
-
-    private static StructType schema(String topic) {
-        CachedSchemaRegistryClient client = new CachedSchemaRegistryClient(System.getenv("SCHEMA_REGISTRY_URL"), 128);
-        try {
-            String schema = client.getLatestSchemaMetadata(topic + "-value").getSchema();
-            return SchemaConverter.convert(schema);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static void context(SparkSession spark) {
@@ -53,28 +43,22 @@ public class JiraIssuesWasteGoldPipeline {
         spark.sparkContext().setLogLevel("ERROR");
     }
 
-    private static Dataset read(SparkSession spark) {
-        Dataset ds = spark
+    private static Dataset<Row> read(SparkSession spark) {
+        return spark
                 .readStream()
                 .format("delta")
-                .load(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE_BRONZE"));
-        return ds;
+                .load(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE_SILVER"));
     }
 
-    private static Dataset transform(Dataset ds) {
-        ds.registerTempTable("WASTE");
-
-        return ds.select(col("key").as("key"), col("status.name").as("status"), col("resolution.name").as("resolution"), col("updateDate").as("updateDate"))
+    private static Dataset transform(Dataset<Row> ds) {
+        return ds.select(col("key"), col("fields.status.name").as("status"), col("fields.resolution.name").as("resolution"), col("fields.statuscategorychangedate").as("statuscategorychangedate"))
                 .withColumn("measurement", lit("waste"))
-                .withColumn("reformat", col("updateDate").divide(1000).cast("timestamp"))
-                .withColumn("timestamp", date_trunc("month", col("reformat")))
-                .select("measurement", "key", "status", "resolution", "updateDate", "timestamp")
-                .select("measurement", "key", "status", "timestamp")
-                .sqlContext().sql("SELECT measurement, key, status, UNIX_MILLIS(timestamp) AS timestamp FROM WASTE")
-                .select((col("key")).alias("key"), to_json(struct(col("measurement"), col("key"), col("status"), col("timestamp"))).alias("value"));
+                .withColumn("timestamp", unix_timestamp(col("statuscategorychangedate"), "yyyy-MM-dd'T'HH:mm:ss.SSSZ"))
+                .filter(col("resolution").equalTo("Withdrawn").or(col("resolution").equalTo("Cancelled")))
+                .select(to_json(struct(col("measurement"), col("key"), col("status"), col("resolution"), col("timestamp"))).alias("value"));
     }
 
-    private static StreamingQuery write(Dataset ds) throws TimeoutException {
+    private static StreamingQuery write(Dataset<Row> ds) throws TimeoutException {
         return ds.writeStream()
                 .format("kafka")
                 .outputMode(OutputMode.Append())
