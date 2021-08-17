@@ -1,9 +1,0 @@
-kafkaStore:
-  overrideBootstrapServers: PLAINTEXT://sixsense-kafka-bootstrap:9092
-  overrideGroupId: jira
-
-kafka:
-  enabled: false
-
-jmx:
-  enabled: false

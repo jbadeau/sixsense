@@ -21,13 +21,13 @@ repositories:
 releases:
 
   # operators
-  - name: strimzi-kafka-operator
+  - name: kafka-operator
     namespace: sixsense-dev
-    chart: strimzi/strimzi-kafka-operator
+    chart: strimzi/kafka-operator
     version: 0.24.0
     wait: true
     values:
-      - values/dev/strimzi-kafka-operator/values.yaml
+      - values/dev/kafka-operator/values.yaml
 
   - name: spark-operator
     namespace: sixsense-dev
@@ -52,7 +52,7 @@ releases:
     chart: ../charts/kafka
     version: 0.1.0
     needs:
-      - sixsense-dev/strimzi-kafka-operator
+      - sixsense-dev/kafka-operator
     wait: true
     values:
       - values/dev/kafka/values.yaml

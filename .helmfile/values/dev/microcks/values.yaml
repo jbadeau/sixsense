@@ -1,10 +1,10 @@
 image: quay.io/microcks/microcks:latest
 
 microcks:
-  url: microcks.172.27.163.9.nip.io
+  url: microcks.192.168.210.223.nip.io
 
 keycloak:
-  url: keycloak.172.27.163.9.nip.io
+  url: keycloak.192.168.210.223.nip.io
 
 features:
   async:
