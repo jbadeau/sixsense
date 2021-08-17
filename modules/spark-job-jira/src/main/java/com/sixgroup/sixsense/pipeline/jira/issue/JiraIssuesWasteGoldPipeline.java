@@ -1,10 +1,7 @@
 package com.sixgroup.sixsense.pipeline.jira.issue;
 
-import com.sixgroup.sixsense.pipeline.jira.issue.domain.JiraIssueSchema;
-import io.delta.tables.DeltaTable;
+import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
 import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.OutputMode;
 import org.apache.spark.sql.streaming.StreamingQuery;
@@ -16,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.apache.spark.sql.functions.*;
 
-public class JiraIssuesWasteKafkaSink {
+public class JiraIssuesWasteGoldPipeline {
 
     public static void main(String[] args) throws TimeoutException, StreamingQueryException {
         SparkSession spark = session();

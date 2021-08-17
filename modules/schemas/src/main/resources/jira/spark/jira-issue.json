@@ -1,0 +1,953 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "expand",
+      "type": "string",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "self",
+      "type": "string",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "fields",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "statuscategorychangedate",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "issuetype",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "description",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "iconUrl",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "name",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "subtask",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "avatarId",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "hierarchyLevel",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "timespent",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "project",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "key",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "name",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "projectTypeKey",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "simplified",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "avatarUrls",
+                  "type": {
+                    "type": "struct",
+                    "fields": [
+                      {
+                        "name": "48x48",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "24x24",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "16x16",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "32x32",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      }
+                    ]
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "fixVersions",
+            "type": {
+              "type": "array",
+              "elementType": "string",
+              "containsNull": false
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "aggregatetimespent",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "resolution",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "description",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "name",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "resolutiondate",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "workratio",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "issuerestriction",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "issuerestrictions",
+                  "type": {
+                    "type": "struct",
+                    "fields": []
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "shouldDisplay",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "watches",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "watchCount",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "isWatching",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "lastViewed",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "created",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "priority",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "iconUrl",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "name",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "labels",
+            "type": {
+              "type": "array",
+              "elementType": "string",
+              "containsNull": false
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "timeestimate",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "aggregatetimeoriginalestimate",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "versions",
+            "type": {
+              "type": "array",
+              "elementType": "string",
+              "containsNull": false
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "issuelinks",
+            "type": {
+              "type": "array",
+              "elementType": "string",
+              "containsNull": false
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "assignee",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "accountId",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "emailAddress",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "avatarUrls",
+                  "type": {
+                    "type": "struct",
+                    "fields": [
+                      {
+                        "name": "48x48",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "24x24",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "16x16",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "32x32",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      }
+                    ]
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "displayName",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "active",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "timeZone",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "accountType",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "updated",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "status",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "description",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "iconUrl",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "name",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "statusCategory",
+                  "type": {
+                    "type": "struct",
+                    "fields": [
+                      {
+                        "name": "self",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "id",
+                        "type": "long",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "key",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "colorName",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "name",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      }
+                    ]
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "timeoriginalestimate",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "timetracking",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "originalEstimate",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "remainingEstimate",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "timeSpent",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "originalEstimateSeconds",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "remainingEstimateSeconds",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "timeSpentSeconds",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "aggregatetimeestimate",
+            "type": "long",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "summary",
+            "type": "string",
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "creator",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "accountId",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "emailAddress",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "avatarUrls",
+                  "type": {
+                    "type": "struct",
+                    "fields": [
+                      {
+                        "name": "48x48",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "24x24",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "16x16",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "32x32",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      }
+                    ]
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "displayName",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "active",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "timeZone",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "accountType",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "reporter",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "accountId",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "emailAddress",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "avatarUrls",
+                  "type": {
+                    "type": "struct",
+                    "fields": [
+                      {
+                        "name": "48x48",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "24x24",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "16x16",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      },
+                      {
+                        "name": "32x32",
+                        "type": "string",
+                        "nullable": false,
+                        "metadata": {}
+                      }
+                    ]
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "displayName",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "active",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "timeZone",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "accountType",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "aggregateprogress",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "progress",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "total",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "progress",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "progress",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "total",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "comment",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "comments",
+                  "type": {
+                    "type": "array",
+                    "elementType": {
+                      "type": "struct",
+                      "fields": []
+                    },
+                    "containsNull": false
+                  },
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "maxResults",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "total",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "startAt",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "votes",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "self",
+                  "type": "string",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "votes",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "hasVoted",
+                  "type": "boolean",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          },
+          {
+            "name": "worklog",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "startAt",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "maxResults",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                },
+                {
+                  "name": "total",
+                  "type": "long",
+                  "nullable": false,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": false,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": false,
+      "metadata": {}
+    }
+  ]
+}

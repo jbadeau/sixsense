@@ -68,6 +68,7 @@
       }
     },
     "operations": {
+      "type": "object",
       "description": "The operations that can be performed on the issue.",
       "readOnly": true,
       "allOf": [
@@ -79,6 +80,7 @@
     "editmeta": {
       "description": "The metadata for the fields on the issue that can be amended.",
       "readOnly": true,
+      "type": "object",
       "allOf": [
         {
           "$ref": "#/definitions/IssueUpdateMetadata"
@@ -88,6 +90,7 @@
     "changelog": {
       "description": "Details of changelogs associated with the issue.",
       "readOnly": true,
+      "type": "object",
       "allOf": [
         {
           "$ref": "#/definitions/PageOfChangelogs"
@@ -107,6 +110,7 @@
       "readOnly": true
     },
     "fieldsToInclude": {
+      "type": "object",
       "$ref": "#/definitions/IncludedFields"
     },
     "fields": {
@@ -179,6 +183,7 @@
         "to": {
           "description": "Details of the issue status after the transition.",
           "readOnly": true,
+          "type": "object",
           "allOf": [
             {
               "$ref": "#/definitions/StatusDetails"
@@ -261,6 +266,7 @@
         "statusCategory": {
           "description": "The category assigned to the status.",
           "readOnly": true,
+          "type": "object",
           "allOf": [
             {
               "$ref": "#/definitions/StatusCategory"
@@ -329,6 +335,7 @@
           "type": "string"
         },
         "header": {
+          "type": "object",
           "$ref": "#/definitions/SimpleLink"
         },
         "weight": {
@@ -414,6 +421,7 @@
         "schema": {
           "description": "The data type of the field.",
           "readOnly": true,
+          "type": "object",
           "allOf": [
             {
               "$ref": "#/definitions/JsonTypeBean"
@@ -512,6 +520,7 @@
         "author": {
           "description": "The user who made the change.",
           "readOnly": true,
+          "type": "object",
           "allOf": [
             {
               "$ref": "#/definitions/UserDetails"
@@ -535,6 +544,7 @@
         "historyMetadata": {
           "description": "The history metadata associated with the changed.",
           "readOnly": true,
+          "type": "object",
           "allOf": [
             {
               "$ref": "#/definitions/HistoryMetadata"
@@ -576,6 +586,7 @@
         "avatarUrls": {
           "description": "The avatars of the user.",
           "readOnly": true,
+          "type": "object",
           "allOf": [
             {
               "$ref": "#/definitions/AvatarUrlsBean"
@@ -664,6 +675,7 @@
           "description": "The description key of the email address associated the history record."
         },
         "actor": {
+          "type": "object",
           "description": "Details of the user whose action created the history record.",
           "allOf": [
             {
@@ -672,6 +684,7 @@
           ]
         },
         "generator": {
+          "type": "object",
           "description": "Details of the system that generated the history record.",
           "allOf": [
             {
@@ -680,6 +693,7 @@
           ]
         },
         "cause": {
+          "type": "object",
           "description": "Details of the cause that triggered the creation the history record.",
           "allOf": [
             {

@@ -8,6 +8,10 @@ spec:
   class: {{ .Values.jira.class }}
   tasksMax: {{ .Values.jira.tasksMax }}
   config:
+    key.converter: org.apache.kafka.connect.json.JsonConverter
+    value.converter: org.apache.kafka.connect.json.JsonConverter
+    key.converter.schemas.enable: false
+    value.converter.schemas.enable: false
     connector.class: {{ .Values.class }}
     tasks.max: 1
     http.offset.initial: {{ .Values.jira.offset.initial }}
