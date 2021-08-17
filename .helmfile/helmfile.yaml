@@ -47,22 +47,32 @@ releases:
       - values/dev/minio/values.yaml
 
   # kafka
-  - name: kafka-cluster
+  - name: kafka
     namespace: sixsense-dev
-    chart: ../charts/kafka-cluster
+    chart: ../charts/kafka
     version: 0.1.0
     needs:
       - sixsense-dev/strimzi-kafka-operator
     wait: true
     values:
-      - values/dev/kafka-cluster/values.yaml
+      - values/dev/kafka/values.yaml
+
+  - name: kafka-connect
+    namespace: sixsense-dev
+    chart: ../charts/kafka-connect
+    version: 0.1.0
+    needs:
+      - sixsense-dev/kafka
+    wait: true
+    values:
+      - values/dev/kafka-connect/values.yaml
 
   - name: base-infra-check
     namespace: sixsense-dev
     chart: ../charts/base-infra-check
     version: 0.0.1
     needs:
-      - sixsense-dev/kafka-cluster
+      - sixsense-dev/kafka-connect
     wait: true
     values:
       - values/dev/base-infra-check/values.yaml
@@ -88,7 +98,7 @@ releases:
     chart: ../charts/apicurio-registry
     version: 1.2.3
     needs:
-      - sixsense-dev/kafka-cluster
+      - sixsense-dev/kafka-connect
       - sixsense-dev/base-infra-check
     wait: true
     timeout: 600
@@ -101,7 +111,7 @@ releases:
     chart: ../charts/atlas
     version: 0.1.0
     needs:
-      - sixsense-dev/kafka-cluster
+      - sixsense-dev/kafka-connect
       - sixsense-dev/base-infra-check
     wait: true
     timeout: 600
@@ -125,8 +135,8 @@ releases:
     chart: microcks/microcks
     version: 1.3.0
     needs:
+      - sixsense-dev/kafka-connect
       - sixsense-dev/apicurio-registry
-      - sixsense-dev/kafka-cluster
     values:
       - values/dev/microcks/values.yaml
 
@@ -161,3 +171,10 @@ releases:
     values:
       - values/dev/spark-job-jira/values.yaml
 
+  # backstage
+  - name: backstage
+    namespace: sixsense-dev
+    chart: ../charts/backstage
+    version: 0.0.0
+    values:
+      - values/dev/backstage/values.yaml
