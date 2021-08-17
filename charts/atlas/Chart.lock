@@ -1,0 +1,9 @@
+dependencies:
+- name: elasticsearch
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.10.0
+- name: cassandra
+  repository: https://charts.bitnami.com/bitnami
+  version: 7.6.5
+digest: sha256:d05bee1f5ed26af4f4cdaf556acd9ec3d9589beedae9c70f0d1df6b2fede7cdf
+generated: "2021-08-17T14:34:41.0291374+02:00"

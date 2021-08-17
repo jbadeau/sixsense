@@ -149,6 +149,7 @@ releases:
     needs:
       - sixsense-dev/kafka-connector
       - sixsense-dev/base-infra-check
+      - sixsense-dev/apicurio-registry
       - sixsense-dev/influxdb
       - sixsense-dev/minio
     values:
