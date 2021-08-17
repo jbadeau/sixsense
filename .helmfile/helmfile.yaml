@@ -23,7 +23,7 @@ releases:
   # operators
   - name: kafka-operator
     namespace: sixsense-dev
-    chart: strimzi/kafka-operator
+    chart: strimzi/strimzi-kafka-operator
     version: 0.24.0
     wait: true
     values:
@@ -111,7 +111,7 @@ releases:
     chart: ../charts/atlas
     version: 0.1.0
     needs:
-      - sixsense-dev/kafka-connect
+      - sixsense-dev/kafka
       - sixsense-dev/base-infra-check
     wait: true
     timeout: 600
@@ -140,6 +140,20 @@ releases:
     values:
       - values/dev/microcks/values.yaml
 
+  #  pipelines
+  - name: spark-job-jira
+    namespace: sixsense-dev
+    chart: ../modules/spark-job-jira/.helm
+    version: 0.1.0
+    wait: true
+    needs:
+      - sixsense-dev/kafka-connector
+      - sixsense-dev/base-infra-check
+      - sixsense-dev/influxdb
+      - sixsense-dev/minio
+    values:
+      - values/dev/spark-job-jira/values.yaml
+
   #  influx
   - name: influxdb
     namespace: sixsense-dev
@@ -155,21 +169,9 @@ releases:
     version: 1.8.2
     needs:
       - sixsense-dev/influxdb
+      - sixsense-dev/spark-job-jira
     values:
       - values/dev/telegraf/values.yaml
-
-  #  pipelines
-  - name: spark-job-jira
-    namespace: sixsense-dev
-    chart: ../modules/spark-job-jira/.helm
-    version: 0.1.0
-    needs:
-      - sixsense-dev/kafka-connector
-      - sixsense-dev/base-infra-check
-      - sixsense-dev/influxdb
-      - sixsense-dev/minio
-    values:
-      - values/dev/spark-job-jira/values.yaml
 
   # backstage
   - name: backstage
