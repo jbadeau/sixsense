@@ -1,0 +1,389 @@
+asyncapi: '2.0.0'
+id: 'com.atlassian.jira.server.rest.client.api.domain.issue'
+info:
+  title: Jira Issues
+  version: 0.1.0
+defaultContentType: application/json
+channels:
+  source-jira-issue-values:
+    subscribe:
+      operationId: jiraIssues
+      message:
+        contentType: avro/binary
+        schemaFormat: application/vnd.apache.avro+json;version=1.9.0
+        payload:
+          $ref: '../charts/schema-uploader/avro/jira-value.avsc#/Issue'
+        examples:
+          - SIXSENSE-50:
+              summary: Issue SIXSENSE-1
+              payload:
+                expand: renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations,customfield_10010.requestTypePractice
+                id: '10049'
+                self: https://six-group.atlassian.net/rest/api/3/issue/10049
+                key: SIXSENSE-50
+                fields:
+                  statuscategorychangedate: '2021-07-16T15:59:14.976+0000'
+                  issuetype:
+                    self: https://six-group.atlassian.net/rest/api/3/issuetype/10001
+                    id: '10001'
+                    description: Functionality or a feature expressed as a user goal.
+                    iconUrl: https://six-group.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype
+                    name: Story
+                    subtask: false
+                    avatarId: 10315
+                    hierarchyLevel: 0
+                  timespent:
+                  project:
+                    self: https://six-group.atlassian.net/rest/api/3/project/10000
+                    id: '10000'
+                    key: SIXSENSE
+                    name: sixsense
+                    projectTypeKey: software
+                    simplified: false
+                    avatarUrls:
+                      48x48: https://six-group.atlassian.net/secure/projectavatar?pid=10000&avatarId=10407
+                      24x24: https://six-group.atlassian.net/secure/projectavatar?size=small&s=small&pid=10000&avatarId=10407
+                      16x16: https://six-group.atlassian.net/secure/projectavatar?size=xsmall&s=xsmall&pid=10000&avatarId=10407
+                      32x32: https://six-group.atlassian.net/secure/projectavatar?size=medium&s=medium&pid=10000&avatarId=10407
+                  fixVersions: []
+                  aggregatetimespent:
+                  resolution:
+                  resolutiondate:
+                  workratio: -1
+                  issuerestriction:
+                    issuerestrictions: {}
+                    shouldDisplay: false
+                  watches:
+                    self: https://six-group.atlassian.net/rest/api/3/issue/SIXSENSE-50/watchers
+                    watchCount: 2
+                    isWatching: true
+                  lastViewed: '2021-08-16T12:54:22.344+0000'
+                  created: '2021-07-16T15:59:14.598+0000'
+                  priority:
+                    self: https://six-group.atlassian.net/rest/api/3/priority/3
+                    iconUrl: https://six-group.atlassian.net/images/icons/priorities/medium.svg
+                    name: Medium
+                    id: '3'
+                  labels: []
+                  timeestimate:
+                  aggregatetimeoriginalestimate:
+                  versions: []
+                  issuelinks: []
+                  assignee:
+                  updated: '2021-08-16T13:11:51.983+0000'
+                  status:
+                    self: https://six-group.atlassian.net/rest/api/3/status/10000
+                    description: ''
+                    iconUrl: https://six-group.atlassian.net/
+                    name: To Do
+                    id: '10000'
+                    statusCategory:
+                      self: https://six-group.atlassian.net/rest/api/3/statuscategory/2
+                      id: 2
+                      key: new
+                      colorName: blue-gray
+                      name: To Do
+                  components: []
+                  timeoriginalestimate:
+                  description:
+                  security:
+                  attachment: []
+                  aggregatetimeestimate:
+                  summary: test25
+                  creator:
+                    self: https://six-group.atlassian.net/rest/api/3/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  subtasks: []
+                  reporter:
+                    self: https://six-group.atlassian.net/rest/api/3/user?accountId=60ad4936411c2200684f9fa7
+                    accountId: 60ad4936411c2200684f9fa7
+                    avatarUrls:
+                      48x48: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      24x24: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      16x16: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                      32x32: https://secure.gravatar.com/avatar/5ff1fd24c85fbdd7b3d8a183a11768af?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-0.png
+                    displayName: Tomas Satka
+                    active: true
+                    timeZone: Etc/GMT
+                    accountType: atlassian
+                  customfield_10000: "{}"
+                  aggregateprogress:
+                    progress: 0
+                    total: 0
+                  environment:
+                  duedate:
+                  progress:
+                    progress: 0
+                    total: 0
+                  comment:
+                    comments:
+                      - self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment/10002
+                        id: '10002'
+                        author:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        body:
+                          version: 1
+                          type: doc
+                          content:
+                            - type: paragraph
+                              content:
+                                - type: text
+                                  text: sss
+                        updateAuthor:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        created: '2021-08-16T09:21:36.308+0000'
+                        updated: '2021-08-16T09:21:36.308+0000'
+                        jsdPublic: true
+                      - self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment/10003
+                        id: '10003'
+                        author:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        body:
+                          version: 1
+                          type: doc
+                          content:
+                            - type: paragraph
+                              content:
+                                - type: text
+                                  text: ssssss
+                        updateAuthor:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        created: '2021-08-16T09:24:06.690+0000'
+                        updated: '2021-08-16T09:24:06.690+0000'
+                        jsdPublic: true
+                      - self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment/10005
+                        id: '10005'
+                        author:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        body:
+                          version: 1
+                          type: doc
+                          content:
+                            - type: paragraph
+                              content:
+                                - type: text
+                                  text: aaaaaaaaaaaa
+                        updateAuthor:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        created: '2021-08-16T10:00:05.512+0000'
+                        updated: '2021-08-16T10:00:05.512+0000'
+                        jsdPublic: true
+                      - self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment/10006
+                        id: '10006'
+                        author:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        body:
+                          version: 1
+                          type: doc
+                          content:
+                            - type: paragraph
+                              content:
+                                - type: text
+                                  text: ssssss
+                        updateAuthor:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        created: '2021-08-16T12:54:24.855+0000'
+                        updated: '2021-08-16T12:54:24.855+0000'
+                        jsdPublic: true
+                      - self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment/10007
+                        id: '10007'
+                        author:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        body:
+                          version: 1
+                          type: doc
+                          content:
+                            - type: paragraph
+                              content:
+                                - type: text
+                                  text: sss
+                        updateAuthor:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        created: '2021-08-16T12:58:14.902+0000'
+                        updated: '2021-08-16T12:58:14.902+0000'
+                        jsdPublic: true
+                      - self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment/10008
+                        id: '10008'
+                        author:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        body:
+                          version: 1
+                          type: doc
+                          content:
+                            - type: paragraph
+                              content:
+                                - type: text
+                                  text: sssss
+                        updateAuthor:
+                          self: https://six-group.atlassian.net/rest/api/3/user?accountId=557058%3Ab3f97378-ae18-4912-b441-a63bfff835c7
+                          accountId: 557058:b3f97378-ae18-4912-b441-a63bfff835c7
+                          emailAddress: jose.badeau@gmail.com
+                          avatarUrls:
+                            48x48: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            24x24: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            16x16: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                            32x32: https://secure.gravatar.com/avatar/f14fdc5bafde51b4f878532f3e2ee3ae?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJB-1.png
+                          displayName: Jose Badeau
+                          active: true
+                          timeZone: Etc/GMT
+                          accountType: atlassian
+                        created: '2021-08-16T13:11:51.983+0000'
+                        updated: '2021-08-16T13:11:51.983+0000'
+                        jsdPublic: true
+                    self: https://six-group.atlassian.net/rest/api/3/issue/10049/comment
+                    maxResults: 6
+                    total: 6
+                    startAt: 0
+                  votes:
+                    self: https://six-group.atlassian.net/rest/api/3/issue/SIXSENSE-50/votes
+                    votes: 0
+                    hasVoted: false
+                  worklog:
+                    startAt: 0
+                    maxResults: 20
+                    total: 0
+                    worklogs: []
+
+  source-jira-issue-keys:
+    subscribe:
+      operationId: jiraIssueKey
+      message:
+        contentType: avro/binary
+        schemaFormat: application/vnd.apache.avro+json;version=1.9.0
+        payload:
+          $ref: '../charts/schema-uploader/avro/jira-key.avsc#/IssueKey'
+        examples:
+          - issue:
+              summary: IssueKey
+              payload:
+                id: 10000
