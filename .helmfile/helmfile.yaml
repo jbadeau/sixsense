@@ -166,8 +166,8 @@ releases:
 
   - name: telegraf
     namespace: sixsense-dev
-    chart: influxdata/telegraf
-    version: 1.8.2
+    chart: ../charts/telegraf
+    version: 1.8.4
     needs:
       - sixsense-dev/influxdb
       - sixsense-dev/spark-job-jira
