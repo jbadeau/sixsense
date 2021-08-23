@@ -58,7 +58,6 @@ public class JiraIssuesBronzePipeline {
                 .format("kafka")
                 .option("kafka.bootstrap.servers", System.getenv("KAFKA_BOOTSTRAP_SERVER"))
                 .option("subscribe", System.getenv("KAFKA_TOPIC_SOURCE_JIRA_ISSUES"))
-                .option("startingOffsets", "earliest")
                 .option("kafka.group.id", System.getenv("KAFKA_GROUP_ID"))
                 .option("mergeSchema", "true")
                 .option("failOnDataLoss", "false")
