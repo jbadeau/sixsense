@@ -36,11 +36,18 @@
 
     <repositories>
         <repository>
-            <id>repsy</id>
-            <name>Repsy Cloud Repo</name>
-            <!-- ################################################################# -->
-            <!-- Please change the following URL with your repsy username -->
-            <url>https://repo.repsy.io/mvn/myuser/default</url>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/tomassatka</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -52,14 +59,14 @@
 
     <distributionManagement>
         <repository>
-            <id>repsy</id>
-            <name>My Private Maven Repositoty on Repsy</name>
-            <url>https://repo.repsy.io/mvn/jbadeau/default</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/tomassatka/sixsense</url>
         </repository>
         <snapshotRepository>
-            <id>repsy</id>
-            <name>My Private Maven Repositoty on Repsy</name>
-            <url>https://repo.repsy.io/mvn/jbadeau/default</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/tomassatka/sixsense</url>
         </snapshotRepository>
     </distributionManagement>
 
