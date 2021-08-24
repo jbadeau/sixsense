@@ -63,9 +63,6 @@ jobs:
         run: git diff --quiet origin/master HEAD -- yarn.lock
         continue-on-error: true
 
-      - name: prettier
-        run: yarn prettier:check '!ADOPTERS.md'
-
       - name: lock
         run: yarn lock:check
 
