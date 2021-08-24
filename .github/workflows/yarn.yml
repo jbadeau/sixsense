@@ -56,35 +56,10 @@ jobs:
       - name: yarn install
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
-      # End of yarn setup
-
-      - name: check for yarn.lock changes
-        id: yarn-lock
-        run: git diff --quiet origin/master HEAD -- yarn.lock
-        continue-on-error: true
-
-      - name: lock
-        run: yarn lock:check
-
-      - name: validate config
-        run: yarn backstage-cli config:check --lax
-
-      - name: lint
-        run: yarn lerna -- run lint --since origin/master
 
       - name: type checking and declarations
-        run: yarn tsc:full
-
-      - name: check api reports
-        run: yarn build:api-reports:only --ci
-
-      - name: build changed packages
-        if: ${{ steps.yarn-lock.outcome == 'success' }}
-        run: yarn lerna -- run build --since origin/master --include-dependencies
+        run: yarn tsc
 
       - name: build all packages
         if: ${{ steps.yarn-lock.outcome == 'failure' }}
         run: yarn lerna -- run build
-
-      - name: verify type dependencies
-        run: yarn lint:type-deps
