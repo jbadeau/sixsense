@@ -63,9 +63,6 @@ jobs:
         run: git diff --quiet origin/master HEAD -- yarn.lock
         continue-on-error: true
 
-      - name: verify doc links
-        run: node scripts/verify-links.js
-
       - name: prettier
         run: yarn prettier:check '!ADOPTERS.md'
 
