@@ -19,9 +19,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node_version: '12'
-      - run: yarn
-      - run: yarn tsc
-      - run: yarn build
 
       - name: Cache
         uses: actions/cache@v2
@@ -30,3 +27,7 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn
+      - run: yarn tsc
+      - run: yarn build
