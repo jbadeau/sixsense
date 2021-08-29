@@ -1,0 +1,32 @@
+name: JavaScript Build
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clone
+        uses: actions/checkout@v2
+
+      - name: Setup
+        uses: actions/setup-node@v1
+        with:
+          node_version: 12
+      - run: yarn
+      - run: yarn tsc
+      - run: yarn build
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
