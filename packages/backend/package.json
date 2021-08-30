@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "backstage-cli backend:bundle",
-    "build-image": "docker build ../.. -f Dockerfile --tag backstage-backend",
+    "build-image": "docker build -f Dockerfile --tag backstage-backend",
     "start": "backstage-cli backend:dev",
     "lint": "backstage-cli lint",
     "test": "backstage-cli test",

@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+
+  build-java:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Clone
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Setup JavaScript
+        uses: actions/setup-node@v2
+        with:
+          node_version: '14'
+
+      - name: Restore Java cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Restore JavaScript Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn
+      - run: yarn tsc
+      - run: yarn build
+      - run: mvn package
