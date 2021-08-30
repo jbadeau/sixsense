@@ -14,38 +14,4 @@
     <name>Sixsense Packages - Backstage Frontend</name>
     <packaging>pom</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>docker</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>push</goal>
-                        </goals>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <name>${project.artifactId}</name>
-                                    <build>
-                                        <tags>${project.artifactId}-${project.version}</tags>
-                                    </build>
-                                </image>
-                            </images>
-                            <pushRegistry>registry.hub.docker.com/${env.DOCKER_HUB_REPO}</pushRegistry>
-                            <authConfig>
-                                <username>${env.DOCKER_HUB_USERNAME}</username>
-                                <password>${env.DOCKER_HUB_TOKEN}</password>
-                            </authConfig>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

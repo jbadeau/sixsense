@@ -57,7 +57,14 @@ jobs:
             ${{ runner.os }}-maven-
 
       ##################################################################################################################
-      # Build
+      # Set version
+      ##################################################################################################################
+      - name: Set version
+        run: |
+          echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      ##################################################################################################################
+      # Build JavaScript
       ##################################################################################################################
       - name: Yarn install
         run: yarn
@@ -68,12 +75,71 @@ jobs:
       - name: Yarn build
         run: yarn build
 
+      ##################################################################################################################
+      # Build Java
+      ##################################################################################################################
       - name: Maven package
-        env:
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-          DOCKER_HUB_REPO: ${{ secrets.DOCKER_HUB_REPO }}
         run: mvn package
+
+      ##################################################################################################################
+      # Build Docker
+      ##################################################################################################################
+      - name: Build backstage-frontend
+        uses: docker/build-push-action@v1
+        with:
+          path: .
+          dockerfile: ./packages/app/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build backstage-backend
+        uses: docker/build-push-action@v1
+        with:
+          path: .
+          dockerfile: ./packages/backend/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build kafka-connect
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: ./packages/kafka-connect/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build schemas
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: ./packages/schemas/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/schemas
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build spark-job-jira
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: ./packages/spark-job-jira/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
 
       ##################################################################################################################
       # Setup OpenShift
@@ -85,13 +151,10 @@ jobs:
 
       - name: Setup OpenShift context
         uses: redhat-actions/oc-login@v1
-        env:
-          OPENSHIFT_USERNAME: ${{ secrets.OPENSHIFT_USERNAME }}
-          OPENSHIFT_PASSWORD: ${{ secrets.OPENSHIFT_PASSWORD }}
         with:
           openshift_server_url: https://api.crc.testing:6443
-          openshift_username: ${{ env.OPENSHIFT_USERNAME }}
-          openshift_password: ${{ env.OPENSHIFT_PASSWORD }}
+          openshift_username: ${{ secrets.OPENSHIFT_USERNAME }}
+          openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
           insecure_skip_tls_verify: true
 
       - name: Setup certificates
