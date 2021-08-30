@@ -90,8 +90,8 @@ jobs:
           OPENSHIFT_PASSWORD: ${{ secrets.OPENSHIFT_PASSWORD }}
         with:
           openshift_server_url: https://api.crc.testing:6443
-          openshift_username: ${{ OPENSHIFT_USERNAME }}
-          openshift_password: ${{ OPENSHIFT_PASSWORD }}
+          openshift_username: ${{ env.OPENSHIFT_USERNAME }}
+          openshift_password: ${{ env.OPENSHIFT_PASSWORD }}
           insecure_skip_tls_verify: true
 
       - name: Setup certificates

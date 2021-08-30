@@ -170,10 +170,3 @@ releases:
     values:
       - helmfile/values/dev/telegraf/values.yaml
 
-  # backstage
-  - name: backstage
-    namespace: sixsense-dev
-    chart: charts/backstage
-    version: 0.0.0
-    values:
-      - helmfile/values/dev/backstage/values.yaml
