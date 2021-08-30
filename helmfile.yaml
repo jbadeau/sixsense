@@ -139,7 +139,7 @@ releases:
   #  pipelines
   - name: spark-job-jira
     namespace: sixsense-dev
-    chart: ../modules/spark-job-jira/.helm
+    chart: ../packages/spark-job-jira/.helm
     version: 0.1.0
     wait: true
     needs:
