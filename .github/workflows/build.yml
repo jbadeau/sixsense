@@ -50,7 +50,7 @@ jobs:
       - name: Yarn build
         run: yarn build
 
-      name: Maven build
+      - name: Maven build
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
