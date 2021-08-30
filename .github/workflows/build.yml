@@ -41,7 +41,18 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - run: yarn
-      - run: yarn tsc
-      - run: yarn build
-      - run: mvn package
+      name: Yarn install
+        run: yarn
+
+      name: Yarn TypeScript compile
+        run: yarn tsc
+
+      name: Yarn build
+        run: yarn build
+
+      name: Maven build
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          DOCKER_HUB_REPO: ${{ secrets.DOCKER_HUB_REPO }}
+        run: mvn package
