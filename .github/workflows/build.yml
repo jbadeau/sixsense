@@ -175,4 +175,3 @@ jobs:
       - name: Helmfile sync
         if: ${{ env.ACT }}
         run: helmfile sync
-
