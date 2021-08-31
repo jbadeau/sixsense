@@ -1,16 +1,10 @@
-# sixsense
-An open DevOps portal platform.
+# [Backstage](https://backstage.io)
 
-## CICD
-Sixsense is built using GitHub workflows
+This is your newly scaffolded Backstage App, Good Luck!
 
-### GitHub
-Workflows a
+To start the app, run:
 
-### Local
-To run workflows locally
-
-1. Install [Act](https://github.com/nektos/act)
-2. Set environment variables defined in [.secrets](.secrets)
-3. Copy .secrets.template as .secrets and fill in values
-4. Run `act`
+```sh
+yarn install
+yarn dev
+```
