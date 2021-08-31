@@ -104,9 +104,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend
-          tags: ${{env.VERSION}},latest
-          tag_with_ref: true
-          add_git_labels: true
+          tags: latest
 
       - name: Docker - build & push backstage-backend
         uses: docker/build-push-action@v2
@@ -117,9 +115,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend
-          tags: ${{env.VERSION}},latest
-          tag_with_ref: true
-          add_git_labels: true
+          tags: latest
 
       - name: Docker - build & push kafka-connect
         uses: docker/build-push-action@v2
@@ -129,9 +125,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect
-          tags: ${{env.VERSION}},latest
-          tag_with_ref: true
-          add_git_labels: true
+          tags: latest
 
       - name: Docker - build & push spark-job-jira
         uses: docker/build-push-action@v2
@@ -141,9 +135,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira
-          tags: ${{env.VERSION}},latest
-          tag_with_ref: true
-          add_git_labels: true
+          tags: latest
 
       ##################################################################################################################
       # OpenShift
