@@ -1,0 +1,45 @@
+---
+# !!IMPORTANT!!
+# All false boolean values should be quoted due to https://github.com/helm/helm/issues/3308
+# Because of YAML merging, all true boolean values should be quoted as well
+
+environments:
+  # This is a dummy environment used for base values that can
+  # be merged into other environments.
+  __base:
+    values:
+
+
+  #### Begin environments #####
+
+  public:
+    values:
+      - &pre_values
+        env_prefix: pre
+        fluentd_elasticsearch:
+          pubsub: "true"
+        google_project: "gitlab-pre"
+        gitlab_monitoring:
+          secrets:
+            source: "gcloud"
+          google_managed_cert:
+            enabled: "true"
+        gitaly_exporter:
+          probes:
+            - name: gitlabhq
+              url: https://pre.gitlab.com/qa-perf-testing/gitlabhq.git
+        pubsubbeat:
+          installed: "true"
+        consul:
+          installed: "true"
+          chart_version: "0.32.0"
+          image: "consul:1.7.2"
+          patch_dns_hostport:
+            enabled: "true"
+            port_index: 4
+        external_dns:
+          installed: "true"
+        cluster: pre-gitlab-gke
+        region: us-east1
+        prometheus_ingress: prometheus-gke
+

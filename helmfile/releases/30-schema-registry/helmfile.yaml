@@ -1,0 +1,20 @@
+---
+bases:
+  - "../../bases/helmDefaults.yaml"
+  - "../../bases/environments.yaml"
+
+---
+repositories:
+  - name: kafka-ui
+    url: https://provectus.github.io/kafka-ui
+
+releases:
+  - name: apicurio-registry
+    namespace: sixsense-dev
+    chart: ../../../charts/apicurio-registry
+    version: 1.2.3
+    labels:
+      bootstrap: false
+      tier: common
+    values:
+      - values.yaml.gotmpl

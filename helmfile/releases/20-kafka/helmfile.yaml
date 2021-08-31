@@ -1,0 +1,42 @@
+---
+bases:
+  - "../../bases/helmDefaults.yaml"
+  - "../../bases/environments.yaml"
+
+---
+repositories:
+  - name: kafka-ui
+    url: https://provectus.github.io/kafka-ui
+
+releases:
+  - name: kafka
+    namespace: sixsense-dev
+    chart: ../../../charts/kafka
+    version: 0.1.0
+    labels:
+      bootstrap: false
+      tier: common
+    values:
+      - kafka-values.yaml.gotmpl
+
+  - name: kafka-ui
+    namespace: sixsense-dev
+    chart: kafka-ui/kafka-ui
+    version: 0.0.1
+    labels:
+      bootstrap: false
+      tier: common
+    values:
+      - kafka-values.yaml.gotmpl
+
+  - name: kafka-connect
+    namespace: sixsense-dev
+    chart: ../../../charts/kafka-connect
+    version: 0.1.0
+    needs:
+      - sixsense-dev/kafka
+    labels:
+      bootstrap: false
+      tier: common
+    values:
+      - kafka-connect-values.yaml.gotmpl
