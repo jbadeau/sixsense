@@ -92,7 +92,7 @@ jobs:
       ##################################################################################################################
       # Docker
       ##################################################################################################################
-      - name: Docker / push backstage-backend
+      - name: Docker - push backstage-backend
         uses: redhat-actions/push-to-registry@v2
         with:
           image: backstage-backend
@@ -101,7 +101,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Docker / push backstage-frontend
+      - name: Docker - push backstage-frontend
         uses: redhat-actions/push-to-registry@v2
         with:
           image: backstage-frontend
