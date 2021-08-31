@@ -1,0 +1,166 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      ##################################################################################################################
+      # Clone
+      ##################################################################################################################
+      - name: Clone
+        uses: actions/checkout@v2
+
+      ##################################################################################################################
+      # Setup
+      ##################################################################################################################
+      - name: Setup certificates
+        if: ${{ env.ACT }}
+        run: apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+
+      - name: Setup JavaScript
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      # Workaround until Act fix
+      - name: Setup Maven
+        if: ${{ env.ACT }}
+        uses: stCarolas/setup-maven@v4
+        with:
+          maven-version: 3.8.2
+
+      ##################################################################################################################
+      # Restore Cache
+      ##################################################################################################################
+      - name: Restore JavaScript Cache
+        uses: actions/cache@v2
+        if: ${{ env.ACT }}
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Java cache
+        uses: actions/cache@v2
+        if: ${{ env.ACT }}
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      ##################################################################################################################
+      # Calculate version
+      ##################################################################################################################
+      - name: Set version
+        run: |
+          echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      ##################################################################################################################
+      # Build JavaScript
+      ##################################################################################################################
+      - name: Yarn install
+        run: yarn
+
+      - name: Yarn TypeScript compile
+        run: yarn tsc
+
+      - name: Yarn build
+        run: yarn build
+
+      ##################################################################################################################
+      # Build Java
+      ##################################################################################################################
+      - name: Maven package
+        run: mvn package
+
+      ##################################################################################################################
+      # Build Docker
+      ##################################################################################################################
+      - name: Build backstage-frontend
+        uses: docker/build-push-action@v1
+        with:
+          path: .
+          dockerfile: ./packages/app/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build backstage-backend
+        uses: docker/build-push-action@v1
+        with:
+          path: .
+          dockerfile: ./packages/backend/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build kafka-connect
+        uses: docker/build-push-action@v1
+        with:
+          path: ./packages/kafka-connect
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: Build spark-job-jira
+        uses: docker/build-push-action@v1
+        with:
+          path: ./packages/spark-job-jira
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira
+          tags: ${{env.VERSION}}
+          tag_with_ref: true
+          add_git_labels: true
+
+      ##################################################################################################################
+      # Setup OpenShift
+      ##################################################################################################################
+      - name: Setup OC CLI
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: latest
+
+      - name: Setup OpenShift context
+        uses: redhat-actions/oc-login@v1
+        if: ${{ env.ACT }}
+        with:
+          openshift_server_url: https://api.crc.testing:6443
+          openshift_username: ${{ secrets.OPENSHIFT_USERNAME }}
+          openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
+          insecure_skip_tls_verify: true
+
+      - name: Setup Helmfile
+        uses: mamezou-tech/setup-helmfile@v0.8.0
+        if: ${{ env.ACT }}
+
+      ##################################################################################################################
+      # Install Infra
+      ##################################################################################################################
+      - name: Helmfile sync
+        if: ${{ env.ACT }}
+        run: helmfile sync

@@ -45,3 +45,5 @@ target
 
 camel-kafka-connector-catalog
 *.tgz
+
+.secrets

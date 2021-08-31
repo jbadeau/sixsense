@@ -1,8 +1,4 @@
 repositories:
-  - name: stable
-    url: https://charts.helm.sh/stable
-  - name: incubator
-    url: https://charts.helm.sh/incubator
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
   - name: influxdata
@@ -27,7 +23,7 @@ releases:
     version: 0.24.0
     wait: true
     values:
-      - values/dev/kafka-operator/values.yaml
+      - helmfile/values/dev/kafka-operator/values.yaml
 
   - name: spark-operator
     namespace: sixsense-dev
@@ -35,7 +31,7 @@ releases:
     version: 1.1.3
     wait: true
     values:
-      - values/dev/spark-operator/values.yaml
+      - helmfile/values/dev/spark-operator/values.yaml
 
   #  minio
   - name: minio
@@ -44,58 +40,58 @@ releases:
     version: 7.1.0
     wait: true
     values:
-      - values/dev/minio/values.yaml
+      - helmfile/values/dev/minio/values.yaml
 
   # kafka
   - name: kafka
     namespace: sixsense-dev
-    chart: ../charts/kafka
+    chart: charts/kafka
     version: 0.1.0
     needs:
       - sixsense-dev/kafka-operator
     wait: true
     values:
-      - values/dev/kafka/values.yaml
+      - helmfile/values/dev/kafka/values.yaml
 
   - name: kafka-connect
     namespace: sixsense-dev
-    chart: ../charts/kafka-connect
+    chart: charts/kafka-connect
     version: 0.1.0
     needs:
       - sixsense-dev/kafka
     wait: true
     values:
-      - values/dev/kafka-connect/values.yaml
+      - helmfile/values/dev/kafka-connect/values.yaml
 
   - name: base-infra-check
     namespace: sixsense-dev
-    chart: ../charts/base-infra-check
+    chart: charts/base-infra-check
     version: 0.0.1
     needs:
       - sixsense-dev/kafka-connect
     wait: true
     values:
-      - values/dev/base-infra-check/values.yaml
+      - helmfile/values/dev/base-infra-check/values.yaml
 
   - name: kafka-connector
     namespace: sixsense-dev
-    chart: ../charts/kafka-connector
+    chart: charts/kafka-connector
     version: 0.1.0
     wait: true
     values:
-      - values/dev/kafka-connector/values.yaml
+      - helmfile/values/dev/kafka-connector/values.yaml
 
   - name: kafka-ui
     namespace: sixsense-dev
     chart: kafka-ui/kafka-ui
     version: 0.0.1
     values:
-      - values/dev/kafka-ui/values.yaml
+      - helmfile/values/dev/kafka-ui/values.yaml
 
   # apicurio-registry
   - name: apicurio-registry
     namespace: sixsense-dev
-    chart: ../charts/apicurio-registry
+    chart: charts/apicurio-registry
     version: 1.2.3
     needs:
       - sixsense-dev/kafka-connect
@@ -103,12 +99,12 @@ releases:
     wait: true
     timeout: 600
     values:
-      - values/dev/apicurio-registry/values.yaml
+      - helmfile/values/dev/apicurio-registry/values.yaml
 
   # atlas
   - name: atlas
     namespace: sixsense-dev
-    chart: ../charts/atlas
+    chart: charts/atlas
     version: 0.1.0
     needs:
       - sixsense-dev/kafka
@@ -116,18 +112,18 @@ releases:
     wait: true
     timeout: 600
     values:
-      - values/dev/atlas/values.yaml
+      - helmfile/values/dev/atlas/values.yaml
 
   # amundsen
   - name: amundsen
     namespace: sixsense-dev
-    chart: ../charts/amundsen
+    chart: charts/amundsen
     version: 2.1.0
     needs:
       - sixsense-dev/atlas
     wait: true
     values:
-      - values/dev/amundsen/values.yaml
+      - helmfile/values/dev/amundsen/values.yaml
 
   #  microcks
   - name: microcks
@@ -138,12 +134,12 @@ releases:
       - sixsense-dev/kafka-connect
       - sixsense-dev/apicurio-registry
     values:
-      - values/dev/microcks/values.yaml
+      - helmfile/values/dev/microcks/values.yaml
 
   #  pipelines
   - name: spark-job-jira
     namespace: sixsense-dev
-    chart: ../modules/spark-job-jira/.helm
+    chart: ../packages/spark-job-jira/.helm
     version: 0.1.0
     wait: true
     needs:
@@ -153,7 +149,7 @@ releases:
       - sixsense-dev/influxdb
       - sixsense-dev/minio
     values:
-      - values/dev/spark-job-jira/values.yaml
+      - helmfile/values/dev/spark-job-jira/values.yaml
 
   #  influx
   - name: influxdb
@@ -162,22 +158,22 @@ releases:
     version: 2.2.9
     wait: true
     values:
-      - values/dev/influxdb/values.yaml
+      - helmfile/values/dev/influxdb/values.yaml
 
   - name: telegraf
     namespace: sixsense-dev
-    chart: ../charts/telegraf
+    chart: charts/telegraf
     version: 1.8.4
     needs:
       - sixsense-dev/influxdb
       - sixsense-dev/spark-job-jira
     values:
-      - values/dev/telegraf/values.yaml
+      - helmfile/values/dev/telegraf/values.yaml
 
   # backstage
   - name: backstage
     namespace: sixsense-dev
-    chart: ../charts/backstage
+    chart: charts/backstage
     version: 0.0.0
     values:
-      - values/dev/backstage/values.yaml
+      - helmfile/values/dev/backstage/values.yaml

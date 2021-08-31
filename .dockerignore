@@ -1,7 +1,13 @@
 .git
+.github
+.idea
+charts
+helmfile
 node_modules
 packages
 !packages/backend/dist
+!packages/backend/target
 !packages/app/dist
+!packages/app/target
 !packages/app/default.conf.template
 plugins
