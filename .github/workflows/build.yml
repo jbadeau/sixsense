@@ -21,6 +21,7 @@ jobs:
       # Setup
       ##################################################################################################################
       - name: Setup certificates
+        if: ${{ env.ACT }}
         run: apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
 
       - name: Setup JavaScript
