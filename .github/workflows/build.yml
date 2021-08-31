@@ -111,7 +111,7 @@ jobs:
       - name: Build kafka-connect
         uses: docker/build-push-action@v1
         with:
-          dockerfile: ./packages/kafka-connect/Dockerfile
+          path: ./packages/kafka-connect
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect
@@ -122,7 +122,7 @@ jobs:
       - name: Build schemas
         uses: docker/build-push-action@v1
         with:
-          dockerfile: ./packages/schemas/Dockerfile
+          path: ./packages/schemas
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/schemas
@@ -133,7 +133,7 @@ jobs:
       - name: Build spark-job-jira
         uses: docker/build-push-action@v1
         with:
-          dockerfile: ./packages/spark-job-jira/Dockerfile
+          path: ./packages/spark-job-jira
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira
