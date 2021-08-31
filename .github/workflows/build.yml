@@ -45,7 +45,7 @@ jobs:
       ##################################################################################################################
       # Restore Cache
       ##################################################################################################################
-      - name: Cache - JavaScript
+      - name: Cache - Yarn
         uses: actions/cache@v2
         with:
           path: |
@@ -53,7 +53,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Cache - Java
+      - name: Cache - Maven
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       ##################################################################################################################
-      # Env vars
+      # Env
       ##################################################################################################################
       - name: Env - VERSION
         run: |
@@ -71,31 +71,31 @@ jobs:
       ##################################################################################################################
       # Build JavaScript
       ##################################################################################################################
-      - name: Build - Yarn install
+      - name: Yarn - install
         run: Build - yarn
 
-      - name: Build - Yarn TypeScript compile
+      - name: Yarn - compile
         run: yarn tsc
 
-      - name: Build - Yarn build
+      - name: Yarn - build
         run: yarn build
 
       ##################################################################################################################
-      # Build Java
+      # Maven
       ##################################################################################################################
-      - name: Build - Maven package
+      - name: Maven - package
         run: mvn package
 
       ##################################################################################################################
-      # Build Docker
+      # Docker
       ##################################################################################################################
-      - name: Login to DockerHub
+      - name: Docker - login to DockerHub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Build - Docker backstage-frontend
+      - name: Docker - build & push backstage-frontend
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -108,7 +108,7 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build - Docker backstage-backend
+      - name: Docker - build & push backstage-backend
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -121,7 +121,7 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build - Docker kafka-connect
+      - name: Docker - build & push kafka-connect
         uses: docker/build-push-action@v2
         with:
           path: ./packages/kafka-connect
@@ -133,7 +133,7 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build - Docker spark-job-jira
+      - name: Docker - build & push spark-job-jira
         uses: docker/build-push-action@v2
         with:
           path: ./packages/spark-job-jira
@@ -146,14 +146,14 @@ jobs:
           add_git_labels: true
 
       ##################################################################################################################
-      # Setup OpenShift
+      # OpenShift
       ##################################################################################################################
-      - name: Setup OC CLI
+      - name: OpenShift - Install CLI
         uses: redhat-actions/openshift-tools-installer@v1
         with:
           oc: latest
 
-      - name: Setup OpenShift context
+      - name: OpenShift - Set context
         uses: redhat-actions/oc-login@v1
         if: ${{ env.ACT }}
         with:
@@ -162,13 +162,13 @@ jobs:
           openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
           insecure_skip_tls_verify: true
 
-      - name: Setup Helmfile
+      ##################################################################################################################
+      # Helmfile
+      ##################################################################################################################
+      - name: Helmfile - installl
         uses: mamezou-tech/setup-helmfile@v0.8.0
         if: ${{ env.ACT }}
 
-      ##################################################################################################################
-      # Install
-      ##################################################################################################################
-      - name: Install
+      - name: Helmfile - sync
         if: ${{ env.ACT }}
         run: helmfile sync
