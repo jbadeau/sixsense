@@ -110,7 +110,8 @@ jobs:
           context: ./
           file: ./packages/backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend:latest
+          tags: |
+            ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend:latest
 
       - name: Docker - build & push kafka-connect
         uses: docker/build-push-action@v2
