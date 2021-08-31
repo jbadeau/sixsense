@@ -20,23 +20,23 @@ jobs:
       ##################################################################################################################
       # Setup
       ##################################################################################################################
-      - name: Setup certificates
+      - name: Setup - certificates
         if: ${{ env.ACT }}
         run: apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
 
-      - name: Setup JavaScript
+      - name: Setup - JavaScript
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
-      - name: Setup Java
+      - name: Setup - Java
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
 
       # Workaround until Act fix
-      - name: Setup Maven
+      - name: Setup - Maven
         if: ${{ env.ACT }}
         uses: stCarolas/setup-maven@v4
         with:
@@ -45,7 +45,7 @@ jobs:
       ##################################################################################################################
       # Restore Cache
       ##################################################################################################################
-      - name: Restore JavaScript Cache
+      - name: Cache - JavaScript
         uses: actions/cache@v2
         with:
           path: |
@@ -53,7 +53,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Restore Java cache
+      - name: Cache - Java
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
@@ -62,38 +62,45 @@ jobs:
             ${{ runner.os }}-maven-
 
       ##################################################################################################################
-      # Calculate version
+      # Env vars
       ##################################################################################################################
-      - name: Set version
+      - name: Env - VERSION
         run: |
           echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       ##################################################################################################################
       # Build JavaScript
       ##################################################################################################################
-      - name: Yarn install
-        run: yarn
+      - name: Build - Yarn install
+        run: Build - yarn
 
-      - name: Yarn TypeScript compile
+      - name: Build - Yarn TypeScript compile
         run: yarn tsc
 
-      - name: Yarn build
+      - name: Build - Yarn build
         run: yarn build
 
       ##################################################################################################################
       # Build Java
       ##################################################################################################################
-      - name: Maven package
+      - name: Build - Maven package
         run: mvn package
 
       ##################################################################################################################
       # Build Docker
       ##################################################################################################################
-      - name: Build backstage-frontend
-        uses: docker/build-push-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
         with:
-          path: .
-          dockerfile: ./packages/app/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build - Docker backstage-frontend
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./packages/app/Dockerfile
+          push: true
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend
@@ -101,11 +108,12 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build backstage-backend
-        uses: docker/build-push-action@v1
+      - name: Build - Docker backstage-backend
+        uses: docker/build-push-action@v2
         with:
-          path: .
-          dockerfile: ./packages/backend/Dockerfile
+          context: .
+          file: ./packages/backend/Dockerfile
+          push: true
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend
@@ -113,10 +121,11 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build kafka-connect
-        uses: docker/build-push-action@v1
+      - name: Build - Docker kafka-connect
+        uses: docker/build-push-action@v2
         with:
           path: ./packages/kafka-connect
+          push: true
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect
@@ -124,10 +133,11 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build spark-job-jira
-        uses: docker/build-push-action@v1
+      - name: Build - Docker spark-job-jira
+        uses: docker/build-push-action@v2
         with:
           path: ./packages/spark-job-jira
+          push: true
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira
@@ -157,8 +167,8 @@ jobs:
         if: ${{ env.ACT }}
 
       ##################################################################################################################
-      # Install Infra
+      # Install
       ##################################################################################################################
-      - name: Helmfile sync
+      - name: Install
         if: ${{ env.ACT }}
         run: helmfile sync
