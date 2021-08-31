@@ -126,17 +126,6 @@ jobs:
           tag_with_ref: true
           add_git_labels: true
 
-      - name: Build schemas
-        uses: docker/build-push-action@v1
-        with:
-          path: ./packages/schemas
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-          repository: ${{ secrets.DOCKER_HUB_REPO }}/schemas
-          tags: ${{env.VERSION}}
-          tag_with_ref: true
-          add_git_labels: true
-
       - name: Build spark-job-jira
         uses: docker/build-push-action@v1
         with:

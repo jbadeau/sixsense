@@ -1,11 +1,11 @@
 # sixsense
 An open DevOps portal platform.
 
-## CI
+## CICD
 Sixsense is built using GitHub workflows
 
 ### GitHub
-To run workflows locally
+Workflows a
 
 ### Local
 To run workflows locally
@@ -14,5 +14,3 @@ To run workflows locally
 2. Set environment variables defined in [.secrets](.secrets)
 3. Copy .secrets.template as .secrets and fill in values
 4. Run `act`
-
-## CD
