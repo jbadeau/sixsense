@@ -96,7 +96,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Docker - build & push backstage-frontend
-        uses: docker/build-push-action@v2
+        uses: ./docker/build-push-action@v2
         with:
           file: packages/app/Dockerfile
           push: true
@@ -104,7 +104,7 @@ jobs:
             ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend:latest
 
       - name: Docker - build & push backstage-backend
-        uses: docker/build-push-action@v2
+        uses: /docker/build-push-action@v2
         with:
           file: packages/backend/Dockerfile
           push: true
