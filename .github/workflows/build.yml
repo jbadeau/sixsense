@@ -99,7 +99,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend
-          tags: ${{env.VERSION}}
+          tags: ${{env.VERSION}},latest
           tag_with_ref: true
           add_git_labels: true
 
@@ -111,7 +111,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend
-          tags: ${{env.VERSION}}
+          tags: ${{env.VERSION}},latest
           tag_with_ref: true
           add_git_labels: true
 
@@ -122,7 +122,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect
-          tags: ${{env.VERSION}}
+          tags: ${{env.VERSION}},latest
           tag_with_ref: true
           add_git_labels: true
 
@@ -133,7 +133,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           repository: ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira
-          tags: ${{env.VERSION}}
+          tags: ${{env.VERSION}},latest
           tag_with_ref: true
           add_git_labels: true
 
