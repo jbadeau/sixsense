@@ -5,12 +5,12 @@ bases:
 
 ---
 releases:
-  - name: backstage
+  - name: telegraf
     namespace: sixsense-dev
-    chart: ../../../charts/backstage
-    version: 0.0.0
+    chart: ../../../charts/telegraf
+    version: 1.8.4
     labels:
       bootstrap: false
-      tier: common
+      tier: app
     values:
       - values.yaml.gotmpl

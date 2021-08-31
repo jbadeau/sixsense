@@ -5,12 +5,12 @@ bases:
 
 ---
 releases:
-  - name: backstage
+  - name: spark-job-jira
     namespace: sixsense-dev
-    chart: ../../../charts/backstage
-    version: 0.0.0
+    chart: ../../../packages/spark-job-jira/.helm
+    version: 0.1.0
     labels:
       bootstrap: false
-      tier: common
+      tier: app
     values:
       - values.yaml.gotmpl

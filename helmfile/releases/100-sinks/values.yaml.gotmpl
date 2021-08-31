@@ -1,7 +1,45 @@
-auth:
-  admin:
-    password: s+?ksi7whl
+#temporary disabled till PR merged: https://github.com/influxdata/helm-charts/pull/327
+#envFromSecret: "influxdb"
 
-influxdb:
-  securityContext:
+rbac:
+  create: false
+
+serviceAccount:
+  create: false
+
+service:
+  enabled: false
+
+env:
+  - name: INFLUX_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: influxdb
+        key: admin-user-token
+
+metrics:
+  health:
     enabled: false
+
+config:
+  agent:
+    debug: true
+  inputs:
+    - kafka_consumer:
+        brokers: ["sixsense-kafka-bootstrap:9092"]
+        topics: ["JiraIssues-0.1.0-master-jira-issues-waste"]
+        max_message_len: 1000000
+        data_format: "json"
+        json_time_key: "timestamp"
+        json_time_format: "unix_ms"
+        json_name_key: "measurement"
+        tag_keys: ["key"]
+        json_string_fields: ["resolution"]
+  outputs:
+    - influxdb_v2:
+        urls: ["http://influxdb:8086"]
+        token: "${INFLUX_TOKEN}"
+        organization: sixsense
+        bucket: jira-issues-waste
+pdb:
+  create: false

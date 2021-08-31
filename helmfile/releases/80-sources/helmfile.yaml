@@ -5,12 +5,12 @@ bases:
 
 ---
 releases:
-  - name: backstage
+  - name: kafka-connector
     namespace: sixsense-dev
-    chart: ../../../charts/backstage
-    version: 0.0.0
+    chart: ../../../charts/kafka-connector
+    version: 0.1.0
     labels:
       bootstrap: false
-      tier: common
+      tier: app
     values:
       - values.yaml.gotmpl
