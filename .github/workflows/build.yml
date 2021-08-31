@@ -96,17 +96,17 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Docker - build & push backstage-frontend
-        uses: ./docker/build-push-action@v2
+        uses: docker/build-push-action@v2
         with:
-          file: packages/app/Dockerfile
+          file: ./packages/app/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_REPO }}/backstage-frontend:latest
 
       - name: Docker - build & push backstage-backend
-        uses: /docker/build-push-action@v2
+        uses: docker/build-push-action@v2
         with:
-          file: packages/backend/Dockerfile
+          file: ./packages/backend/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_REPO }}/backstage-backend:latest
@@ -114,7 +114,7 @@ jobs:
       - name: Docker - build & push kafka-connect
         uses: docker/build-push-action@v2
         with:
-          context: packages/kafka-connect
+          context: ./packages/kafka-connect
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_REPO }}/kafka-connect:latest
@@ -122,7 +122,7 @@ jobs:
       - name: Docker - build & push spark-job-jira
         uses: docker/build-push-action@v2
         with:
-          context: packages/spark-job-jira
+          context: ./packages/spark-job-jira
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira:latest
