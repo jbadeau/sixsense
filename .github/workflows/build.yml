@@ -20,6 +20,9 @@ jobs:
       ##################################################################################################################
       # Setup
       ##################################################################################################################
+      - name: Setup certificates
+        run: apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+
       - name: Setup JavaScript
         uses: actions/setup-node@v2
         with:
@@ -33,6 +36,7 @@ jobs:
 
       # Workaround until Act fix
       - name: Setup Maven
+        if: ${{ env.ACT }}
         uses: stCarolas/setup-maven@v4
         with:
           maven-version: 3.8.2
@@ -42,6 +46,7 @@ jobs:
       ##################################################################################################################
       - name: Restore JavaScript Cache
         uses: actions/cache@v2
+        if: ${{ env.ACT }}
         with:
           path: |
             node_modules
@@ -50,6 +55,7 @@ jobs:
 
       - name: Restore Java cache
         uses: actions/cache@v2
+        if: ${{ env.ACT }}
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -151,20 +157,21 @@ jobs:
 
       - name: Setup OpenShift context
         uses: redhat-actions/oc-login@v1
+        if: ${{ env.ACT }}
         with:
           openshift_server_url: https://api.crc.testing:6443
           openshift_username: ${{ secrets.OPENSHIFT_USERNAME }}
           openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
           insecure_skip_tls_verify: true
 
-      - name: Setup certificates
-        run: apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
-
       - name: Setup Helmfile
         uses: mamezou-tech/setup-helmfile@v0.8.0
+        if: ${{ env.ACT }}
 
       ##################################################################################################################
       # Install Infra
       ##################################################################################################################
       - name: Helmfile sync
+        if: ${{ env.ACT }}
         run: helmfile sync
+
