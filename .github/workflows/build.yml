@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
 
       ##################################################################################################################
@@ -47,6 +47,7 @@ jobs:
       ##################################################################################################################
       - name: Cache - Yarn
         uses: actions/cache@v2
+        if: ${{ !env.ACT }}
         with:
           path: |
             node_modules
@@ -55,6 +56,7 @@ jobs:
 
       - name: Cache - Maven
         uses: actions/cache@v2
+        if: ${{ !env.ACT }}
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
