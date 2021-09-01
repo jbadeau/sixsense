@@ -79,4 +79,5 @@ public class JiraIssuesBronzePipeline {
                 .start(System.getenv("MINIO_BUCKET") + "/" + System.getenv("DELTA_TABLE_JIRA_ISSUE_BRONZE"));
     }
 
+
 }

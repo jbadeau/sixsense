@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
 
       ##################################################################################################################
@@ -20,9 +20,7 @@ jobs:
       ##################################################################################################################
       # Setup
       ##################################################################################################################
-      - name: Setup - certificates
-        if: ${{ env.ACT }}
-        run: apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+
 
       - name: Setup - JavaScript
         uses: actions/setup-node@v2
@@ -96,6 +94,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
       - name: Docker - build & push backstage-frontend
         uses: docker/build-push-action@v2
