@@ -1,7 +1,0 @@
-podSecurityContext:
-  enabled: false
-
-containerSecurityContext:
-  enabled: false
-
-defaultBuckets: "sixsense-jira"

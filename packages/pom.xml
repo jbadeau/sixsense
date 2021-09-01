@@ -14,10 +14,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>schemas</module>
         <module>app</module>
         <module>backend</module>
         <module>kafka-connect</module>
-        <module>schemas</module>
         <module>spark-job-jira</module>
     </modules>
 

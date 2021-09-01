@@ -72,7 +72,7 @@ public class JiraIssuesWastePipeline {
     private static StructType schemaFromClasspath(String topic) {
         CachedSchemaRegistryClient client = new CachedSchemaRegistryClient(System.getenv("SCHEMA_REGISTRY_URL"), 128);
         try {
-            String schema = IOUtils.resourceToString(String.format("/jira/json-schema/%s.json", topic), StandardCharsets.UTF_8);
+            String schema = IOUtils.resourceToString(String.format("/JSON/%s.json", topic), StandardCharsets.UTF_8);
             return SchemaConverter.convertContent(schema);
         } catch (Exception e) {
             throw new RuntimeException(e);

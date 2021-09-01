@@ -28,6 +28,7 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
         <docker-maven-plugin.version>0.37.0</docker-maven-plugin.version>
+        <apicurio-registry-maven-plugin.version>1.3.0.Final</apicurio-registry-maven-plugin.version>
     </properties>
 
     <modules>
@@ -51,6 +52,11 @@
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${docker-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.apicurio</groupId>
+                    <artifactId>apicurio-registry-maven-plugin</artifactId>
+                    <version>${apicurio-registry-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
