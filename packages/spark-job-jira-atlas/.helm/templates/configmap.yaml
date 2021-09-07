@@ -9,8 +9,8 @@ data:
     atlas.graph.storage.cassandra.keyspace=JanusGraph
     atlas.graph.storage.username=cassandra
     atlas.graph.storage.password=cassandra
-    atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername }}
-    atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port }}
+    atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername  }}
+    atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port  }}
 
     atlas.graph.index.search.backend=elasticsearch
     atlas.graph.index.search.hostname={{ .Release.Name }}-elasticsearch-master:9200
@@ -66,4 +66,13 @@ data:
 
     #Set to false to disable gremlin search.
     atlas.search.gremlin.enable=false
+
+  spline.properties:
+    spline.mode=REQUIRED
+    spline.lineageDispatcher=kafka
+    spline.lineageDispatcher.kafka.topic=ATLAS_HOOK
+    spline.lineageDispatcher.kafka.producer.bootstrap.servers={{ .Values.kafka.url }}
+    spline.lineageDispatcher.kafka.className=za.co.absa.spline.harvester.dispatcher.KafkaLineageDispatcher
+    spline.lineageDispatcher.kafka.producer.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+    spline.lineageDispatcher.kafka.producer.value.serializer=org.apache.kafka.common.serialization.StringSerializer
 
