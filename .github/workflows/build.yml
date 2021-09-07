@@ -83,6 +83,11 @@ jobs:
       ##################################################################################################################
       # Maven
       ##################################################################################################################
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v4
+        with:
+          servers: '[{ "id": "github", "username": ${{ secrets.GITHUB_USERNAME }}, "password": ${{ secrets.GITHUB_TOKEN }} }]'
+
       - name: Maven - package
         run: mvn package
 
