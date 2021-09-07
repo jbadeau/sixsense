@@ -12,6 +12,36 @@
     <artifactId>sixsense-schemas</artifactId>
     <name>Sixsense Packages - Schemas</name>
 
+    <profiles>
+        <profile>
+            <id>schemas-apicurio</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.apicurio</groupId>
+                        <artifactId>apicurio-registry-maven-plugin</artifactId>
+                        <version>1.3.0.Final</version>
+                        <executions>
+                            <execution>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>register</goal>
+                                </goals>
+                                <configuration>
+                                    <registryUrl>http://apicurio-schema-registry-sixsense-dev.apps-crc.testing:80/api</registryUrl>
+                                    <artifacts>
+                                        <JiraIssues-0.1.0-source-jira-issues-value>${project.basedir}/src/main/resources/JSON/JiraIssues-0.1.0-source-jira-issues-value.json</JiraIssues-0.1.0-source-jira-issues-value>
+                                        <JIRA_ISSUES_SILVER>${project.basedir}/src/main/resources/JSON/JIRA_ISSUES_SILVER.json</JIRA_ISSUES_SILVER>
+                                    </artifacts>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -20,26 +50,6 @@
                 <configuration>
                     <finalName>${project.artifactId}</finalName>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.apicurio</groupId>
-                <artifactId>apicurio-registry-maven-plugin</artifactId>
-                <version>1.3.0.Final</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>register</goal>
-                        </goals>
-                        <configuration>
-                            <registryUrl>http://apicurio-schema-registry-sixsense-dev.apps-crc.testing:80/api</registryUrl>
-                            <artifacts>
-                                <JiraIssues-0.1.0-source-jira-issues-value>${project.basedir}/src/main/resources/JSON/JiraIssues-0.1.0-source-jira-issues-value.json</JiraIssues-0.1.0-source-jira-issues-value>
-                                <JIRA_ISSUES_SILVER>${project.basedir}/src/main/resources/JSON/JIRA_ISSUES_SILVER.json</JIRA_ISSUES_SILVER>
-                            </artifacts>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
