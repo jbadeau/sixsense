@@ -83,7 +83,7 @@ jobs:
       ##################################################################################################################
       # Maven
       ##################################################################################################################
-      - name: maven-settings-xml-action
+      - name: Maven - settings
         uses: whelk-io/maven-settings-xml-action@v4
         with:
           servers: '[{ "id": "github", "username": ${{ secrets.GITHUB_USERNAME }}, "password": ${{ secrets.GITHUB_TOKEN }} }]'
@@ -136,6 +136,14 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira:latest
+
+      - name: Docker - build & push spark-job-jira-atlas
+        uses: docker/build-push-action@v2
+        with:
+          context: ./packages/spark-job-jira-atlas
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_HUB_REPO }}/spark-job-jira-atlas:latest
 
       ##################################################################################################################
       # OpenShift
