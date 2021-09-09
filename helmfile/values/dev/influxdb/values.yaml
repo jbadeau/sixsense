@@ -1,3 +1,0 @@
-influxdb:
-  securityContext:
-    enabled: false

@@ -1,6 +1,4 @@
-import { AxiosError } from 'axios';
-
-export const handleError = (error: AxiosError) =>
+export const handleError = (error: any) =>
     Promise.reject({
         message:
             (error?.response?.data?.errorMessages &&

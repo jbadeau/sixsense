@@ -117,6 +117,11 @@
             <groupId>org.zalando</groupId>
             <artifactId>spark-json-schema_2.12</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sixgroup.sixsense</groupId>
+            <artifactId>sixsense-schemas</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

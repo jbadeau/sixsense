@@ -1,0 +1,16 @@
+---
+bases:
+  - "../../bases/helmDefaults.yaml"
+  - "../../bases/environments.yaml"
+
+---
+releases:
+  - name: telegraf
+    namespace: sixsense-dev
+    chart: ../../../charts/telegraf
+    version: 1.8.4
+    labels:
+      bootstrap: false
+      tier: app
+    values:
+      - values.yaml.gotmpl

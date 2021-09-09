@@ -1,0 +1,16 @@
+---
+bases:
+  - "../../bases/helmDefaults.yaml"
+  - "../../bases/environments.yaml"
+
+---
+releases:
+  - name: amundsen
+    namespace: sixsense-dev
+    chart: ../../../charts/amundsen
+    version: 2.1.0
+    labels:
+      bootstrap: false
+      tier: common
+    values:
+      - values.yaml.gotmpl

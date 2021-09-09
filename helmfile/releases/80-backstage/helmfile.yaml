@@ -1,0 +1,16 @@
+---
+bases:
+  - "../../bases/helmDefaults.yaml"
+  - "../../bases/environments.yaml"
+
+---
+releases:
+  - name: backstage
+    namespace: sixsense-dev
+    chart: ../../../charts/backstage
+    version: 0.0.0
+    labels:
+      bootstrap: false
+      tier: common
+    values:
+      - values.yaml.gotmpl

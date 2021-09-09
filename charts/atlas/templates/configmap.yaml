@@ -9,8 +9,8 @@ data:
     atlas.graph.storage.cassandra.keyspace=JanusGraph
     atlas.graph.storage.username=cassandra
     atlas.graph.storage.password=cassandra
-    atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername  }}
-    atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port  }}
+    atlas.graph.storage.clustername={{ .Values.config_parameter.cassandra_clustername }}
+    atlas.graph.storage.port={{ .Values.config_parameter.cassandra_storage_port }}
 
     atlas.graph.index.search.backend=elasticsearch
     atlas.graph.index.search.hostname={{ .Release.Name }}-elasticsearch-master:9200
@@ -27,7 +27,7 @@ data:
     atlas.notification.hook.retry.interval=1000
 
     atlas.kafka.zookeeper.connect={{ .Values.zookeeper.url }}
-    atlas.kafka.bootstrap.servers={{ .Values.kafka.url  }}
+    atlas.kafka.bootstrap.servers={{ .Values.kafka.url }}
     atlas.kafka.zookeeper.session.timeout.ms=400
     atlas.kafka.zookeeper.connection.timeout.ms=200
     atlas.kafka.zookeeper.sync.time.ms=20

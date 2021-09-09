@@ -1,0 +1,16 @@
+---
+bases:
+  - "../../bases/helmDefaults.yaml"
+  - "../../bases/environments.yaml"
+
+---
+releases:
+  - name: kafka-connector
+    namespace: sixsense-dev
+    chart: ../../../charts/kafka-connector
+    version: 0.1.0
+    labels:
+      bootstrap: false
+      tier: app
+    values:
+      - values.yaml.gotmpl
