@@ -9,10 +9,11 @@ helmfiles:
   - "helmfile/releases/30-schema-registry/helmfile.yaml"
   - "helmfile/releases/40-atlas/helmfile.yaml"
   - "helmfile/releases/50-amundsen/helmfile.yaml"
-  - "helmfile/releases/60-influxdb/helmfile.yaml"
-  - "helmfile/releases/70-backstage/helmfile.yaml"
-  - "helmfile/releases/80-sources/helmfile.yaml"
-  - "helmfile/releases/90-pipelines/helmfile.yaml"
-  - "helmfile/releases/100-sinks/helmfile.yaml"
+  - "helmfile/releases/60-atlas-pipelines/helmfile.yaml"
+  - "helmfile/releases/70-influxdb/helmfile.yaml"
+  - "helmfile/releases/80-backstage/helmfile.yaml"
+  - "helmfile/releases/90-sources/helmfile.yaml"
+  - "helmfile/releases/100-pipelines/helmfile.yaml"
+  - "helmfile/releases/110-sinks/helmfile.yaml"
 
 missingFileHandler: Error

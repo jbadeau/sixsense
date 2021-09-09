@@ -1,0 +1,19 @@
+image:
+  repository: jbadeau/spark-job-jira-atlas
+  pullPolicy: Always
+  tag: latest
+driver:
+  env:
+    SCHEMA_REGISTRY_URL: 'http://apicurio-registry-apicurio-registry:8080/apis/ccompat/v6'
+
+    KAFKA_BOOTSTRAP_SERVER: 'sixsense-kafka-bootstrap:9092'
+    KAFKA_GROUP_ID: 'sixsense-jira'
+    KAFKA_TOPIC_SOURCE_JIRA_ISSUES: 'JiraIssues-0.1.0-source-jira-issues'
+    KAFKA_TOPIC_JIRA_ISSUES: 'JiraIssues-0.1.0-master-jira-issues-waste'
+
+    SPARK_CHECKPOINT_LOCATION: '/tmp/checkpoint'
+
+    MINIO_BUCKET: 's3a://sixsense-jira'
+
+    DELTA_TABLE_JIRA_ISSUE_BRONZE: 'JIRA_ISSUES_BRONZE'
+    DELTA_TABLE_JIRA_ISSUE_SILVER: 'JIRA_ISSUES_SILVER'
